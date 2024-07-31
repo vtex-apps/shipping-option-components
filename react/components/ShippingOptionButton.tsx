@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 
 import TruckIcon from './TruckIcon'
@@ -12,14 +12,11 @@ const CSS_HANDLES = [
 
 interface Props {
   onClick: () => void
+  zipCode?: string
 }
 
-const ShippingOptionButton = ({ onClick }: Props) => {
+const ShippingOptionButton = ({ onClick, zipCode }: Props) => {
   const handles = useCssHandles(CSS_HANDLES)
-
-  const [zipCode, setZipCode] = useState<string>()
-
-  console.log(zipCode, setZipCode)
 
   return (
     <button
@@ -28,7 +25,7 @@ const ShippingOptionButton = ({ onClick }: Props) => {
     >
       <TruckIcon className={handles.zipCodeIcon} />
       <span className={`${handles.zipCodeButtonText} f6 rebel-pink fw5`}>
-        Enter a zip code
+        {zipCode ?? 'Enter a zip code'}
       </span>
     </button>
   )

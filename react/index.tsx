@@ -1,15 +1,28 @@
-import React, { useState } from 'react'
+/* eslint-disable no-restricted-globals */
+import React, { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useSSR } from 'vtex.render-runtime'
 
 import ShippingOptionButton from './components/ShippingOptionButton'
 import ShippingOptionDrawer from './components/ShippingOptionDrawer'
+import { getCookie, setCookie } from './utils/cookie'
 
-function Greeting() {
+const SHIPPING_ZIPCODE_COOKIE = 'shipping-zipcode'
+
+function ShippingOptionZipCode() {
   const body = window?.document?.body
   const isSSR = useSSR()
-  const [open, setOpen] = useState(false)
   const shouldCreatePortal = !isSSR && !!body
+  const [open, setOpen] = useState(false)
+  const [zipCode, setZipCode] = useState<string>()
+
+  useEffect(() => {
+    if (isSSR) {
+      return
+    }
+
+    setZipCode(getCookie(SHIPPING_ZIPCODE_COOKIE))
+  }, [isSSR])
 
   if (shouldCreatePortal) {
     body.style.overflow = open ? 'hidden' : ''
@@ -23,12 +36,22 @@ function Greeting() {
     setOpen(false)
   }
 
+  const onSubmit = (submittedZipCode: string) => {
+    setZipCode(submittedZipCode)
+    setCookie(SHIPPING_ZIPCODE_COOKIE, submittedZipCode)
+    location.reload()
+  }
+
   return (
     <>
-      <ShippingOptionButton onClick={onOpen} />
+      <ShippingOptionButton onClick={onOpen} zipCode={zipCode} />
       {shouldCreatePortal
         ? createPortal(
-            <ShippingOptionDrawer open={open} onClose={onClose} />,
+            <ShippingOptionDrawer
+              open={open}
+              onClose={onClose}
+              onSubmit={onSubmit}
+            />,
             body
           )
         : null}
@@ -36,4 +59,4 @@ function Greeting() {
   )
 }
 
-export default Greeting
+export default ShippingOptionZipCode
