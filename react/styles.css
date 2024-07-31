@@ -1,0 +1,15 @@
+.buttonWrapper {
+  width: 9rem;
+}
+
+.drawer {
+  transition: transform 0.25s ease-in-out;
+}
+
+.drawer--close {
+  transform: translateX(100%);
+}
+
+.drawer--open {
+  transform: translateX(0);
+}
