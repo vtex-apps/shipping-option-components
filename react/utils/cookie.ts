@@ -1,14 +1,3 @@
-export function setCookie(name: string, val: string) {
-  const date = new Date()
-  const value = val
-
-  // Set it expire in 7 days
-  date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000)
-
-  // Set it
-  document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`
-}
-
 export function getCookie(name: string) {
   const value = `; ${document.cookie}`
   const parts = value.split(`; ${name}=`)
@@ -18,4 +7,46 @@ export function getCookie(name: string) {
   }
 
   return undefined
+}
+
+export function getZipCode() {
+  const segment = (window as any)?.__RUNTIME__.segmentToken
+
+  if (!segment) {
+    return
+  }
+
+  const { facets } = JSON.parse(atob(segment))
+
+  if (!facets) {
+    return
+  }
+
+  const zipCodeFacet = facets
+    .split(';')
+    .find((facet: string) => facet.indexOf('zip=code'))
+
+  if (!zipCodeFacet) {
+    return
+  }
+
+  const [, zipCode] = zipCodeFacet.split('=')
+
+  if (zipCode && zipCode[zipCode.length - 1] === ';') {
+    return zipCode.substring(0, zipCode.length - 1)
+  }
+
+  return zipCode
+}
+
+export function getCountryCode() {
+  const segment = (window as any)?.__RUNTIME__.segmentToken
+
+  if (!segment) {
+    return
+  }
+
+  const { countryCode } = JSON.parse(atob(segment))
+
+  return countryCode
 }

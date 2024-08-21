@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react'
-import { IconClose, Input } from 'vtex.styleguide'
+import { IconClose, Input, Spinner } from 'vtex.styleguide'
 
 import styles from '../styles.css'
 
@@ -22,11 +22,23 @@ const Overlay = ({ open, onClose }: OverlayProps) => (
 interface DrawerProps {
   open: boolean
   onClose: () => void
-  onSubmit: (zipCode: string) => void
+  isLoading: boolean
+  onSubmit: (zipCode?: string) => void
+  inputErrorMessage?: string
 }
 
-const Drawer = ({ open, onClose, onSubmit }: DrawerProps) => {
+const Drawer = ({
+  open,
+  onClose,
+  onSubmit,
+  inputErrorMessage,
+  isLoading,
+}: DrawerProps) => {
   const [zipCode, setZipCode] = useState<string>()
+
+  const onSubmitForm = () => {
+    onSubmit(zipCode)
+  }
 
   return (
     <div
@@ -51,22 +63,33 @@ const Drawer = ({ open, onClose, onSubmit }: DrawerProps) => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setZipCode(e.target.value)
           }}
+          type="text"
           size="large"
           placeholder="Zip code"
+          onKeyDown={(e: { key: string }) => {
+            if (e.key === 'Enter') {
+              onSubmitForm()
+            }
+          }}
+          error={inputErrorMessage}
+          errorMessage={inputErrorMessage}
+          autocomplete="off"
         />
       </div>
-      <button
-        onClick={() => {
-          if (zipCode) {
-            onSubmit(zipCode)
-            onClose()
-          }
-        }}
-        className="bn w-100 bg-rebel-pink br-pill f6 white pa5 fw6 pointer"
-        type="submit"
-      >
-        Update
-      </button>
+
+      {isLoading ? (
+        <div className="flex justify-center items-center w-100">
+          <Spinner size={20} />
+        </div>
+      ) : (
+        <button
+          onClick={onSubmitForm}
+          className="bn w-100 bg-rebel-pink br-pill f6 white pa5 fw6 pointer"
+          type="submit"
+        >
+          Update
+        </button>
+      )}
     </div>
   )
 }
@@ -74,14 +97,28 @@ const Drawer = ({ open, onClose, onSubmit }: DrawerProps) => {
 interface Props {
   open: boolean
   onClose: () => void
-  onSubmit: (zipCode: string) => void
+  onSubmit: (zipCode?: string) => void
+  isLoading: boolean
+  inputErrorMessage?: string
 }
 
-const ShippingOptionDrawer = ({ open, onClose, onSubmit }: Props) => {
+const ShippingOptionDrawer = ({
+  open,
+  onClose,
+  onSubmit,
+  inputErrorMessage,
+  isLoading,
+}: Props) => {
   return (
     <>
       <Overlay open={open} onClose={onClose} />
-      <Drawer open={open} onClose={onClose} onSubmit={onSubmit} />
+      <Drawer
+        open={open}
+        onClose={onClose}
+        onSubmit={onSubmit}
+        inputErrorMessage={inputErrorMessage}
+        isLoading={isLoading}
+      />
     </>
   )
 }
