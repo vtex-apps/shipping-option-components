@@ -3,14 +3,8 @@
   background-color: unset;
 }
 
-.buttonWrapper:hover,
-.postalCodeInputClearButton:hover,
 .zipCodeValue:hover {
   background-color: #eef3f7 !important;
-}
-
-.buttonValue {
-  color: #134cd8;
 }
 
 .postalCodeInputClearButton {
