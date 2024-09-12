@@ -1,0 +1,21 @@
+{
+  "store/shipping-option-zipcode.deliverToButton.label": "Expediază la:",
+  "store/shipping-option-zipcode.deliverToButton.placeholder": "Introdu o locație",
+  "store/shipping-option-zipcode.storeButton.label": "Magazin:",
+  "store/shipping-option-zipcode.storeButton.placeholder": "Alege un magazin",
+  "store/shipping-option-zipcode.deliverDrawer.title": "Vezi disponibilitatea în regiunea ta",
+  "store/shipping-option-zipcode.pickupDrawer.title.empty": "Vezi magazinele din regiunea ta",
+  "store/shipping-option-zipcode.pickupDrawer.title.filled": "Alege un magazin",
+  "store/shipping-option-zipcode.postalCodeInput.placeholder": "Introdu codul poștal",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Codul poștal introdus nu se află în zona noastră de acoperire",
+  "store/shipping-option-zipcode.currentLocationButton": "Folosește locația actuală",
+  "store/shipping-option-zipcode.storeHoursButton": "Vezi programul magazinului",
+  "store/shipping-option-zipcode.viewMoreButton": "Vezi mai mult",
+  "store/shipping-option-zipcode.shippinFilter.title": "Opțiuni de expediere",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.title": "Expediază la",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.enterButton": "Introdu o locație",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Ridicare la",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Alege un magazin",
+  "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Ridicare în apropiere",
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Ridicare"
+}

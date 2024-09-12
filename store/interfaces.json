@@ -1,5 +1,5 @@
 {
-  "shipping-option-zipcode": {
+  "shipping-option-location-selector": {
     "component": "index"
   }
 }
