@@ -33,6 +33,8 @@ const useShippingOptions = () => {
       setPickups(responsePickups.items)
 
       if (responsePickups.items.length === 0) {
+        setIsLoading(false)
+
         return
       }
 
