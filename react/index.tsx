@@ -1,9 +1,11 @@
 /* eslint-disable no-restricted-globals */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSSR, useRuntime } from 'vtex.render-runtime'
 
 import useShippingOptions from './hooks/useShippingOptions'
 import DeliveryDrawer from './components/DeliveryDrawer'
 import PikcupDrawer from './components/PickupDrawer'
+import { getCookie } from './utils/cookie'
 
 interface Props {
   hideStoreSelection?: boolean
@@ -14,6 +16,9 @@ function ShippingOptionZipCode({
   hideStoreSelection = false,
   compactMode = false,
 }: Props) {
+  const { production } = useRuntime()
+  const [shouldRender, setShouldRender] = useState<boolean>(!production)
+
   const {
     inputErrorMessage,
     zipCode,
@@ -26,6 +31,24 @@ function ShippingOptionZipCode({
     selectedPickup,
     onSelectPickup,
   } = useShippingOptions()
+
+  const isSSR = useSSR()
+
+  useEffect(() => {
+    if (!isSSR) {
+      return
+    }
+
+    const variant = getCookie('sp-variant')
+
+    if (production && variant && variant.indexOf('delivery-promises') > -1) {
+      setShouldRender(true)
+    }
+  }, [production, isSSR])
+
+  if (!shouldRender) {
+    return null
+  }
 
   return (
     <>
