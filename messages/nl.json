@@ -1,0 +1,21 @@
+{
+  "store/shipping-option-zipcode.deliverToButton.label": "Verzenden naar:",
+  "store/shipping-option-zipcode.deliverToButton.placeholder": "Voer een locatie in",
+  "store/shipping-option-zipcode.storeButton.label": "Winkel:",
+  "store/shipping-option-zipcode.storeButton.placeholder": "Kies een winkel",
+  "store/shipping-option-zipcode.deliverDrawer.title": "Bekijk de beschikbaarheid van uw regio",
+  "store/shipping-option-zipcode.pickupDrawer.title.empty": "Bekijk winkels in uw regio",
+  "store/shipping-option-zipcode.pickupDrawer.title.filled": "Kies een winkel",
+  "store/shipping-option-zipcode.postalCodeInput.placeholder": "Voer uw postcode in",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "De ingevoerde postcode valt niet binnen ons gebied",
+  "store/shipping-option-zipcode.currentLocationButton": "Gebruik huidige locatie",
+  "store/shipping-option-zipcode.storeHoursButton": "Winkeluren bekijken",
+  "store/shipping-option-zipcode.viewMoreButton": "Meer weergeven",
+  "store/shipping-option-zipcode.shippinFilter.title": "Verzendopties",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.title": "Verzenden naar",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.enterButton": "Voer een locatie in",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Afhalen op",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Bezoek een winkel",
+  "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Afhalen in de buurt van",
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Afhalen"
+}

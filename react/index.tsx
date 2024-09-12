@@ -1,108 +1,59 @@
 /* eslint-disable no-restricted-globals */
-import React, { useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
-import { useSSR, useRuntime } from 'vtex.render-runtime'
+import React from 'react'
 
-import ShippingOptionButton from './components/ShippingOptionButton'
-import ShippingOptionDrawer from './components/ShippingOptionDrawer'
-import { getCountryCode, getZipCode } from './utils/cookie'
+import useShippingOptions from './hooks/useShippingOptions'
+import DeliveryDrawer from './components/DeliveryDrawer'
+import PikcupDrawer from './components/PickupDrawer'
 
-function ShippingOptionZipCode() {
-  const body = window?.document?.body
-  const isSSR = useSSR()
-  const { account } = useRuntime()
-  const shouldCreatePortal = !isSSR && !!body
-  const [open, setOpen] = useState(false)
-  const [zipCode, setZipCode] = useState<string>()
-  const [isLoading, setIsLoading] = useState(true)
-  const [countryCode, setCountryCode] = useState<string>()
-  const [inputErrorMessage, setInputErrorMessage] = useState<string>()
+interface Props {
+  hideStoreSelection?: boolean
+  compactMode?: boolean
+}
 
-  useEffect(() => {
-    if (isSSR) {
-      return
-    }
-
-    setZipCode(getZipCode())
-    setIsLoading(false)
-    setCountryCode(getCountryCode)
-  }, [isSSR])
-
-  if (shouldCreatePortal) {
-    body.style.overflow = open ? 'hidden' : ''
-  }
-
-  const onOpen = () => {
-    setOpen(true)
-  }
-
-  const onClose = () => {
-    setOpen(false)
-  }
-
-  const onError = (message: string) => {
-    setInputErrorMessage(message)
-    setIsLoading(false)
-
-    setTimeout(() => {
-      setInputErrorMessage(undefined)
-    }, 3000)
-  }
-
-  const onSubmit = async (submittedZipCode?: string) => {
-    if (!submittedZipCode) {
-      onError('Please enter your zipcode')
-
-      return
-    }
-
-    setZipCode(submittedZipCode)
-    setIsLoading(true)
-
-    const postalCodeCall = await fetch(
-      `/api/checkout/pub/postal-code/${countryCode}/${submittedZipCode}?an=${account}`
-    )
-
-    const { geoCoordinates } = await postalCodeCall.json()
-
-    if (geoCoordinates.length === 0) {
-      onError('There are no deliveries for this region')
-
-      return
-    }
-
-    await fetch('/api/sessions', {
-      method: 'POST',
-      body: `{"public":{"facets":{"value":"zip-code=${submittedZipCode};coordinates=${geoCoordinates.join(
-        ','
-      )}"}}}`,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-
-    location.reload()
-  }
+function ShippingOptionZipCode({
+  hideStoreSelection = false,
+  compactMode = false,
+}: Props) {
+  const {
+    inputErrorMessage,
+    zipCode,
+    isLoading,
+    onSubmit,
+    addressLabel,
+    onChange,
+    selectedZipCode,
+    pickups,
+    selectedPickup,
+    onSelectPickup,
+  } = useShippingOptions()
 
   return (
     <>
-      <ShippingOptionButton
-        onClick={onOpen}
+      <DeliveryDrawer
+        addressLabel={addressLabel}
+        isLoading={isLoading}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        inputErrorMessage={inputErrorMessage}
+        selectedZipCode={selectedZipCode}
         zipCode={zipCode}
-        loading={isLoading}
+        compact={compactMode}
       />
-      {shouldCreatePortal
-        ? createPortal(
-            <ShippingOptionDrawer
-              open={open}
-              onClose={onClose}
-              onSubmit={onSubmit}
-              inputErrorMessage={inputErrorMessage}
-              isLoading={isLoading}
-            />,
-            body
-          )
-        : null}
+      {!hideStoreSelection && (
+        <PikcupDrawer
+          isLoading={isLoading}
+          onChange={onChange}
+          onSubmit={() => onSubmit(false)}
+          addressLabel={addressLabel}
+          inputErrorMessage={inputErrorMessage}
+          selectedZipCode={selectedZipCode}
+          zipCode={zipCode}
+          pickups={pickups}
+          selectedPickup={selectedPickup}
+          onSelectPickup={onSelectPickup}
+          compact={compactMode}
+        />
+      )}
     </>
   )
 }

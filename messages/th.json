@@ -1,0 +1,21 @@
+{
+  "store/shipping-option-zipcode.deliverToButton.label": "ส่งไปที่:",
+  "store/shipping-option-zipcode.deliverToButton.placeholder": "ใส่ตำแหน่งที่ตั้ง",
+  "store/shipping-option-zipcode.storeButton.label": "ร้านค้า:",
+  "store/shipping-option-zipcode.storeButton.placeholder": "เลือกร้านค้า",
+  "store/shipping-option-zipcode.deliverDrawer.title": "ดูบรืการที่มีในภูมิภาคที่คุณอยู่",
+  "store/shipping-option-zipcode.pickupDrawer.title.empty": "ดูร้านค้าในภูมิภาคที่คุณอยู่",
+  "store/shipping-option-zipcode.pickupDrawer.title.filled": "เลือกร้านค้า",
+  "store/shipping-option-zipcode.postalCodeInput.placeholder": "ใส่รหัสไปรษณีย์ของคุณ",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "รหัสไปรษณีย์ที่ให้ไม่อยู่ในพื้นที่ดูแลของเรา",
+  "store/shipping-option-zipcode.currentLocationButton": "ใช้ที่ตั้งปัจจุบัน",
+  "store/shipping-option-zipcode.storeHoursButton": "ดูเวลาทำการของร้านค้า",
+  "store/shipping-option-zipcode.viewMoreButton": "ดูเพิ่มเติม",
+  "store/shipping-option-zipcode.shippinFilter.title": "ตัวเลือกการขนส่งสินค้า",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.title": "ส่งไปที่",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.enterButton": "ใส่ตำแหน่งที่ตั้ง",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "จุดรับสินค้าเอง",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "เลือกร้านค้า",
+  "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "จุดรับสินค้าบริเวณใกล้เคียง",
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "การรับสินค้าเอง"
+}

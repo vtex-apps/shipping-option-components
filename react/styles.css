@@ -1,16 +1,57 @@
-.zipCodeButtonText {
-  margin-left: 12px;
-  width: auto;
+.buttonWrapper {
+  cursor: pointer;
+  background-color: unset;
 }
 
-.drawer {
-  transition: transform 0.25s ease-in-out;
+.buttonWrapper:hover,
+.postalCodeInputClearButton:hover,
+.zipCodeValue:hover {
+  background-color: #eef3f7 !important;
 }
 
-.drawer--close {
-  transform: translateX(100%);
+.buttonValue {
+  color: #134cd8;
 }
 
-.drawer--open {
-  transform: translateX(0);
+.postalCodeInputClearButton {
+  border: 0;
+  cursor: pointer;
+  padding: 8px;
+  background-color: unset;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.zipCodeValue {
+  border: 0;
+  cursor: pointer;
+  padding: 8px;
+  background-color: unset;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #2e2e2e;
+}
+
+.pickupItem {
+  border: 1px solid;
+  border-color: #e2e4e6;
+  cursor: pointer;
+  padding: 20px;
+  background-color: unset;
+  margin-bottom: 20px;
+}
+
+.pickupItem:hover {
+  border-color: #979899;
+}
+
+.pickupItemSelected,
+.pickupItemSelected:hover {
+  border: 2px solid;
+  border-color: #134cd8;
 }

@@ -24,7 +24,7 @@ export function getZipCode() {
 
   const zipCodeFacet = facets
     .split(';')
-    .find((facet: string) => facet.indexOf('zip=code'))
+    .find((facet: string) => facet.indexOf('zip-code') > -1)
 
   if (!zipCodeFacet) {
     return

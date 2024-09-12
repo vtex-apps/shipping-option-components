@@ -2,40 +2,55 @@ import React from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import { Spinner } from 'vtex.styleguide'
 
-import TruckIcon from './TruckIcon'
 import '../styles.css'
 
-const CSS_HANDLES = [
-  'buttonWrapper',
-  'zipCodeButtonText',
-  'zipCodeIcon',
-] as const
+const CSS_HANDLES = ['buttonWrapper', 'buttonLabel', 'buttonValue'] as const
 
 interface Props {
   onClick: () => void
   loading: boolean
-  zipCode?: string
+  label: string
+  placeholder: string
+  value?: string
+  compact: boolean
 }
 
-const ShippingOptionButton = ({ onClick, zipCode, loading }: Props) => {
+const ShippingOptionButton = ({
+  onClick,
+  loading,
+  label,
+  value,
+  placeholder,
+  compact,
+}: Props) => {
   const handles = useCssHandles(CSS_HANDLES)
 
   return (
-    <button
-      onClick={onClick}
-      className={`${handles.buttonWrapper} bn bg-transparent flex justify-between items-center pointer pa0`}
-    >
-      <TruckIcon className={handles.zipCodeIcon} />
-      {loading ? (
-        <div className="ml4">
-          <Spinner size={14} />
-        </div>
-      ) : (
-        <span className={`${handles.zipCodeButtonText} f6 rebel-pink fw5`}>
-          {zipCode ?? 'Enter a zip code'}
-        </span>
-      )}
-    </button>
+    <div className="flex items-center">
+      <button
+        onClick={onClick}
+        style={{
+          border: '0 solid',
+          background: 'unset',
+        }}
+        className={`${handles.buttonWrapper} flex h2 items-center br3 pt3 pb3`}
+      >
+        {!compact && (
+          <p className={`${handles.buttonLabel} ma0 c-on-base f6 mr2`}>
+            {label}
+          </p>
+        )}
+        {loading ? (
+          <div className="ml4">
+            <Spinner size={14} />
+          </div>
+        ) : (
+          <p className={`${handles.buttonValue} ma0 f6 fw6`}>
+            {value ?? placeholder}
+          </p>
+        )}
+      </button>
+    </div>
   )
 }
 

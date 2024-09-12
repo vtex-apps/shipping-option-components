@@ -1,0 +1,21 @@
+{
+  "store/shipping-option-zipcode.deliverToButton.label": "Versand an:",
+  "store/shipping-option-zipcode.deliverToButton.placeholder": "Standort eingeben",
+  "store/shipping-option-zipcode.storeButton.label": "Shop:",
+  "store/shipping-option-zipcode.storeButton.placeholder": "Shop auswählen",
+  "store/shipping-option-zipcode.deliverDrawer.title": "Verfügbarkeit für Ihre Region anzeigen",
+  "store/shipping-option-zipcode.pickupDrawer.title.empty": "Shops in Ihrer Region anzeigen",
+  "store/shipping-option-zipcode.pickupDrawer.title.filled": "Shop auswählen",
+  "store/shipping-option-zipcode.postalCodeInput.placeholder": "Geben Sie Ihre Postleitzahl ein",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Die eingegebene Postleitzahl ist nicht in unserem Abdeckungsbereich",
+  "store/shipping-option-zipcode.currentLocationButton": "Aktuellen Standort verwenden",
+  "store/shipping-option-zipcode.storeHoursButton": "Ladenöffnungszeiten anzeigen",
+  "store/shipping-option-zipcode.viewMoreButton": "Mehr ansehen",
+  "store/shipping-option-zipcode.shippinFilter.title": "Versandoptionen",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.title": "Versand nach",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.enterButton": "Einen Standort eingeben",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Abholung bei",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Shop auswählen",
+  "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Abholung in der Nähe",
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Abholung"
+}

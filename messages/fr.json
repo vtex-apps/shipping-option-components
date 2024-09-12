@@ -1,0 +1,21 @@
+{
+  "store/shipping-option-zipcode.deliverToButton.label": "Expédier vers :",
+  "store/shipping-option-zipcode.deliverToButton.placeholder": "Entrez un lieu",
+  "store/shipping-option-zipcode.storeButton.label": "Magasin :",
+  "store/shipping-option-zipcode.storeButton.placeholder": "Choisissez un magasin",
+  "store/shipping-option-zipcode.deliverDrawer.title": "Voir les disponibilités dans votre région",
+  "store/shipping-option-zipcode.pickupDrawer.title.empty": "Voir les magasins de votre région",
+  "store/shipping-option-zipcode.pickupDrawer.title.filled": "Choisissez un magasin",
+  "store/shipping-option-zipcode.postalCodeInput.placeholder": "Entrez votre code postal",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Le code postal saisi ne se trouve pas dans notre zone de couverture",
+  "store/shipping-option-zipcode.currentLocationButton": "Utiliser la localisation actuelle",
+  "store/shipping-option-zipcode.storeHoursButton": "Voir les heures d’ouverture du magasin",
+  "store/shipping-option-zipcode.viewMoreButton": "Afficher plus",
+  "store/shipping-option-zipcode.shippinFilter.title": "Options d'expédition",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.title": "Expédier vers",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.enterButton": "Saisissez un lieu",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Retrait à",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Choisissez un Magasin",
+  "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Retrait à proximité",
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Point de retrait"
+}
