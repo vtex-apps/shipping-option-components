@@ -41,7 +41,7 @@ function ShippingOptionZipCode({
 
     const variant = getCookie('sp-variant')
 
-    if (production && variant && variant.indexOf('delivery-promises') > -1) {
+    if (production && variant && variant.indexOf('delivery_promises') > -1) {
       setShouldRender(true)
     }
   }, [production, isSSR])
