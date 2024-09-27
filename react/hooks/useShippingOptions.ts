@@ -4,9 +4,14 @@ import { useRuntime, useSSR } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
 import { usePixel } from 'vtex.pixel-manager'
 
-import { getCountryCode, getZipCode } from '../utils/cookie'
+import { getCountryCode, getOrderFormId, getZipCode } from '../utils/cookie'
 import messages from '../messages'
-import { getAddress, getPickups, updateSession } from '../client'
+import {
+  getAddress,
+  getPickups,
+  updateOrderForm,
+  updateSession,
+} from '../client'
 
 declare let window: any
 
@@ -103,6 +108,12 @@ const useShippingOptions = () => {
     setCity(undefined)
 
     setIsLoading(true)
+
+    const orderFormId = getOrderFormId()
+
+    if (orderFormId) {
+      await updateOrderForm(inputZipCode, orderFormId, countryCode)
+    }
 
     const { geoCoordinates: coordinates } = await getAddress(
       countryCode,
