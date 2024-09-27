@@ -1,0 +1,22 @@
+{
+  "store/shipping-option-zipcode.deliverToButton.label": "Доставить по адресу:",
+  "store/shipping-option-zipcode.deliverToButton.placeholder": "Введите местоположение",
+  "store/shipping-option-zipcode.storeButton.label": "Магазин:",
+  "store/shipping-option-zipcode.storeButton.placeholder": "Выберите магазин",
+  "store/shipping-option-zipcode.deliverDrawer.title": "Показать наличие в вашем регионе",
+  "store/shipping-option-zipcode.pickupDrawer.title.empty": "Показать магазины в вашем регионе",
+  "store/shipping-option-zipcode.pickupDrawer.title.filled": "Выберите магазин",
+  "store/shipping-option-zipcode.postalCodeInput.placeholder": "Введите почтовый индекс",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Введенный почтовый индекс находится вне нашей зоны обслуживания",
+  "store/shipping-option-zipcode.currentLocationButton": "Использовать текущее местоположение",
+  "store/shipping-option-zipcode.storeHoursButton": "Показать график работы магазина",
+  "store/shipping-option-zipcode.viewMoreButton": "Показать больше",
+  "store/shipping-option-zipcode.shippinFilter.title": "Варианты доставки",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.title": "Доставить по адресу",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.enterButton": "Введите местоположение",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Самовывоз",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Выберите магазин",
+  "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Забрать поблизости",
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Забрать",
+  "store/shipping-option-zipcode.updateButton.label": "Обновить"
+}

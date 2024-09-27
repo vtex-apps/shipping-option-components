@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Catalan, Czech, Danish, Greek, Finnish, Hungarian, Indonesian, Norwegian, Polish, Russian, Slovak, Slovenian, Swedish and Ukrainian translations.
+
 ## [0.1.2] - 2024-09-12
 
 ## [0.1.1] - 2024-09-12
@@ -18,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Crowdin integration file.
 
 ### Added
-- Bulgharian, German, French, Italian, Japanese, Korean, Dutch, Romanian and Thai translations
+- Bulgarian, German, French, Italian, Japanese, Korean, Dutch, Romanian and Thai translations
 
 ### Added
 - Initial release.
