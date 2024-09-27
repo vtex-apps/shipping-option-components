@@ -1,0 +1,22 @@
+{
+  "store/shipping-option-zipcode.deliverToButton.label": "Доставити за адресою:",
+  "store/shipping-option-zipcode.deliverToButton.placeholder": "Введіть адресу",
+  "store/shipping-option-zipcode.storeButton.label": "Магазин:",
+  "store/shipping-option-zipcode.storeButton.placeholder": "Виберіть магазин",
+  "store/shipping-option-zipcode.deliverDrawer.title": "Переглянути наявність у вашому регіоні",
+  "store/shipping-option-zipcode.pickupDrawer.title.empty": "Переглянути магазини у вашому регіоні",
+  "store/shipping-option-zipcode.pickupDrawer.title.filled": "Виберіть магазин",
+  "store/shipping-option-zipcode.postalCodeInput.placeholder": "Введіть поштовий індекс",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Введений поштовий індекс — поза нашою зоною обслуговування",
+  "store/shipping-option-zipcode.currentLocationButton": "Використати поточне розташування",
+  "store/shipping-option-zipcode.storeHoursButton": "Переглянути години роботи магазину",
+  "store/shipping-option-zipcode.viewMoreButton": "Переглянути більше",
+  "store/shipping-option-zipcode.shippinFilter.title": "Варіанти доставки",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.title": "Доставити за адресою",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.enterButton": "Ввести адресу",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Місце самовивозу",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Виберіть магазин",
+  "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Самовивіз поблизу",
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Самовивіз",
+  "store/shipping-option-zipcode.updateButton.label": "Оновити"
+}

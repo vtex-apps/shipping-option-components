@@ -1,0 +1,22 @@
+{
+  "store/shipping-option-zipcode.deliverToButton.label": "Αποστολή σε:",
+  "store/shipping-option-zipcode.deliverToButton.placeholder": "Εισαγάγετε τοποθεσία",
+  "store/shipping-option-zipcode.storeButton.label": "Κατάστημα:",
+  "store/shipping-option-zipcode.storeButton.placeholder": "Επιλέξτε ένα κατάστημα",
+  "store/shipping-option-zipcode.deliverDrawer.title": "Προβολή διαθεσιμότητας για την περιοχή σας",
+  "store/shipping-option-zipcode.pickupDrawer.title.empty": "Προβολή καταστημάτων στην περιοχή σας",
+  "store/shipping-option-zipcode.pickupDrawer.title.filled": "Επιλέξτε ένα κατάστημα",
+  "store/shipping-option-zipcode.postalCodeInput.placeholder": "Εισαγάγετε τον ταχυδρομικό σας κώδικα",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Ο ταχυδρομικός κώδικας που καταχωρήσατε δεν βρίσκεται εντός της περιοχής κάλυψής μας",
+  "store/shipping-option-zipcode.currentLocationButton": "Χρήση τρέχουσας τοποθεσίας",
+  "store/shipping-option-zipcode.storeHoursButton": "Προβολή ωρών λειτουργίας καταστήματος",
+  "store/shipping-option-zipcode.viewMoreButton": "Προβολή περισσοτέρων",
+  "store/shipping-option-zipcode.shippinFilter.title": "Δυνατότητες αποστολής",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.title": "Αποστολή σε",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.enterButton": "Εισαγάγετε τοποθεσία",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Παραλαβή σε",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Επιλέξτε ένα κατάστημα",
+  "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Παραλαβή πλησίον",
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Παραλαβή",
+  "store/shipping-option-zipcode.updateButton.label": "Ενημέρωση"
+}

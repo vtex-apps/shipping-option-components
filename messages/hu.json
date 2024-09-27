@@ -1,0 +1,22 @@
+{
+  "store/shipping-option-zipcode.deliverToButton.label": "Szállítási cím:",
+  "store/shipping-option-zipcode.deliverToButton.placeholder": "Adjon megy egy helyet",
+  "store/shipping-option-zipcode.storeButton.label": "Üzlet:",
+  "store/shipping-option-zipcode.storeButton.placeholder": "Válasszon egy üzletet",
+  "store/shipping-option-zipcode.deliverDrawer.title": "Elérhetőség megtekintése a régiójában",
+  "store/shipping-option-zipcode.pickupDrawer.title.empty": "Üzletek megtekintése a régiójában",
+  "store/shipping-option-zipcode.pickupDrawer.title.filled": "Válasszon egy üzletet",
+  "store/shipping-option-zipcode.postalCodeInput.placeholder": "Adja meg az irányítószámát",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "A megadott irányítószám nem tartozik a lefedettségi területünkhöz",
+  "store/shipping-option-zipcode.currentLocationButton": "Aktuális tartózkodási hely használata",
+  "store/shipping-option-zipcode.storeHoursButton": "Nyitvatartási idő megtekintése",
+  "store/shipping-option-zipcode.viewMoreButton": "Több megtekintése",
+  "store/shipping-option-zipcode.shippinFilter.title": "Szállítási lehetőségek",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.title": "Szállítási cím",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.enterButton": "Adjon meg egy helyet",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Felvétel helye",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Válasszon egy üzletet",
+  "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Felvétel a közelben",
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Felvétel",
+  "store/shipping-option-zipcode.updateButton.label": "Frissítés"
+}
