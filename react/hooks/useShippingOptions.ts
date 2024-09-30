@@ -112,7 +112,7 @@ const useShippingOptions = () => {
     const orderFormId = getOrderFormId()
 
     if (orderFormId) {
-      await updateOrderForm(inputZipCode, orderFormId, countryCode)
+      await updateOrderForm(countryCode, inputZipCode, orderFormId)
     }
 
     const { geoCoordinates: coordinates } = await getAddress(
