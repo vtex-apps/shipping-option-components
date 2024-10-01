@@ -28,16 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Crowdin integration file.
 
 ### Added
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 - Bulgharian, German, French, Italian, Japanese, Korean, Dutch, Romanian and Thai translations
-=======
-- Bulgarian, German, French, Italian, Japanese, Korean, Dutch, Romanian and Thai translations
->>>>>>> Add new translations
-=======
-- Bulgarian, German, French, Italian, Japanese, Korean, Dutch, Romanian and Thai translations
->>>>>>> 9ed86c10675fbb79ccf00138982fc1bf58d04298
 
 ### Added
 
