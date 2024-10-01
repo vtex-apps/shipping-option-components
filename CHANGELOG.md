@@ -10,15 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Catalan, Czech, Danish, Greek, Finnish, Hungarian, Indonesian, Norwegian, Polish, Russian, Slovak, Slovenian, Swedish and Ukrainian translations.
 
-<<<<<<< HEAD
 ## [0.1.4] - 2024-10-01
 
 ### Fixed
 
 - Adjust drawer width to mobile
 
-=======
->>>>>>> 9ed86c10675fbb79ccf00138982fc1bf58d04298
 ## [0.1.2] - 2024-09-12
 
 ## [0.1.1] - 2024-09-12
