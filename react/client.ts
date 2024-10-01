@@ -38,7 +38,7 @@ export const updateOrderForm = (
 ) =>
   fetch(`/api/checkout/pub/orderForm/${orderFormId}/attachments/shippingData`, {
     method: 'POST',
-    body: `{"selectedAddresses": [{ "postalCode": ${zipCode}, "country": ${country} ]}`,
+    body: `{"selectedAddresses": [{ "postalCode": ${zipCode}, "country": "${country}" }]}`,
     headers: {
       'Content-Type': 'application/json',
     },
