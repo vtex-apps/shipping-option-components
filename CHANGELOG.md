@@ -8,8 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- orderForm integration from PLP to cart
 
+- orderForm integration from PLP to cart
 
 ## [0.1.2] - 2024-09-12
 
@@ -18,11 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2024-09-12
 
 ### Fixed
+
 - English, Portuguese and Spanish translations.
 - Crowdin integration file.
 
 ### Added
+
 - Bulgharian, German, French, Italian, Japanese, Korean, Dutch, Romanian and Thai translations
 
 ### Added
+
 - Initial release.

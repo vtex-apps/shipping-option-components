@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { Drawer, DrawerHeader, DrawerCloseButton } from 'vtex.store-drawer'
+import { useDevice } from 'vtex.device-detector'
 
 import '../styles.css'
 
@@ -18,12 +19,15 @@ const ShippingOptionDrawer = ({
   children,
   icon,
 }: PropsWithChildren<Props>) => {
+  const { isMobile } = useDevice()
+
   return (
     <Drawer
       customIcon={icon}
       className="dn"
       slideDirection="rightToLeft"
       customPixelEventId={customPixelEventId}
+      isFullWidth={isMobile}
       header={
         <DrawerHeader>
           <DrawerCloseButton />

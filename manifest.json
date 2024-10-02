@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "shipping-option-components",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "title": "Shipping Option Zipcode component",
   "description": "Shipping Option Zipcode component",
   "builders": {
@@ -15,7 +15,8 @@
     "vtex.css-handles": "0.x",
     "vtex.render-runtime": "8.x",
     "vtex.store-drawer": "0.x",
-    "vtex.pixel-manager": "1.x"
+    "vtex.pixel-manager": "1.x",
+    "vtex.device-detector": "0.x"
   },
   "registries": ["smartcheckout"],
   "policies": [],
