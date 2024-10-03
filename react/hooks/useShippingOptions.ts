@@ -4,7 +4,7 @@ import { useRuntime, useSSR } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
 import { usePixel } from 'vtex.pixel-manager'
 
-import { getCountryCode, getOrderFormId, getZipCode } from '../utils/cookie'
+import { getCountryCode, getOrderFormId, getFacetsData } from '../utils/cookie'
 import messages from '../messages'
 import {
   getAddress,
@@ -37,15 +37,25 @@ const useShippingOptions = () => {
 
       setPickups(responsePickups.items)
 
-      if (responsePickups.items.length === 0) {
+      if (responsePickups?.items?.length === 0) {
         setIsLoading(false)
 
         return
       }
 
-      setSelectecPickup(responsePickups.items[0])
+      let [pickup] = responsePickups.items
 
-      await updateSession(zipCode, coordinates, responsePickups.items[0])
+      const pickupPointId = getFacetsData('pickupPoint')
+
+      if (pickupPointId) {
+        pickup = responsePickups.items.find(
+          (p: any) => p.pickupPoint.id === pickupPointId
+        )
+      }
+
+      setSelectecPickup(pickup)
+
+      await updateSession(zipCode, coordinates, pickup)
 
       setIsLoading(false)
     },
@@ -57,7 +67,7 @@ const useShippingOptions = () => {
       return
     }
 
-    const segmentZipCode = getZipCode()
+    const segmentZipCode = getFacetsData('zip-code')
     const segmentCountryCode = getCountryCode()
 
     setSelectedZipCode(segmentZipCode)

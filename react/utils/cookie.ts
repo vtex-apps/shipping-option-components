@@ -9,7 +9,7 @@ export function getCookie(name: string) {
   return undefined
 }
 
-export function getZipCode() {
+export function getFacetsData(facetsDataTarget: string) {
   const segment = (window as any)?.__RUNTIME__.segmentToken
 
   if (!segment) {
@@ -22,21 +22,21 @@ export function getZipCode() {
     return
   }
 
-  const zipCodeFacet = facets
+  const facetsTarget = facets
     .split(';')
-    .find((facet: string) => facet.indexOf('zip-code') > -1)
+    .find((facet: string) => facet.indexOf(facetsDataTarget) > -1)
 
-  if (!zipCodeFacet) {
+  if (!facetsTarget) {
     return
   }
 
-  const [, zipCode] = zipCodeFacet.split('=')
+  const [, data] = facetsTarget.split('=')
 
-  if (zipCode && zipCode[zipCode.length - 1] === ';') {
-    return zipCode.substring(0, zipCode.length - 1)
+  if (data && data[data.length - 1] === ';') {
+    return data.substring(0, data.length - 1)
   }
 
-  return zipCode
+  return data
 }
 
 export function getCountryCode() {
