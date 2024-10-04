@@ -1,0 +1,22 @@
+{
+  "store/shipping-option-zipcode.deliverToButton.label": "Dikirimkan ke:",
+  "store/shipping-option-zipcode.deliverToButton.placeholder": "Masukkan lokasi",
+  "store/shipping-option-zipcode.storeButton.label": "Toko:",
+  "store/shipping-option-zipcode.storeButton.placeholder": "Pilih toko",
+  "store/shipping-option-zipcode.deliverDrawer.title": "Lihat ketersediaan untuk wilayah Anda",
+  "store/shipping-option-zipcode.pickupDrawer.title.empty": "Lihat toko di wilayah Anda",
+  "store/shipping-option-zipcode.pickupDrawer.title.filled": "Pilih toko",
+  "store/shipping-option-zipcode.postalCodeInput.placeholder": "Masukkan kode pos Anda",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Kode pos yang dimasukkan tidak masuk area jangkauan kami",
+  "store/shipping-option-zipcode.currentLocationButton": "Gunakan Lokasi Saat Ini",
+  "store/shipping-option-zipcode.storeHoursButton": "Lihat Jam Toko",
+  "store/shipping-option-zipcode.viewMoreButton": "Lihat Selengkapnya",
+  "store/shipping-option-zipcode.shippinFilter.title": "Opsi Pengiriman",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.title": "Kirimkan ke",
+  "store/shipping-option-zipcode.shippinFilter.deliverTo.enterButton": "Masukkan Lokasi",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Ambil di",
+  "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Pilih Toko",
+  "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Ambil terdekat",
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Ambil",
+  "store/shipping-option-zipcode.updateButton.label": "Perbarui"
+}
