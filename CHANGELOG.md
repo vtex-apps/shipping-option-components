@@ -8,13 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - Catalan, Czech, Danish, Greek, Finnish, Hungarian, Indonesian, Norwegian, Polish, Russian, Slovak, Slovenian, Swedish and Ukrainian translations.
 
-## [0.1.4] - 2024-10-01
+### Added
 
-### Fixed
+- Catalan, Czech, Danish, Greek, Finnish, Hungarian, Indonesian, Norwegian, Polish, Russian, Slovak, Slovenian, Swedish and Ukrainian translations.
 
-- Adjust drawer width to mobile
+## [0.2.0] - 2024-10-02
+
+### Added
+
+- orderForm integration from PLP to cart
 
 ## [0.1.2] - 2024-09-12
 

@@ -50,3 +50,13 @@ export function getCountryCode() {
 
   return countryCode
 }
+
+export function getOrderFormId() {
+  const orderForm = localStorage.getItem('orderform')
+
+  if (!orderForm) {
+    return
+  }
+
+  return JSON.parse(orderForm || '{}').id
+}
