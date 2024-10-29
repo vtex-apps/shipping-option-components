@@ -139,8 +139,9 @@ const useShippingOptions = () => {
 
     await updateSession(inputZipCode, coordinates)
 
+    await fetchPickups(countryCode, inputZipCode, coordinates)
+
     if (!reload) {
-      await fetchPickups(countryCode, inputZipCode, coordinates)
       setIsLoading(false)
     }
 
