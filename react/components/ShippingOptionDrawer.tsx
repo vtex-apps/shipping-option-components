@@ -24,6 +24,7 @@ const ShippingOptionDrawer = ({
   return (
     <Drawer
       customIcon={icon}
+      zIndex={99999}
       className="dn"
       slideDirection="rightToLeft"
       customPixelEventId={customPixelEventId}
