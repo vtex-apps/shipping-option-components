@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+### Fixed
+
+- Selected pickup doesn't work on first load
+
 ## [0.4.1] - 2024-11-01
 
 ### Fixed
 
 - Drawer opens behind the sidebar
+
 
 ## [0.4.0] - 2024-10-04
 
