@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import { Spinner } from 'vtex.styleguide'
-
+import { useIntl } from 'react-intl'
 import '../styles.css'
 
-const CSS_HANDLES = ['buttonWrapper', 'buttonLabel', 'buttonValue'] as const
+import DeliveryPopover from './DeliveryPopover'
+import messages from '../messages'
+
+const CSS_HANDLES = [
+  'buttonWrapper',
+  'buttonLabel',
+  'buttonValue',
+  'shippingButtonContainer',
+] as const
 
 interface Props {
   onClick: () => void
@@ -13,6 +21,7 @@ interface Props {
   placeholder: string
   value?: string
   compact: boolean
+  showPopover?: boolean
 }
 
 const ShippingOptionButton = ({
@@ -22,11 +31,20 @@ const ShippingOptionButton = ({
   value,
   placeholder,
   compact,
+  showPopover = false,
 }: Props) => {
+  const intl = useIntl()
+  const [isPopoverOpen, setIsPopoverOpen] = useState(true)
   const handles = useCssHandles(CSS_HANDLES)
 
+  const handleOutSideClick = () => {
+    setIsPopoverOpen(false)
+  }
+
+  const openPopover = !loading && !value && showPopover && isPopoverOpen
+
   return (
-    <div className="flex items-center">
+    <div className={`${handles.shippingButtonContainer} flex items-center`}>
       <button
         onClick={onClick}
         className={`${handles.buttonWrapper} flex h2 items-center br3 pt3 pb3 b--none`}
@@ -46,6 +64,14 @@ const ShippingOptionButton = ({
           </p>
         )}
       </button>
+      {openPopover && (
+        <DeliveryPopover
+          buttonLabel={intl.formatMessage(messages.popoverButtonLabel)}
+          description={intl.formatMessage(messages.popoverDescription)}
+          onClick={onClick}
+          handleOutSideClick={handleOutSideClick}
+        />
+      )}
     </div>
   )
 }
