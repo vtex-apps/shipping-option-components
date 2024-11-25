@@ -41,6 +41,11 @@ const ShippingOptionButton = ({
     setIsPopoverOpen(false)
   }
 
+  const handlePopoverClick = () => {
+    onClick()
+    setIsPopoverOpen(false)
+  }
+
   const openPopover = !loading && !value && showPopover && isPopoverOpen
 
   return (
@@ -68,7 +73,7 @@ const ShippingOptionButton = ({
         <DeliveryPopover
           buttonLabel={intl.formatMessage(messages.popoverButtonLabel)}
           description={intl.formatMessage(messages.popoverDescription)}
-          onClick={onClick}
+          onClick={handlePopoverClick}
           handleOutSideClick={handleOutSideClick}
         />
       )}
