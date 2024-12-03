@@ -48,6 +48,7 @@ const DeliveryDrawer = ({
           placeholder={intl.formatMessage(messages.deliverToButtonPlaceholder)}
           label={intl.formatMessage(messages.deliverToButtonLabel)}
           compact={compact}
+          showPopover
         />
       }
       title={intl.formatMessage(messages.storeDeliverDrawerTitle)}

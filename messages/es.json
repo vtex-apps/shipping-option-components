@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Selecciona una tienda",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Recogida cerca de",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Recogida",
-  "store/shipping-option-zipcode.updateButton.label": "Actualizar"
+  "store/shipping-option-zipcode.updateButton.label": "Actualizar",
+  "store/shipping-option-zipcode.popoverButton.label": "Selecciona una ubicación",
+  "store/shipping-option-zipcode.popover.description": "Las opciones y velocidad de envío pueden variar según la dirección y la tienda"
 }

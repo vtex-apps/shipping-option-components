@@ -41,6 +41,14 @@ const messages = defineMessages({
     id: 'store/shipping-option-zipcode.updateButton.label',
     defaultMessaage: '',
   },
+  popoverButtonLabel: {
+    id: 'store/shipping-option-zipcode.popoverButton.label',
+    defaultMessaage: '',
+  },
+  popoverDescription: {
+    id: 'store/shipping-option-zipcode.popover.description',
+    defaultMessaage: '',
+  },
 })
 
 export default messages
