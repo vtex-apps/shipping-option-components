@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "해당 지역의 스토어 보기",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "스토어 선택",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "우편번호 입력",
-  "store/shipping-option-zipcode.postalCodeInput.error": "입력한 우편번호가 당사의 서비스 지역 내에 있지 않습니다",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "입력한 우편번호가 당사의 서비스 지역 내에 있지 않습니다",
   "store/shipping-option-zipcode.currentLocationButton": "현재 위치 사용",
   "store/shipping-option-zipcode.storeHoursButton": "매장 시간 보기",
   "store/shipping-option-zipcode.viewMoreButton": "더 보기",

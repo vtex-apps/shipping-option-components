@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Se butikker i din region",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Velg en butikk",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Skriv inn postkode",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Postnummeret du skrev inn er ikke innenfor vårt dekningsområde",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Postnummeret du skrev inn er ikke innenfor vårt dekningsområde",
   "store/shipping-option-zipcode.currentLocationButton": "Bruk gjeldende posisjon",
   "store/shipping-option-zipcode.storeHoursButton": "Vis butikktimer",
   "store/shipping-option-zipcode.viewMoreButton": "Vis mere",

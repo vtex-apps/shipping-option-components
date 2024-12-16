@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Näytä alueesi myymälät",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Valitse myymälä",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Anna postinumerosi",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Annettu postinumero ei kuulu kattavuusalueellemme",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Annettu postinumero ei kuulu kattavuusalueellemme",
   "store/shipping-option-zipcode.currentLocationButton": "Käytä nykyistä sijaintia",
   "store/shipping-option-zipcode.storeHoursButton": "Näytä myymälän aukioloajat",
   "store/shipping-option-zipcode.viewMoreButton": "Näytä lisää",

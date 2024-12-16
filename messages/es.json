@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Consulta las tiendas en tu región",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Selecciona una tienda",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Ingresa tu código postal",
-  "store/shipping-option-zipcode.postalCodeInput.error": "El código postal ingresado no está incluido en nuestra área de cobertura",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "El código postal ingresado no está incluido en nuestra área de cobertura",
   "store/shipping-option-zipcode.currentLocationButton": "Usar la ubicación actual",
   "store/shipping-option-zipcode.storeHoursButton": "Horario de la tienda",
   "store/shipping-option-zipcode.viewMoreButton": "Ver más",

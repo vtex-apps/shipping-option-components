@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Wyświetl sklepy w swoim regionie",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Wybierz sklep",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Wprowadź swój kod pocztowy",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Wprowadzony kod pocztowy nie znajduje się w naszym zasięgu",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Wprowadzony kod pocztowy nie znajduje się w naszym zasięgu",
   "store/shipping-option-zipcode.currentLocationButton": "Użyj bieżącej lokalizacji",
   "store/shipping-option-zipcode.storeHoursButton": "Zobacz godziny otwarcia sklepu",
   "store/shipping-option-zipcode.viewMoreButton": "Zobacz więcej",

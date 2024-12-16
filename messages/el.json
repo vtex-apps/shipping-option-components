@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Προβολή καταστημάτων στην περιοχή σας",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Επιλέξτε ένα κατάστημα",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Εισαγάγετε τον ταχυδρομικό σας κώδικα",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Ο ταχυδρομικός κώδικας που καταχωρήσατε δεν βρίσκεται εντός της περιοχής κάλυψής μας",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Ο ταχυδρομικός κώδικας που καταχωρήσατε δεν βρίσκεται εντός της περιοχής κάλυψής μας",
   "store/shipping-option-zipcode.currentLocationButton": "Χρήση τρέχουσας τοποθεσίας",
   "store/shipping-option-zipcode.storeHoursButton": "Προβολή ωρών λειτουργίας καταστήματος",
   "store/shipping-option-zipcode.viewMoreButton": "Προβολή περισσοτέρων",

@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "View stores in your region",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Choose a store",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Enter your postal code",
-  "store/shipping-option-zipcode.postalCodeInput.error": "The entered postal code is not within our coverage area",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "The entered postal code is not within our coverage area",
   "store/shipping-option-zipcode.currentLocationButton": "Use Current Location",
   "store/shipping-option-zipcode.storeHoursButton": "View Store Hours",
   "store/shipping-option-zipcode.viewMoreButton": "View More",

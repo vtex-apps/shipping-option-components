@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Vedi i negozi nella tua regione",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Scegli un negozio",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Inserisci il tuo codice di avviamento postale",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Il codice di avviamento postale inserito non rientra nella nostra zona di copertura",
+  "store/shipping-option-zipcode.postalCodeInput.error.": "Il codice di avviamento postale inserito non rientra nella nostra zona di copertura",
   "store/shipping-option-zipcode.currentLocationButton": "Usa posizione attuale",
   "store/shipping-option-zipcode.storeHoursButton": "Orari del negozio",
   "store/shipping-option-zipcode.viewMoreButton": "Mostra di più",
