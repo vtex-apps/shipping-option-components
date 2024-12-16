@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Visa butiker i din region",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Välj en butik",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Ange ditt postnummer",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "Det angivna postnumret är inte inom vårt täckningsområde",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Det angivna postnumret är inte inom vårt täckningsområde",
   "store/shipping-option-zipcode.currentLocationButton": "Använd aktuell plats",
   "store/shipping-option-zipcode.storeHoursButton": "Visa butikstimmar",
   "store/shipping-option-zipcode.viewMoreButton": "Visa mer",

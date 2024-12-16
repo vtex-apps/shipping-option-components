@@ -113,7 +113,6 @@ const useShippingOptions = () => {
       return
     }
 
-    setSelectedZipCode(inputZipCode)
     setPickups([])
     setCity(undefined)
 
@@ -136,6 +135,8 @@ const useShippingOptions = () => {
 
       return
     }
+
+    setSelectedZipCode(inputZipCode)
 
     await updateSession(inputZipCode, coordinates)
 

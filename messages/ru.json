@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Показать магазины в вашем регионе",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Выберите магазин",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Введите почтовый индекс",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "Введенный почтовый индекс находится вне нашей зоны обслуживания",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Введенный почтовый индекс находится вне нашей зоны обслуживания",
   "store/shipping-option-zipcode.currentLocationButton": "Использовать текущее местоположение",
   "store/shipping-option-zipcode.storeHoursButton": "Показать график работы магазина",
   "store/shipping-option-zipcode.viewMoreButton": "Показать больше",

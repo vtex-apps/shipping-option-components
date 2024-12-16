@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Vezi magazinele din regiunea ta",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Alege un magazin",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Introdu codul poștal",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "Codul poștal introdus nu se află în zona noastră de acoperire",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Codul poștal introdus nu se află în zona noastră de acoperire",
   "store/shipping-option-zipcode.currentLocationButton": "Folosește locația actuală",
   "store/shipping-option-zipcode.storeHoursButton": "Vezi programul magazinului",
   "store/shipping-option-zipcode.viewMoreButton": "Vezi mai mult",
