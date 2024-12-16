@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Oglejte si trgovine v svoji regiji",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Izberi trgovino",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Vnesite svojo poštno številko",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "Vnesena poštna številka ni na našem območju pokrivanja",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Vnesena poštna številka ni na našem območju pokrivanja",
   "store/shipping-option-zipcode.currentLocationButton": "Uporabi trenutno lokacijo",
   "store/shipping-option-zipcode.storeHoursButton": "Oglejte si ure trgovine",
   "store/shipping-option-zipcode.viewMoreButton": "Poglej več",
