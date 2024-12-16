@@ -14,7 +14,7 @@ declare interface Pickup {
   }
 }
 
-declare type OverlayMode = 'popover-button' | 'popover-input'
+declare type OverlayType = 'popover-button' | 'popover-input'
 
 declare global {
   interface Window {

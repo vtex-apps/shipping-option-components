@@ -23,7 +23,7 @@ interface Props {
   onChange?: (zipCode?: string) => void
   onSubmit?: () => void
   inputErrorMessage?: string
-  overlayMode?: OverlayMode
+  overlayType?: OverlayType
 }
 
 const ShippingOptionButton = ({
@@ -37,7 +37,7 @@ const ShippingOptionButton = ({
   onChange,
   onSubmit,
   inputErrorMessage,
-  overlayMode,
+  overlayType,
 }: Props) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(true)
   const handles = useCssHandles(CSS_HANDLES)
@@ -52,7 +52,7 @@ const ShippingOptionButton = ({
   }
 
   const showPopover =
-    overlayMode === 'popover-button' || overlayMode === 'popover-input'
+    overlayType === 'popover-button' || overlayType === 'popover-input'
 
   const isFirstLoading = !zipCode && loading
 
@@ -88,7 +88,7 @@ const ShippingOptionButton = ({
           isLoading={loading}
           inputErrorMessage={inputErrorMessage}
           zipCode={zipCode}
-          variant={overlayMode}
+          variant={overlayType}
         />
       )}
     </div>
