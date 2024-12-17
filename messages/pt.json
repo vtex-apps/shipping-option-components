@@ -20,6 +20,5 @@
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Retirada",
   "store/shipping-option-zipcode.updateButton.label": "Atualizar",
   "store/shipping-option-zipcode.popoverButton.label": "Selecione um local",
-  "store/shipping-option-zipcode.popover.description": "As opções e a velocidade de entrega podem variar conforme o endereço e a loja",
-  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Continue"
+  "store/shipping-option-zipcode.popover.description": "As opções e a velocidade de entrega podem variar conforme o endereço e a loja"
 }

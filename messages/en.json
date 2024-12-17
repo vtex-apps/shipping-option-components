@@ -20,7 +20,7 @@
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Pickup",
   "store/shipping-option-zipcode.updateButton.label": "Update",
   "store/shipping-option-zipcode.popoverButton.label": "Select a location",
-  "store/shipping-option-zipcode.popover.description": "Delivery options and delivery speeds may vary per address and store.",
+  "store/shipping-option-zipcode.popover.description": "Offers and delivery options vary based on region.",
   "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Continue",
   "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Postal Code"
 }
