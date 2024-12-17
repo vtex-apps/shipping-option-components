@@ -54,12 +54,13 @@ const DeliveryPopover = ({
           e.stopPropagation()
         }}
       >
-        <AddressRules country={getCountryCode()} shouldUseIOFetching>
-          <p className="ma0">
-            {`${intl.formatMessage(messages.popoverDescription)} `}
+        <p className="ma0">
+          {`${intl.formatMessage(messages.popoverDescription)} `}
+          <AddressRules country={getCountryCode()} shouldUseIOFetching>
             <PostalCodeHelpLink />
-          </p>
-        </AddressRules>
+          </AddressRules>
+        </p>
+
         {variant === 'popover-button' ? (
           <Button onClick={onClick}>
             {intl.formatMessage(messages.popoverButtonLabel)}
