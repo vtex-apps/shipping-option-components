@@ -10,11 +10,13 @@ import { getCookie } from './utils/cookie'
 interface Props {
   hideStoreSelection?: boolean
   compactMode?: boolean
+  overlayType?: OverlayType
 }
 
 function ShippingOptionZipCode({
   hideStoreSelection = false,
   compactMode = false,
+  overlayType = 'popover-input',
 }: Props) {
   const { production } = useRuntime()
   const [shouldRender, setShouldRender] = useState<boolean>(!production)
@@ -61,6 +63,7 @@ function ShippingOptionZipCode({
         selectedZipCode={selectedZipCode}
         zipCode={zipCode}
         compact={compactMode}
+        overlayType={overlayType}
       />
       {!hideStoreSelection && (
         <PikcupDrawer

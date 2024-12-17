@@ -4,4 +4,5 @@ declare module 'vtex.styleguide' {
   export const Input
   export const Spinner
   export const Button
+  export const Link
 }

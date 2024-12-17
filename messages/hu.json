@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Üzletek megtekintése a régiójában",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Válasszon egy üzletet",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Adja meg az irányítószámát",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "A megadott irányítószám nem tartozik a lefedettségi területünkhöz",
+  "store/shipping-option-zipcode.postalCodeInput.error": "A megadott irányítószám nem tartozik a lefedettségi területünkhöz",
   "store/shipping-option-zipcode.currentLocationButton": "Aktuális tartózkodási hely használata",
   "store/shipping-option-zipcode.storeHoursButton": "Nyitvatartási idő megtekintése",
   "store/shipping-option-zipcode.viewMoreButton": "Több megtekintése",

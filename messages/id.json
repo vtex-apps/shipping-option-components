@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Lihat toko di wilayah Anda",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Pilih toko",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Masukkan kode pos Anda",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "Kode pos yang dimasukkan tidak masuk area jangkauan kami",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Kode pos yang dimasukkan tidak masuk area jangkauan kami",
   "store/shipping-option-zipcode.currentLocationButton": "Gunakan Lokasi Saat Ini",
   "store/shipping-option-zipcode.storeHoursButton": "Lihat Jam Toko",
   "store/shipping-option-zipcode.viewMoreButton": "Lihat Selengkapnya",

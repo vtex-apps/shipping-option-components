@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Bekijk winkels in uw regio",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Kies een winkel",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Voer uw postcode in",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "De ingevoerde postcode valt niet binnen ons gebied",
+  "store/shipping-option-zipcode.postalCodeInput.error": "De ingevoerde postcode valt niet binnen ons gebied",
   "store/shipping-option-zipcode.currentLocationButton": "Gebruik huidige locatie",
   "store/shipping-option-zipcode.storeHoursButton": "Winkeluren bekijken",
   "store/shipping-option-zipcode.viewMoreButton": "Meer weergeven",

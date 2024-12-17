@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Преглед на магазините във вашия регион",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Избиране на магазин",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Въвеждане на пощенския ви код",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "Въведеният пощенски код не е в района на нашето покритие",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Въведеният пощенски код не е в района на нашето покритие",
   "store/shipping-option-zipcode.currentLocationButton": "Използване на настоящото местоположение",
   "store/shipping-option-zipcode.storeHoursButton": "Преглед на работното време на магазина",
   "store/shipping-option-zipcode.viewMoreButton": "Преглед на повече",

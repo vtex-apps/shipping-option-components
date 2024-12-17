@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import { Spinner } from 'vtex.styleguide'
-import { useIntl } from 'react-intl'
 import '../styles.css'
 
 import DeliveryPopover from './DeliveryPopover'
-import messages from '../messages'
 
 const CSS_HANDLES = [
   'buttonWrapper',
@@ -21,7 +19,11 @@ interface Props {
   placeholder: string
   value?: string
   compact: boolean
-  showPopover?: boolean
+  zipCode?: string
+  onChange?: (zipCode?: string) => void
+  onSubmit?: () => void
+  inputErrorMessage?: string
+  overlayType?: OverlayType
 }
 
 const ShippingOptionButton = ({
@@ -31,9 +33,12 @@ const ShippingOptionButton = ({
   value,
   placeholder,
   compact,
-  showPopover = false,
+  zipCode,
+  onChange,
+  onSubmit,
+  inputErrorMessage,
+  overlayType,
 }: Props) => {
-  const intl = useIntl()
   const [isPopoverOpen, setIsPopoverOpen] = useState(true)
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -46,7 +51,12 @@ const ShippingOptionButton = ({
     setIsPopoverOpen(false)
   }
 
-  const openPopover = !loading && !value && showPopover && isPopoverOpen
+  const showPopover =
+    overlayType === 'popover-button' || overlayType === 'popover-input'
+
+  const isFirstLoading = !zipCode && loading
+
+  const openPopover = !isFirstLoading && !value && showPopover && isPopoverOpen
 
   return (
     <div className={`${handles.shippingButtonContainer} flex items-center`}>
@@ -71,10 +81,14 @@ const ShippingOptionButton = ({
       </button>
       {openPopover && (
         <DeliveryPopover
-          buttonLabel={intl.formatMessage(messages.popoverButtonLabel)}
-          description={intl.formatMessage(messages.popoverDescription)}
           onClick={handlePopoverClick}
           handleOutSideClick={handleOutSideClick}
+          onChange={onChange ?? (() => {})}
+          onSubmit={onSubmit ?? (() => {})}
+          isLoading={loading}
+          inputErrorMessage={inputErrorMessage}
+          zipCode={zipCode}
+          variant={overlayType}
         />
       )}
     </div>

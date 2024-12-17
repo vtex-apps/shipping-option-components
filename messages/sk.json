@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Zobraziť obchody vo vašom regióne",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Vyberte obchod",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Zadajte svoje poštové smerovacie číslo",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "Zadané poštové smerovacie číslo nie je v našej oblasti pokrytia",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Zadané poštové smerovacie číslo nie je v našej oblasti pokrytia",
   "store/shipping-option-zipcode.currentLocationButton": "Použiť aktuálnu polohu",
   "store/shipping-option-zipcode.storeHoursButton": "Zobraziť otváracie hodiny obchodu",
   "store/shipping-option-zipcode.viewMoreButton": "Zobraziť viac",

@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "ดูร้านค้าในภูมิภาคที่คุณอยู่",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "เลือกร้านค้า",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "ใส่รหัสไปรษณีย์ของคุณ",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "รหัสไปรษณีย์ที่ให้ไม่อยู่ในพื้นที่ดูแลของเรา",
+  "store/shipping-option-zipcode.postalCodeInput.error": "รหัสไปรษณีย์ที่ให้ไม่อยู่ในพื้นที่ดูแลของเรา",
   "store/shipping-option-zipcode.currentLocationButton": "ใช้ที่ตั้งปัจจุบัน",
   "store/shipping-option-zipcode.storeHoursButton": "ดูเวลาทำการของร้านค้า",
   "store/shipping-option-zipcode.viewMoreButton": "ดูเพิ่มเติม",
