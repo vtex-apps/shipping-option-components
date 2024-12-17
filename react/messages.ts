@@ -58,6 +58,10 @@ const messages = defineMessages({
       'store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder',
     defaultMessaage: '',
   },
+  popoverPostalCodeLink: {
+    id: 'store/shipping-option-zipcode.popover.postalCodeLink',
+    defaultMessaage: '',
+  },
 })
 
 export default messages

@@ -22,5 +22,6 @@
   "store/shipping-option-zipcode.popoverButton.label": "Select a location",
   "store/shipping-option-zipcode.popover.description": "Offers and delivery options vary based on region.",
   "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Continue",
-  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Postal Code"
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Postal Code",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "I don't know my postal code"
 }

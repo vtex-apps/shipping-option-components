@@ -83,8 +83,8 @@ const ShippingOptionButton = ({
         <DeliveryPopover
           onClick={handlePopoverClick}
           handleOutSideClick={handleOutSideClick}
-          onChange={onChange || (() => {})}
-          onSubmit={onSubmit || (() => {})}
+          onChange={onChange ?? (() => {})}
+          onSubmit={onSubmit ?? (() => {})}
           isLoading={loading}
           inputErrorMessage={inputErrorMessage}
           zipCode={zipCode}

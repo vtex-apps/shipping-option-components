@@ -5,10 +5,13 @@ import { useCssHandles } from 'vtex.css-handles'
 import { Button } from 'vtex.styleguide'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { useIntl } from 'react-intl'
-
+import { AddressRules } from 'vtex.address-form'
 import '../styles.css'
+
 import PostalCodeInput from './PostalCodeInput'
 import messages from '../messages'
+import PostalCodeHelpLink from './PostalCodeHelpLink'
+import { getCountryCode } from '../utils/cookie'
 
 const CSS_HANDLES = [
   'deliveryPopover',
@@ -27,6 +30,7 @@ interface Props {
   isLoading?: boolean
   inputErrorMessage?: string
   zipCode?: string
+  rules?: any
 }
 
 const DeliveryPopover = ({
@@ -50,7 +54,12 @@ const DeliveryPopover = ({
           e.stopPropagation()
         }}
       >
-        <p className="ma0">{intl.formatMessage(messages.popoverDescription)}</p>
+        <AddressRules country={getCountryCode()} shouldUseIOFetching>
+          <p className="ma0">
+            {`${intl.formatMessage(messages.popoverDescription)} `}
+            <PostalCodeHelpLink />
+          </p>
+        </AddressRules>
         {variant === 'popover-button' ? (
           <Button onClick={onClick}>
             {intl.formatMessage(messages.popoverButtonLabel)}
