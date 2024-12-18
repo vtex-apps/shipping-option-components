@@ -1,3 +1,5 @@
+import { SHIPPING_INFO_COOKIE } from '../constants'
+
 export function getCookie(name: string) {
   const value = `; ${document.cookie}`
   const parts = value.split(`; ${name}=`)
@@ -9,20 +11,39 @@ export function getCookie(name: string) {
   return undefined
 }
 
+export function setCookie(name: string, val: string) {
+  const date = new Date()
+  const value = val
+
+  date.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000)
+
+  document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`
+}
+
 export function getFacetsData(facetsDataTarget: string) {
-  const segment = (window as any)?.__RUNTIME__.segmentToken
+  // __RUNTIME__.segmentToken is not reliable for the facets. It might not be updated. For this reason we must try to get the info from our custom cookie first
 
-  if (!segment) {
-    return
+  let facets = getCookie(SHIPPING_INFO_COOKIE)
+
+  if (!facets) {
+    const segment =
+      getCookie(SHIPPING_INFO_COOKIE) ??
+      (window as any)?.__RUNTIME__.segmentToken
+
+    if (!segment) {
+      return
+    }
+
+    facets = JSON.parse(atob(segment)).facets
   }
-
-  const { facets } = JSON.parse(atob(segment))
 
   if (!facets) {
     return
   }
 
+  //  In case the facets came from the shipping_info cookie we must replace ":" by ";" because ";" is not allowed in cookies.
   const facetsTarget = facets
+    .replace(':', ';')
     .split(';')
     .find((facet: string) => facet.indexOf(facetsDataTarget) > -1)
 

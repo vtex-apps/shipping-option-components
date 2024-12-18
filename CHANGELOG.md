@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- sometimes zip code is not updated due to a problem in `__RUNTIME__.segmentToken`
+
 ## [0.5.0] - 2024-12-18
+
 ### Added
 
 - Popover to open the location drawer;
