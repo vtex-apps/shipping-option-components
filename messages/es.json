@@ -20,5 +20,6 @@
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Recogida",
   "store/shipping-option-zipcode.updateButton.label": "Actualizar",
   "store/shipping-option-zipcode.popoverButton.label": "Selecciona una ubicación",
-  "store/shipping-option-zipcode.popover.description": "Las opciones y velocidad de envío pueden variar según la dirección y la tienda"
+  "store/shipping-option-zipcode.popover.description": "Las ofertas y las opciones de entrega varían según la región.",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "No se mi codigo postal"
 }
