@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2024-12-19
+
 ### Fixed
 
 - sometimes zip code is not updated due to a problem in `__RUNTIME__.segmentToken`
