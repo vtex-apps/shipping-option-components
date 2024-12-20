@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Vyberte si obchod",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Vyzvednutí v okolí",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Vyzvednutí",
-  "store/shipping-option-zipcode.updateButton.label": "Aktualizovat"
+  "store/shipping-option-zipcode.updateButton.label": "Aktualizovat",
+  "store/shipping-option-zipcode.popoverButton.label": "Výběr místa",
+  "store/shipping-option-zipcode.popover.description": "Možnosti dopravy a její rychlost se mohou lišit v závislosti na obchodu a adrese doručení"
 }

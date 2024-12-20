@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Velg en butikk",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Henting i nærheten",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Hent",
-  "store/shipping-option-zipcode.updateButton.label": "Oppdater"
+  "store/shipping-option-zipcode.updateButton.label": "Oppdater",
+  "store/shipping-option-zipcode.popoverButton.label": "Velg et sted",
+  "store/shipping-option-zipcode.popover.description": "Leveringsalternativer og -fart kan variere basert på leveringsadresse og butikk"
 }

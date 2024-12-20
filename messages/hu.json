@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Válasszon egy üzletet",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Felvétel a közelben",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Felvétel",
-  "store/shipping-option-zipcode.updateButton.label": "Frissítés"
+  "store/shipping-option-zipcode.updateButton.label": "Frissítés",
+  "store/shipping-option-zipcode.popoverButton.label": "Válasszon egy helyet",
+  "store/shipping-option-zipcode.popover.description": "A szállítás sebessége és a szállítási lehetőségek a szállítási cím és az üzlet függvényében változhatnak"
 }

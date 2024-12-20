@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "จุดรับสินค้าเอง",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "เลือกร้านค้า",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "จุดรับสินค้าบริเวณใกล้เคียง",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "การรับสินค้าเอง"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "การรับสินค้าเอง",
+  "store/shipping-option-zipcode.popoverButton.label": "เลือกตำแหน่งที่ตั้ง",
+  "store/shipping-option-zipcode.popover.description": "ตัวเลือกการขนส่งและความเร็วอาจแตกต่างกันไปตามที่อยู่การจัดส่งและร้านค้า"
 }

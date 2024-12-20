@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "ピックアップ場所",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "店舗を選択",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "お近くのピックアップ場所",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "ピックアップ"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "ピックアップ",
+  "store/shipping-option-zipcode.popoverButton.label": "場所を選択",
+  "store/shipping-option-zipcode.popover.description": "発送オプションと所要日数は、配送先住所や店舗によって異なる場合があります"
 }

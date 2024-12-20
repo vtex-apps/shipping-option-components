@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Afhalen op",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Bezoek een winkel",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Afhalen in de buurt van",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "Afhalen"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Afhalen",
+  "store/shipping-option-zipcode.popoverButton.label": "Selecteer een locatie",
+  "store/shipping-option-zipcode.popover.description": "Verzendopties en -snelheid kunnen variëren op basis van afleveradres en winkel"
 }

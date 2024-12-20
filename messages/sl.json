@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Izberi trgovino",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Prevzemite blizu",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Prevzemi",
-  "store/shipping-option-zipcode.updateButton.label": "Posodobi"
+  "store/shipping-option-zipcode.updateButton.label": "Posodobi",
+  "store/shipping-option-zipcode.popoverButton.label": "Izberite lokacijo",
+  "store/shipping-option-zipcode.popover.description": "Možnosti dostave in hitrost se lahko razlikujejo glede na naslov dostave in trgovino"
 }
