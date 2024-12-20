@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Popover to open the location drawer;
 - Popover with input to add postal code.
 
+### Fixed
+
+- English, Spanish and Portuguese translations.
+
 ## [0.4.2] - 2024-11-06
 
 ### Fixed
