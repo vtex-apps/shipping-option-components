@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Виберіть магазин",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Самовивіз поблизу",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Самовивіз",
-  "store/shipping-option-zipcode.updateButton.label": "Оновити"
+  "store/shipping-option-zipcode.updateButton.label": "Оновити",
+  "store/shipping-option-zipcode.popoverButton.label": "Виберіть розташування",
+  "store/shipping-option-zipcode.popover.description": "Способи та час доставки можуть відрізнятися залежно від адреси доставки та магазину"
 }

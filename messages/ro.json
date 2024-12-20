@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Ridicare la",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Alege un magazin",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Ridicare în apropiere",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "Ridicare"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Ridicare",
+  "store/shipping-option-zipcode.popoverButton.label": "Selectează o locație",
+  "store/shipping-option-zipcode.popover.description": "Opțiunile și viteza de expediere pot varia în funcție de adresa de livrare și de magazin"
 }

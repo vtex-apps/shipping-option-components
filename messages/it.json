@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Ritiro presso",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Seleziona un negozio",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Ritiro nelle vicinanze",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "Ritiro"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Ritiro",
+  "store/shipping-option-zipcode.popoverButton.label": "Seleziona una posizione",
+  "store/shipping-option-zipcode.popover.description": "Le opzioni e la celerità della spedizione possono variare a seconda dell'indirizzo di consegna e del negozio"
 }

@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Επιλέξτε ένα κατάστημα",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Παραλαβή πλησίον",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Παραλαβή",
-  "store/shipping-option-zipcode.updateButton.label": "Ενημέρωση"
+  "store/shipping-option-zipcode.updateButton.label": "Ενημέρωση",
+  "store/shipping-option-zipcode.popoverButton.label": "Επιλέξτε μια τοποθεσία",
+  "store/shipping-option-zipcode.popover.description": "Οι επιλογές αποστολής και η ταχύτητα μπορεί να διαφέρουν, ανάλογα με τη διεύθυνση παράδοσης και το κατάστημα"
 }
