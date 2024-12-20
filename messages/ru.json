@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Выберите магазин",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Забрать поблизости",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Забрать",
-  "store/shipping-option-zipcode.updateButton.label": "Обновить"
+  "store/shipping-option-zipcode.updateButton.label": "Обновить",
+  "store/shipping-option-zipcode.popoverButton.label": "Выбрать местоположение",
+  "store/shipping-option-zipcode.popover.description": "Способы и сроки доставки могут отличаться в зависимости от адреса доставки и магазина"
 }
