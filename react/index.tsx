@@ -65,21 +65,20 @@ function ShippingOptionZipCode({
         compact={compactMode}
         overlayType={overlayType}
       />
-      {!hideStoreSelection && (
-        <PikcupDrawer
-          isLoading={isLoading}
-          onChange={onChange}
-          onSubmit={() => onSubmit(false)}
-          addressLabel={addressLabel}
-          inputErrorMessage={inputErrorMessage}
-          selectedZipCode={selectedZipCode}
-          zipCode={zipCode}
-          pickups={pickups}
-          selectedPickup={selectedPickup}
-          onSelectPickup={onSelectPickup}
-          compact={compactMode}
-        />
-      )}
+      <PikcupDrawer
+        isLoading={isLoading}
+        onChange={onChange}
+        onSubmit={() => onSubmit(false)}
+        addressLabel={addressLabel}
+        inputErrorMessage={inputErrorMessage}
+        selectedZipCode={selectedZipCode}
+        zipCode={zipCode}
+        pickups={pickups}
+        selectedPickup={selectedPickup}
+        onSelectPickup={onSelectPickup}
+        compact={compactMode}
+        hideStoreSelection={hideStoreSelection}
+      />
     </>
   )
 }
