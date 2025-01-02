@@ -1,5 +1,4 @@
 import React from 'react'
-import { useDrawer } from 'vtex.store-drawer/DrawerContext'
 import { useIntl } from 'react-intl'
 
 import PostalCodeInput from './PostalCodeInput'
@@ -18,6 +17,7 @@ interface Props {
   pickups: Pickup[]
   selectedPickup?: Pickup
   onSelectPickup: (pickup: Pickup) => void
+  onClose?: () => void
 }
 
 const PickupSelection = ({
@@ -31,10 +31,10 @@ const PickupSelection = ({
   pickups,
   selectedPickup,
   onSelectPickup,
+  onClose,
 }: Props) => {
   const newZipCodeTyped = zipCode !== selectedZipCode
   const shouldHideUpdateButton = (!zipCode || !newZipCodeTyped) && !isLoading
-  const { close } = useDrawer()
   const intl = useIntl()
 
   return (
@@ -60,7 +60,7 @@ const PickupSelection = ({
             }
             onClick={() => {
               onSelectPickup(currentPickup)
-              close()
+              onClose?.()
             }}
             pickup={currentPickup}
           />

@@ -104,6 +104,48 @@
   width: 100%;
 }
 
+.shippingMethodModalTitle {
+  color: #000;
+}
+
+.shippingOptionButton,
+.modalCloseButton,
+.modalBackButton,
+.deliiveryModalButton {
+  cursor: pointer;
+  background-color: unset;
+  border: 0;
+  text-align: left;
+}
+
+.shippingOptionButton {
+  border: 1px solid var(--border-2, #e2e4e6);
+  padding: 20px;
+}
+
+.shippingOptionButton:hover {
+  border: 1px solid var(--border-1, #7e7e7e);
+}
+
+.shippingMethodModalOptions {
+  gap: 20px;
+}
+
+.deliveryModalButtonLabel {
+  color: #505050;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+  max-width: 122px;
+  margin-left: 6px;
+}
+
+.deliveryModalButtonLabelLimited {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

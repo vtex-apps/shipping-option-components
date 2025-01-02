@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { usePixel } from 'vtex.pixel-manager'
+import { useDrawer } from 'vtex.store-drawer/DrawerContext'
 
 import ShippingOptionDrawer from './ShippingOptionDrawer'
 import ShippingOptionButton from './ShippingOptionButton'
@@ -53,6 +54,14 @@ const PikcupDrawer = ({
     ? selectedPickup.pickupPoint.friendlyName
     : undefined
 
+  const PickupSelectionWrapper = (
+    props: React.ComponentProps<typeof PickupSelection>
+  ) => {
+    const close = useDrawer()
+
+    return <PickupSelection {...props} onClose={close} />
+  }
+
   return (
     <ShippingOptionDrawer
       icon={
@@ -71,7 +80,7 @@ const PikcupDrawer = ({
       inputErrorMessage={inputErrorMessage}
       isLoading={isLoading}
     >
-      <PickupSelection
+      <PickupSelectionWrapper
         isLoading={isLoading}
         onChange={onChange}
         onSubmit={onSubmit}

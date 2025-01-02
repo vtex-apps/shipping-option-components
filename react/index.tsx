@@ -1,11 +1,15 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from 'react'
 import { useSSR, useRuntime } from 'vtex.render-runtime'
+import { usePixelEventCallback } from 'vtex.pixel-manager'
 
 import useShippingOptions from './hooks/useShippingOptions'
 import DeliveryDrawer from './components/DeliveryDrawer'
-import PikcupDrawer from './components/PickupDrawer'
+// import PikcupDrawer from './components/PickupDrawer'
 import { getCookie } from './utils/cookie'
+import ShippingSelectionModal from './components/ShippingSelectionModal'
+import DeliveryModalButton from './components/ShippingSelectionModal/DeliveryModalButton'
+import { SHIPPING_MODAL_PIXEL_EVENT_ID } from './constants'
 
 interface Props {
   hideStoreSelection?: boolean
@@ -14,12 +18,13 @@ interface Props {
 }
 
 function ShippingOptionZipCode({
-  hideStoreSelection = false,
+  // hideStoreSelection = false,
   compactMode = false,
   overlayType = 'popover-input',
 }: Props) {
   const { production } = useRuntime()
   const [shouldRender, setShouldRender] = useState<boolean>(!production)
+  const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
 
   const {
     inputErrorMessage,
@@ -32,9 +37,16 @@ function ShippingOptionZipCode({
     pickups,
     selectedPickup,
     onSelectPickup,
+    geoCoordinates,
+    shippingOption,
   } = useShippingOptions()
 
   const isSSR = useSSR()
+
+  usePixelEventCallback({
+    eventId: SHIPPING_MODAL_PIXEL_EVENT_ID,
+    handler: () => setIsShippingModalOpen(true),
+  })
 
   useEffect(() => {
     if (!isSSR) {
@@ -54,6 +66,14 @@ function ShippingOptionZipCode({
 
   return (
     <>
+      {selectedZipCode && (
+        <DeliveryModalButton
+          onClick={() => setIsShippingModalOpen(true)}
+          selectedShipping={shippingOption}
+          selectedPickup={selectedPickup}
+          loading={isLoading}
+        />
+      )}
       <DeliveryDrawer
         addressLabel={addressLabel}
         isLoading={isLoading}
@@ -65,7 +85,7 @@ function ShippingOptionZipCode({
         compact={compactMode}
         overlayType={overlayType}
       />
-      {!hideStoreSelection && (
+      {/* {!hideStoreSelection && (
         <PikcupDrawer
           isLoading={isLoading}
           onChange={onChange}
@@ -79,7 +99,24 @@ function ShippingOptionZipCode({
           onSelectPickup={onSelectPickup}
           compact={compactMode}
         />
-      )}
+      )} */}
+      <ShippingSelectionModal
+        isOpen={isShippingModalOpen}
+        onClose={() => setIsShippingModalOpen(false)}
+        geoCoordinates={geoCoordinates}
+        pickupProps={{
+          isLoading,
+          onChange,
+          onSelectPickup,
+          onSubmit: () => onSubmit(false),
+          pickups,
+          addressLabel,
+          inputErrorMessage,
+          selectedPickup,
+          selectedZipCode,
+          zipCode,
+        }}
+      />
     </>
   )
 }

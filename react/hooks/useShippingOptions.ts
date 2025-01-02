@@ -25,6 +25,7 @@ const useShippingOptions = () => {
   const [pickups, setPickups] = useState<Pickup[]>([])
   const [selectedPickup, setSelectecPickup] = useState<Pickup>()
   const [geoCoordinates, setGeoCoordinates] = useState<number[]>()
+  const [shippingOption, setShippingOption] = useState<'delivery' | 'pickup'>()
 
   const isSSR = useSSR()
   const { account } = useRuntime()
@@ -54,7 +55,6 @@ const useShippingOptions = () => {
       }
 
       setSelectecPickup(pickup)
-
       await updateSession(zipCode, coordinates, pickup)
 
       setIsLoading(false)
@@ -69,10 +69,12 @@ const useShippingOptions = () => {
 
     const segmentZipCode = getFacetsData('zip-code')
     const segmentCountryCode = getCountryCode()
+    const segmentShippingOption = getFacetsData('shippingOption')
 
     setSelectedZipCode(segmentZipCode)
     setInputZipCode(segmentZipCode)
     setCountryCode(segmentCountryCode)
+    setShippingOption(segmentShippingOption as 'delivery' | 'pickup')
 
     if (segmentZipCode) {
       getAddress(segmentCountryCode, segmentZipCode, account).then((res) => {
@@ -97,7 +99,7 @@ const useShippingOptions = () => {
   const onSelectPickup = async (pickup: Pickup) => {
     setSelectecPickup(pickup)
 
-    await updateSession(selectedZipCode!, geoCoordinates!, pickup)
+    await updateSession(selectedZipCode!, geoCoordinates!, pickup, 'pickup')
 
     location.reload()
   }
@@ -188,6 +190,8 @@ const useShippingOptions = () => {
     pickups,
     selectedPickup,
     onSelectPickup,
+    geoCoordinates,
+    shippingOption,
   }
 }
 
