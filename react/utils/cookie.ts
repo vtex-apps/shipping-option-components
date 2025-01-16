@@ -1,5 +1,7 @@
 import { SHIPPING_INFO_COOKIE } from '../constants'
 
+export const ALL_COLON_REGEX = /:/g
+
 export function getCookie(name: string) {
   const value = `; ${document.cookie}`
   const parts = value.split(`; ${name}=`)
@@ -43,7 +45,7 @@ export function getFacetsData(facetsDataTarget: string) {
 
   //  In case the facets came from the shipping_info cookie we must replace ":" by ";" because ";" is not allowed in cookies.
   const facetsTarget = facets
-    .replace(':', ';')
+    .replace(ALL_COLON_REGEX, ';')
     .split(';')
     .find((facet: string) => facet.indexOf(facetsDataTarget) > -1)
 

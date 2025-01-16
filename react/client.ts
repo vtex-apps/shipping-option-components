@@ -1,6 +1,8 @@
 import { SHIPPING_INFO_COOKIE } from './constants'
 import { setCookie } from './utils/cookie'
 
+export const ALL_SEMICOLON_REGEX = /;/g
+
 export const getAddress = (
   countryCode: string,
   zipCode: string,
@@ -21,7 +23,7 @@ export const updateSession = (
 
   // __RUNTIME__.segmentToken is not reliable for the facets. It might not be updated. For this reason we must try to get the info from our custom cookie first
   // Replacing ";" by ":" because ";" is not allowed in cookies
-  setCookie(SHIPPING_INFO_COOKIE, facetsValue.replace(';', ':'))
+  setCookie(SHIPPING_INFO_COOKIE, facetsValue.replace(ALL_SEMICOLON_REGEX, ':'))
 
   return fetch('/api/sessions', {
     method: 'POST',
