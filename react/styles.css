@@ -104,6 +104,10 @@
   width: 100%;
 }
 
+.openIconContainer:has(.drawerHiddenIcon) {
+  display: none;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

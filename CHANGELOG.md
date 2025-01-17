@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The hideStoreSelection property removes the Pickup Drawer and it cannot be opened
+
 ## [0.5.1] - 2024-12-19
 
 ### Fixed
