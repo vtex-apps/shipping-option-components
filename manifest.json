@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "shipping-option-components",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "title": "Shipping Option Zipcode component",
   "description": "Shipping Option Zipcode component",
   "builders": {
