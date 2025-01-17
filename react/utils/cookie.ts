@@ -23,12 +23,10 @@ export function setCookie(name: string, val: string) {
 export function getFacetsData(facetsDataTarget: string) {
   // __RUNTIME__.segmentToken is not reliable for the facets. It might not be updated. For this reason we must try to get the info from our custom cookie first
 
-  let facets = getCookie(SHIPPING_INFO_COOKIE)
+  let facets = atob(getCookie(SHIPPING_INFO_COOKIE) ?? '')
 
   if (!facets) {
-    const segment =
-      getCookie(SHIPPING_INFO_COOKIE) ??
-      (window as any)?.__RUNTIME__.segmentToken
+    const segment = (window as any)?.__RUNTIME__.segmentToken
 
     if (!segment) {
       return
@@ -41,9 +39,7 @@ export function getFacetsData(facetsDataTarget: string) {
     return
   }
 
-  //  In case the facets came from the shipping_info cookie we must replace ":" by ";" because ";" is not allowed in cookies.
   const facetsTarget = facets
-    .replace(':', ';')
     .split(';')
     .find((facet: string) => facet.indexOf(facetsDataTarget) > -1)
 
