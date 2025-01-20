@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Consulta las tiendas en tu región",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Selecciona una tienda",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Ingresa tu código postal",
-  "store/shipping-option-zipcode.postalCodeInput.error": "El código postal ingresado no está incluido en nuestra área de cobertura",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Código postal fuera de la zona de cobertura",
   "store/shipping-option-zipcode.currentLocationButton": "Usar la ubicación actual",
   "store/shipping-option-zipcode.storeHoursButton": "Horario de la tienda",
   "store/shipping-option-zipcode.viewMoreButton": "Ver más",
@@ -20,6 +20,8 @@
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Recogida",
   "store/shipping-option-zipcode.updateButton.label": "Actualizar",
   "store/shipping-option-zipcode.popoverButton.label": "Selecciona una ubicación",
-  "store/shipping-option-zipcode.popover.description": "Las ofertas y las opciones de entrega varían según la región.",
-  "store/shipping-option-zipcode.popover.postalCodeLink": "No se mi codigo postal"
+  "store/shipping-option-zipcode.popover.description": "Las ofertas y las opciones de envío varían según la ubicación",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Continuar",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Código postal",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "Buscar código postal"
 }

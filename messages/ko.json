@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "해당 지역의 스토어 보기",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "스토어 선택",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "우편번호 입력",
-  "store/shipping-option-zipcode.postalCodeInput.error": "입력한 우편번호가 당사의 서비스 지역 내에 있지 않습니다",
+  "store/shipping-option-zipcode.postalCodeInput.error": "우편 번호로 서비스를 이용할 수 없음",
   "store/shipping-option-zipcode.currentLocationButton": "현재 위치 사용",
   "store/shipping-option-zipcode.storeHoursButton": "매장 시간 보기",
   "store/shipping-option-zipcode.viewMoreButton": "더 보기",
@@ -17,5 +17,11 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "픽업 장소",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "스토어 선택",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "근처 픽업",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "픽업"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "픽업",
+  "store/shipping-option-zipcode.updateButton.label": "업데이트",
+  "store/shipping-option-zipcode.popoverButton.label": "위치 선택",
+  "store/shipping-option-zipcode.popover.description": "오퍼 및 배송 옵션은 지역에 따라 다름",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "계속",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "우편번호",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "우편번호 찾기"
 }

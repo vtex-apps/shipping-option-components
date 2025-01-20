@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Wyświetl sklepy w swoim regionie",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Wybierz sklep",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Wprowadź swój kod pocztowy",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Wprowadzony kod pocztowy nie znajduje się w naszym zasięgu",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Usługa dla kodu pocztowego niedostępna",
   "store/shipping-option-zipcode.currentLocationButton": "Użyj bieżącej lokalizacji",
   "store/shipping-option-zipcode.storeHoursButton": "Zobacz godziny otwarcia sklepu",
   "store/shipping-option-zipcode.viewMoreButton": "Zobacz więcej",
@@ -18,5 +18,10 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Wybierz sklep",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Odbiór w pobliżu",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Odbiór",
-  "store/shipping-option-zipcode.updateButton.label": "Aktualizuj"
+  "store/shipping-option-zipcode.updateButton.label": "Aktualizuj",
+  "store/shipping-option-zipcode.popoverButton.label": "Wybierz lokalizację",
+  "store/shipping-option-zipcode.popover.description": "Oferty i opcje dostawy różnią się w zależności od regionu",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Kontynuuj",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Kod pocztowy",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "Znajdź kod pocztowy"
 }

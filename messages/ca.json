@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Mostrar les botigues a la vostra regió",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Tria una botiga",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Introduïu el vostre codi postal",
-  "store/shipping-option-zipcode.postalCodeInput.error": "El codi postal introduït no forma part de la nostra zona de cobertura",
+  "store/shipping-option-zipcode.postalCodeInput.error": "El servei en el codi postal no està disponible",
   "store/shipping-option-zipcode.currentLocationButton": "Fes servir la ubicació actual",
   "store/shipping-option-zipcode.storeHoursButton": "Mostra l'horari de la botiga",
   "store/shipping-option-zipcode.viewMoreButton": "Mostra'n més",
@@ -18,5 +18,10 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Tria una botiga",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Recollida a prop",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Recollida",
-  "store/shipping-option-zipcode.updateButton.label": "Actualitza"
+  "store/shipping-option-zipcode.updateButton.label": "Actualitza",
+  "store/shipping-option-zipcode.popoverButton.label": "Seleccioneu una ubicació",
+  "store/shipping-option-zipcode.popover.description": "Les ofertes i les opcions de lliurament varien segons la zona",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Continua",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Codi postal",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "Cerca el codi postal"
 }

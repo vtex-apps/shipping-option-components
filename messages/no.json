@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Se butikker i din region",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Velg en butikk",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Skriv inn postkode",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Postnummeret du skrev inn er ikke innenfor vårt dekningsområde",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Levering til postnummer ikke tilgjengelig",
   "store/shipping-option-zipcode.currentLocationButton": "Bruk gjeldende posisjon",
   "store/shipping-option-zipcode.storeHoursButton": "Vis butikktimer",
   "store/shipping-option-zipcode.viewMoreButton": "Vis mere",
@@ -18,5 +18,10 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Velg en butikk",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Henting i nærheten",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Hent",
-  "store/shipping-option-zipcode.updateButton.label": "Oppdater"
+  "store/shipping-option-zipcode.updateButton.label": "Oppdater",
+  "store/shipping-option-zipcode.popoverButton.label": "Velg et sted",
+  "store/shipping-option-zipcode.popover.description": "Tilbudet og leveringsalternativene varierer fra region",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Fortsett",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Postnummer",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "Finn postnummer"
 }

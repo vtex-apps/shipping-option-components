@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Prohlédněte si obchody ve svém regionu",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Vyberte si obchod",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Zadejte své poštovní směrovací číslo",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Zadané poštovní směrovací číslo se nenachází v naší oblasti pokrytí",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Služba pro PSČ není k dispozici",
   "store/shipping-option-zipcode.currentLocationButton": "Použít aktuální polohu",
   "store/shipping-option-zipcode.storeHoursButton": "Zobrazit otevírací dobu obchodu",
   "store/shipping-option-zipcode.viewMoreButton": "Zobrazit více",
@@ -18,5 +18,10 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Vyberte si obchod",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Vyzvednutí v okolí",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Vyzvednutí",
-  "store/shipping-option-zipcode.updateButton.label": "Aktualizovat"
+  "store/shipping-option-zipcode.updateButton.label": "Aktualizovat",
+  "store/shipping-option-zipcode.popoverButton.label": "Vyberte polohu",
+  "store/shipping-option-zipcode.popover.description": "Nabídky a možnosti doručení se liší v závislosti na regionu",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Pokračovat",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "PSČ",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "Najít PSČ"
 }

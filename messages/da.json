@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Vis butikker i din region",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Vælg en butik",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Indtast dit postnummer",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Det indtastede postnummer er ikke indenfor dit dækningsområde",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Service til postnummer er ikke tilgængelig",
   "store/shipping-option-zipcode.currentLocationButton": "Brug nuværende lokation",
   "store/shipping-option-zipcode.storeHoursButton": "Vis butikkens åbningstider",
   "store/shipping-option-zipcode.viewMoreButton": "Vis mere",
@@ -18,5 +18,10 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Vælg en butik",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Afhent i nærheden",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Afhent",
-  "store/shipping-option-zipcode.updateButton.label": "Opdater"
+  "store/shipping-option-zipcode.updateButton.label": "Opdater",
+  "store/shipping-option-zipcode.popoverButton.label": "Vælg en lokation",
+  "store/shipping-option-zipcode.popover.description": "Tilbud og leveringsmuligheder varierer afhængigt af område",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Fortsæt",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Postnummer",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "Find postnummer"
 }
