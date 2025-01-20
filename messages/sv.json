@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Visa butiker i din region",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Välj en butik",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Ange ditt postnummer",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Det angivna postnumret är inte inom vårt täckningsområde",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Leverans till postnummer är inte tillgänglig",
   "store/shipping-option-zipcode.currentLocationButton": "Använd aktuell plats",
   "store/shipping-option-zipcode.storeHoursButton": "Visa butikstimmar",
   "store/shipping-option-zipcode.viewMoreButton": "Visa mer",
@@ -18,5 +18,10 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Välj butik",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Hämtning i närheten",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Hämta",
-  "store/shipping-option-zipcode.updateButton.label": "Uppdatera"
+  "store/shipping-option-zipcode.updateButton.label": "Uppdatera",
+  "store/shipping-option-zipcode.popoverButton.label": "Välj en plats",
+  "store/shipping-option-zipcode.popover.description": "Erbjudanden och leveransalternativ varierar beroende på region",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Fortsätt",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Postnummer",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "Sök postnummer"
 }

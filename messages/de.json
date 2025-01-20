@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Shops in Ihrer Region anzeigen",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Shop auswählen",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Geben Sie Ihre Postleitzahl ein",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Die eingegebene Postleitzahl ist nicht in unserem Abdeckungsbereich",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Service an Postleitzahl nicht verfügbar",
   "store/shipping-option-zipcode.currentLocationButton": "Aktuellen Standort verwenden",
   "store/shipping-option-zipcode.storeHoursButton": "Ladenöffnungszeiten anzeigen",
   "store/shipping-option-zipcode.viewMoreButton": "Mehr ansehen",
@@ -17,5 +17,11 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Abholung bei",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Shop auswählen",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Abholung in der Nähe",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "Abholung"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Abholung",
+  "store/shipping-option-zipcode.updateButton.label": "Aktualisieren",
+  "store/shipping-option-zipcode.popoverButton.label": "Wähle einen Ort",
+  "store/shipping-option-zipcode.popover.description": "Angebote und Lieferoptionen variieren je nach Region",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Fortfahren",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Postleitzahl",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "Postleitzahl finden"
 }

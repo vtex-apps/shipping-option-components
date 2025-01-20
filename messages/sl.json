@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Oglejte si trgovine v svoji regiji",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Izberi trgovino",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Vnesite svojo poštno številko",
-  "store/shipping-option-zipcode.postalCodeInput.error": "Vnesena poštna številka ni na našem območju pokrivanja",
+  "store/shipping-option-zipcode.postalCodeInput.error": "Storitev za poštno številko ni na voljo",
   "store/shipping-option-zipcode.currentLocationButton": "Uporabi trenutno lokacijo",
   "store/shipping-option-zipcode.storeHoursButton": "Oglejte si ure trgovine",
   "store/shipping-option-zipcode.viewMoreButton": "Poglej več",
@@ -18,5 +18,10 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Izberi trgovino",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Prevzemite blizu",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Prevzemi",
-  "store/shipping-option-zipcode.updateButton.label": "Posodobi"
+  "store/shipping-option-zipcode.updateButton.label": "Posodobi",
+  "store/shipping-option-zipcode.popoverButton.label": "Izberite lokacijo",
+  "store/shipping-option-zipcode.popover.description": "Ponudbe in možnosti dostave se razlikujejo glede na regijo",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Nadaljuj",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Poštna številka",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "Poišči poštno številko"
 }
