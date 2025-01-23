@@ -51,12 +51,15 @@ const ShippingOptionButton = ({
     setIsPopoverOpen(false)
   }
 
-  const showPopover =
+  const popoverOverlay =
     overlayType === 'popover-button' || overlayType === 'popover-input'
+      ? overlayType
+      : undefined
 
   const isFirstLoading = !zipCode && loading
 
-  const openPopover = !isFirstLoading && !value && showPopover && isPopoverOpen
+  const openPopover =
+    !isFirstLoading && !value && !!popoverOverlay && isPopoverOpen
 
   return (
     <div className={`${handles.shippingButtonContainer} flex items-center`}>
@@ -88,7 +91,7 @@ const ShippingOptionButton = ({
           isLoading={loading}
           inputErrorMessage={inputErrorMessage}
           zipCode={zipCode}
-          variant={overlayType}
+          variant={popoverOverlay}
         />
       )}
     </div>

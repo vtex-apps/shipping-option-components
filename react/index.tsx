@@ -6,6 +6,7 @@ import useShippingOptions from './hooks/useShippingOptions'
 import DeliveryDrawer from './components/DeliveryDrawer'
 import PikcupDrawer from './components/PickupDrawer'
 import { getCookie } from './utils/cookie'
+import { Modal } from './components/LocationModal'
 
 interface Props {
   hideStoreSelection?: boolean
@@ -16,7 +17,7 @@ interface Props {
 function ShippingOptionZipCode({
   hideStoreSelection = false,
   compactMode = false,
-  overlayType = 'popover-input',
+  overlayType = 'blocking-modal',
 }: Props) {
   const { production } = useRuntime()
   const [shouldRender, setShouldRender] = useState<boolean>(!production)
@@ -52,8 +53,21 @@ function ShippingOptionZipCode({
     return null
   }
 
+  const isModalOpen = overlayType === 'blocking-modal' && pickups.length === 0
+
   return (
     <>
+      {isModalOpen && (
+        <Modal
+          onChange={onChange}
+          onSubmit={onSubmit}
+          isLoading={isLoading}
+          inputErrorMessage={inputErrorMessage}
+          zipCode={zipCode}
+          avaliablePickups={pickups.length > 0 && !!selectedZipCode}
+        />
+      )}
+
       <DeliveryDrawer
         addressLabel={addressLabel}
         isLoading={isLoading}
