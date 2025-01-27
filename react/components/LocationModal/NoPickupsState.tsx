@@ -1,21 +1,39 @@
 import React from 'react'
 import { Button } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
+import { useIntl } from 'react-intl'
 
-interface NoPickupsStateProps {
+import IconMarker from '../IconMarker'
+import messages from '../../messages'
+
+const CSS_HANDLES = ['noPickupsStateContent'] as const
+
+interface Props {
   zipCode?: string
   onClick: () => void
 }
 
-const NoPickupsState = ({ zipCode, onClick }: NoPickupsStateProps) => {
+const NoPickupsState = ({ zipCode, onClick }: Props) => {
+  const intl = useIntl()
+  const handle = useCssHandles(CSS_HANDLES)
+
   return (
-    <div className="flex-auto flex flex-column justify-between">
-      <div className="flex flex-column">
-        <p className="f3 fw6 ma0">Store unavailable in region</p>
+    <div className="flex-auto flex flex-column">
+      <div className={`flex flex-column ${handle.noPickupsStateContent}`}>
+        <IconMarker />
+        <p className="f3 fw6 mb0 mt5">
+          {intl.formatMessage(messages.noPickupsStateTitle)}
+        </p>
         <p className="t-small mt3 mb0 c-muted-1">
-          {`There are no products available for CEP ${zipCode}`}
+          {`${intl.formatMessage(messages.noPickupsStateTitle)} ${zipCode}`}
         </p>
       </div>
-      <Button onClick={onClick}>Eenter another location</Button>
+
+      <div className="mt8">
+        <Button block onClick={onClick}>
+          {intl.formatMessage(messages.noPickupsStateButtonLabel)}
+        </Button>
+      </div>
     </div>
   )
 }

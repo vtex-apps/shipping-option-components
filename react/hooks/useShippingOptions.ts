@@ -19,12 +19,14 @@ const useShippingOptions = () => {
   const [inputZipCode, setInputZipCode] = useState<string>()
   const [selectedZipCode, setSelectedZipCode] = useState<string>()
   const [isLoading, setIsLoading] = useState(true)
+  const [isPageLoading, setIsPageLoading] = useState(true)
   const [countryCode, setCountryCode] = useState<string>()
   const [inputErrorMessage, setInputErrorMessage] = useState<string>()
   const [city, setCity] = useState<string>()
   const [pickups, setPickups] = useState<Pickup[]>([])
   const [selectedPickup, setSelectecPickup] = useState<Pickup>()
   const [geoCoordinates, setGeoCoordinates] = useState<number[]>()
+  const [alreadyLoadedPickups, setAlreadyLoadedPickups] = useState(false)
 
   const isSSR = useSSR()
   const { account } = useRuntime()
@@ -46,6 +48,9 @@ const useShippingOptions = () => {
       let [pickup] = responsePickups.items
 
       const pickupPointId = getFacetsData('pickupPoint')
+      const alreadySavedPickupsData = getFacetsData('alreadySavedPickups')
+
+      setAlreadyLoadedPickups(!!alreadySavedPickupsData)
 
       if (pickupPointId) {
         pickup = responsePickups.items.find(
@@ -58,6 +63,8 @@ const useShippingOptions = () => {
       await updateSession(zipCode, coordinates, pickup)
 
       setIsLoading(false)
+
+      return responsePickups.items
     },
     [account]
   )
@@ -69,10 +76,12 @@ const useShippingOptions = () => {
 
     const segmentZipCode = getFacetsData('zip-code')
     const segmentCountryCode = getCountryCode()
+    const alreadySavedPickupsData = getFacetsData('alreadySavedPickups')
 
     setSelectedZipCode(segmentZipCode)
     setInputZipCode(segmentZipCode)
     setCountryCode(segmentCountryCode)
+    setAlreadyLoadedPickups(!!alreadySavedPickupsData)
 
     if (segmentZipCode) {
       getAddress(segmentCountryCode, segmentZipCode, account).then((res) => {
@@ -102,7 +111,12 @@ const useShippingOptions = () => {
     location.reload()
   }
 
-  const onSubmit = async (reload = true) => {
+  const handleIsLoading = () => {
+    setIsLoading(true)
+    setIsPageLoading(false)
+  }
+
+  const onSubmit = async (reload = true, validateAndReload = false) => {
     if (!countryCode) {
       return
     }
@@ -116,7 +130,7 @@ const useShippingOptions = () => {
     setPickups([])
     setCity(undefined)
 
-    setIsLoading(true)
+    handleIsLoading()
 
     const orderFormId = getOrderFormId()
 
@@ -140,14 +154,26 @@ const useShippingOptions = () => {
 
     await updateSession(inputZipCode, coordinates)
 
-    await fetchPickups(countryCode, inputZipCode, coordinates)
+    const pickupsResponse = await fetchPickups(
+      countryCode,
+      inputZipCode,
+      coordinates
+    )
 
     if (!reload) {
       setIsLoading(false)
     }
 
-    if (reload) {
+    if (validateAndReload && !!pickupsResponse && pickupsResponse.length > 0) {
       location.reload()
+    }
+
+    if (reload && !validateAndReload) {
+      location.reload()
+    }
+
+    return {
+      pickups: pickupsResponse,
     }
   }
 
@@ -177,10 +203,13 @@ const useShippingOptions = () => {
     })
   }, [pickupPointLabel, push])
 
+  const isFirstLoading = isPageLoading && isLoading
+
   return {
     zipCode: inputZipCode,
     selectedZipCode,
     isLoading,
+    isFirstLoading,
     inputErrorMessage,
     onSubmit,
     onChange,
@@ -188,6 +217,7 @@ const useShippingOptions = () => {
     pickups,
     selectedPickup,
     onSelectPickup,
+    alreadyLoadedPickups,
   }
 }
 

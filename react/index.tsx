@@ -17,7 +17,7 @@ interface Props {
 function ShippingOptionZipCode({
   hideStoreSelection = false,
   compactMode = false,
-  overlayType = 'blocking-modal',
+  overlayType = 'popover-input',
 }: Props) {
   const { production } = useRuntime()
   const [shouldRender, setShouldRender] = useState<boolean>(!production)
@@ -26,6 +26,7 @@ function ShippingOptionZipCode({
     inputErrorMessage,
     zipCode,
     isLoading,
+    isFirstLoading,
     onSubmit,
     addressLabel,
     onChange,
@@ -33,6 +34,7 @@ function ShippingOptionZipCode({
     pickups,
     selectedPickup,
     onSelectPickup,
+    alreadyLoadedPickups,
   } = useShippingOptions()
 
   const isSSR = useSSR()
@@ -53,7 +55,8 @@ function ShippingOptionZipCode({
     return null
   }
 
-  const isModalOpen = overlayType === 'blocking-modal' && pickups.length === 0
+  const isModalOpen =
+    overlayType === 'blocking-modal' && !isFirstLoading && !alreadyLoadedPickups
 
   return (
     <>
@@ -64,7 +67,7 @@ function ShippingOptionZipCode({
           isLoading={isLoading}
           inputErrorMessage={inputErrorMessage}
           zipCode={zipCode}
-          avaliablePickups={pickups.length > 0 && !!selectedZipCode}
+          isAvaliablePickups={pickups.length > 0}
         />
       )}
 

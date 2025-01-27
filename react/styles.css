@@ -108,6 +108,10 @@
   display: none;
 }
 
+.noPickupsStateContent {
+  margin: auto 0;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

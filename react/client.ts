@@ -1,5 +1,5 @@
 import { SHIPPING_INFO_COOKIE } from './constants'
-import { setCookie } from './utils/cookie'
+import { getFacetsData, setCookie } from './utils/cookie'
 
 export const getAddress = (
   countryCode: string,
@@ -15,9 +15,13 @@ export const updateSession = (
   geoCoordinates: number[],
   pickup?: Pickup
 ) => {
+  const alreadySavedPickups = getFacetsData('alreadySavedPickups')
+
   const facetsValue = `zip-code=${zipCode};coordinates=${geoCoordinates.join(
     ','
-  )}${pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''}`
+  )}${
+    pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''
+  };alreadySavedPickups=${!!pickup || !!alreadySavedPickups}`
 
   // __RUNTIME__.segmentToken is not reliable for the facets. It might not be updated. For this reason we must try to get the info from our custom cookie first
   // Encode to base64 because ";" is not allowed in cookies

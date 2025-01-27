@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ReactModal from 'react-modal'
 
 import NoPickupsState from './NoPickupsState'
@@ -11,7 +11,7 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    padding: '40px',
+    padding: '64px 40px',
     transform: 'translate(-50%, -50%)',
     borderRadius: '12px',
     minWidth: '520px',
@@ -28,11 +28,11 @@ const customStyles = {
 
 interface Props {
   onChange: (zipCode?: string) => void
-  onSubmit: () => void
+  onSubmit: (reload?: boolean, validateAndReload?: boolean) => Promise<any>
   isLoading?: boolean
   inputErrorMessage?: string
   zipCode?: string
-  avaliablePickups: boolean
+  isAvaliablePickups: boolean
 }
 
 export const Modal = ({
@@ -41,18 +41,12 @@ export const Modal = ({
   isLoading,
   inputErrorMessage,
   zipCode,
-  avaliablePickups,
+  isAvaliablePickups,
 }: Props) => {
   const [openNoPickupState, setOpenNoPickupState] = useState(false)
 
-  useEffect(() => {
-    if (!avaliablePickups) {
-      setOpenNoPickupState(true)
-    }
-  }, [avaliablePickups])
-
   return (
-    <ReactModal style={customStyles} isOpen>
+    <ReactModal style={customStyles} isOpen={!isAvaliablePickups}>
       {openNoPickupState ? (
         <NoPickupsState
           zipCode={zipCode ?? ''}
@@ -61,7 +55,13 @@ export const Modal = ({
       ) : (
         <AddLocation
           onChange={onChange}
-          onSubmit={onSubmit}
+          onSubmit={async () => {
+            const response = await onSubmit(false, true)
+
+            if (response) {
+              setOpenNoPickupState(true)
+            }
+          }}
           isLoading={isLoading}
           inputErrorMessage={inputErrorMessage}
           zipCode={zipCode}
