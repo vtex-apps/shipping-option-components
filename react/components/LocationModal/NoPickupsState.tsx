@@ -25,7 +25,9 @@ const NoPickupsState = ({ zipCode, onClick }: Props) => {
           {intl.formatMessage(messages.noPickupsStateTitle)}
         </p>
         <p className="t-small mt3 mb0 c-muted-1">
-          {`${intl.formatMessage(messages.noPickupsStateTitle)} ${zipCode}`}
+          {`${intl.formatMessage(
+            messages.noPickupsStateDescription
+          )} ${zipCode}`}
         </p>
       </div>
 

@@ -17,7 +17,7 @@ interface Props {
 function ShippingOptionZipCode({
   hideStoreSelection = false,
   compactMode = false,
-  overlayType = 'popover-input',
+  overlayType = 'blocking-modal',
 }: Props) {
   const { production } = useRuntime()
   const [shouldRender, setShouldRender] = useState<boolean>(!production)
@@ -60,16 +60,15 @@ function ShippingOptionZipCode({
 
   return (
     <>
-      {isModalOpen && (
-        <Modal
-          onChange={onChange}
-          onSubmit={onSubmit}
-          isLoading={isLoading}
-          inputErrorMessage={inputErrorMessage}
-          zipCode={zipCode}
-          isAvaliablePickups={pickups.length > 0}
-        />
-      )}
+      <Modal
+        isOpen={isModalOpen}
+        onChange={onChange}
+        onSubmit={onSubmit}
+        isLoading={isLoading}
+        inputErrorMessage={inputErrorMessage}
+        zipCode={zipCode}
+        isAvaliablePickups={pickups.length > 0}
+      />
 
       <DeliveryDrawer
         addressLabel={addressLabel}

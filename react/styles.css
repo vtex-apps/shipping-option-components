@@ -112,6 +112,14 @@
   margin: auto 0;
 }
 
+.modalCloseButton {
+  cursor: pointer;
+  background-color: unset;
+  border: 0;
+  text-align: left;
+  align-self: end;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

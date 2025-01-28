@@ -53,6 +53,10 @@ export function getFacetsData(facetsDataTarget: string) {
     return data.substring(0, data.length - 1)
   }
 
+  if (data === 'true' || data === 'false') {
+    return JSON.parse(data)
+  }
+
   return data
 }
 

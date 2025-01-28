@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import ReactModal from 'react-modal'
+import { IconClose } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 
 import NoPickupsState from './NoPickupsState'
 import AddLocation from './AddLocation'
+
+const CSS_HANDLES = ['modalCloseButton']
 
 const customStyles = {
   content: {
@@ -27,26 +31,44 @@ const customStyles = {
 }
 
 interface Props {
+  isOpen: boolean
   onChange: (zipCode?: string) => void
   onSubmit: (reload?: boolean, validateAndReload?: boolean) => Promise<any>
   isLoading?: boolean
   inputErrorMessage?: string
   zipCode?: string
   isAvaliablePickups: boolean
+  showCloseButton?: boolean
 }
 
 export const Modal = ({
+  isOpen,
   onChange,
   onSubmit,
   isLoading,
   inputErrorMessage,
   zipCode,
   isAvaliablePickups,
+  showCloseButton = false,
 }: Props) => {
   const [openNoPickupState, setOpenNoPickupState] = useState(false)
+  const handles = useCssHandles(CSS_HANDLES)
+
+  const modalStyles = {
+    ...customStyles,
+    content: {
+      ...customStyles.content,
+      padding: showCloseButton ? '40px' : '64px 40px',
+    },
+  }
 
   return (
-    <ReactModal style={customStyles} isOpen={!isAvaliablePickups}>
+    <ReactModal style={modalStyles} isOpen={isOpen && !isAvaliablePickups}>
+      {showCloseButton && (
+        <button onClick={() => {}} className={handles.modalCloseButton}>
+          <IconClose size={24} />
+        </button>
+      )}
       {openNoPickupState ? (
         <NoPickupsState
           zipCode={zipCode ?? ''}
