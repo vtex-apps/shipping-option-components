@@ -19,13 +19,15 @@ export const updateSession = (
 
   const facetsValue = `zip-code=${zipCode};coordinates=${geoCoordinates.join(
     ','
-  )}${
-    pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''
-  };alreadySavedPickups=${!!pickup || !!alreadySavedPickups}`
+  )}${pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''}`
+
+  const cookieFacetsValue = `${facetsValue};alreadySavedPickups=${
+    !!pickup || !!alreadySavedPickups
+  }`
 
   // __RUNTIME__.segmentToken is not reliable for the facets. It might not be updated. For this reason we must try to get the info from our custom cookie first
   // Encode to base64 because ";" is not allowed in cookies
-  setCookie(SHIPPING_INFO_COOKIE, btoa(facetsValue))
+  setCookie(SHIPPING_INFO_COOKIE, btoa(cookieFacetsValue))
 
   return fetch('/api/sessions', {
     method: 'POST',
