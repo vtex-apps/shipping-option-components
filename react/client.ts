@@ -1,5 +1,5 @@
 import { SHIPPING_INFO_COOKIE } from './constants'
-import { getFacetsData, setCookie } from './utils/cookie'
+import { setCookie } from './utils/cookie'
 
 export const getAddress = (
   countryCode: string,
@@ -15,19 +15,13 @@ export const updateSession = (
   geoCoordinates: number[],
   pickup?: Pickup
 ) => {
-  const alreadySavedPickups = getFacetsData('alreadySavedPickups')
-
   const facetsValue = `zip-code=${zipCode};coordinates=${geoCoordinates.join(
     ','
   )}${pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''}`
 
-  const cookieFacetsValue = `${facetsValue};alreadySavedPickups=${
-    !!pickup || !!alreadySavedPickups
-  }`
-
   // __RUNTIME__.segmentToken is not reliable for the facets. It might not be updated. For this reason we must try to get the info from our custom cookie first
   // Encode to base64 because ";" is not allowed in cookies
-  setCookie(SHIPPING_INFO_COOKIE, btoa(cookieFacetsValue))
+  setCookie(SHIPPING_INFO_COOKIE, btoa(facetsValue))
 
   return fetch('/api/sessions', {
     method: 'POST',
@@ -59,3 +53,11 @@ export const updateOrderForm = (
       'Content-Type': 'application/json',
     },
   }).then((res) => res.json())
+
+export const getProducts = async (zipCode: string, geoCoordinates: string) => {
+  const { products } = await fetch(
+    `/api/io/_v/api/intelligent-search/product_search/zip-code/${zipCode}/coordinates/${geoCoordinates}`
+  ).then((res) => res.json())
+
+  return products
+}

@@ -32,23 +32,23 @@ const customStyles = {
 
 interface Props {
   isOpen: boolean
+  onClose: () => void
   onChange: (zipCode?: string) => void
   onSubmit: (reload?: boolean, validateAndReload?: boolean) => Promise<any>
   isLoading?: boolean
   inputErrorMessage?: string
   zipCode?: string
-  isAvaliablePickups: boolean
   showCloseButton?: boolean
 }
 
-export const Modal = ({
+export const LocationModal = ({
   isOpen,
+  onClose,
   onChange,
   onSubmit,
   isLoading,
   inputErrorMessage,
   zipCode,
-  isAvaliablePickups,
   showCloseButton = false,
 }: Props) => {
   const [openNoPickupState, setOpenNoPickupState] = useState(false)
@@ -63,9 +63,9 @@ export const Modal = ({
   }
 
   return (
-    <ReactModal style={modalStyles} isOpen={isOpen && !isAvaliablePickups}>
+    <ReactModal style={modalStyles} isOpen={isOpen}>
       {showCloseButton && (
-        <button onClick={() => {}} className={handles.modalCloseButton}>
+        <button onClick={onClose} className={handles.modalCloseButton}>
           <IconClose size={24} />
         </button>
       )}
@@ -78,11 +78,11 @@ export const Modal = ({
         <AddLocation
           onChange={onChange}
           onSubmit={async () => {
-            const response = await onSubmit(false, true)
+            await onSubmit()
 
-            if (response) {
-              setOpenNoPickupState(true)
-            }
+            // if (!complete) {
+            //   setOpenNoPickupState(true)
+            // }
           }}
           isLoading={isLoading}
           inputErrorMessage={inputErrorMessage}
