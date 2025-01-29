@@ -59,8 +59,6 @@ const useShippingOptions = () => {
       await updateSession(zipCode, coordinates, pickup)
 
       setIsLoading(false)
-
-      return responsePickups.items
     },
     [account]
   )
