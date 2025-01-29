@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Вземане от",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Избор на магазин",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Вземане наблизо",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "Вземане"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Вземане",
+  "store/shipping-option-zipcode.popoverButton.label": "Избиране на местоположение",
+  "store/shipping-option-zipcode.popover.description": "Опциите и скоростта на доставката могат да варират в зависимост от адреса за доставка и магазина"
 }

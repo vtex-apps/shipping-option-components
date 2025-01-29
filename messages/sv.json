@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Välj butik",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Hämtning i närheten",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Hämta",
-  "store/shipping-option-zipcode.updateButton.label": "Uppdatera"
+  "store/shipping-option-zipcode.updateButton.label": "Uppdatera",
+  "store/shipping-option-zipcode.popoverButton.label": "Välj en plats",
+  "store/shipping-option-zipcode.popover.description": "Leveransalternativ och hastighet kan variera beroende på leveransadress och butik"
 }

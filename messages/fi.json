@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Valitse myymälä",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Nouto läheltä",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Nouto",
-  "store/shipping-option-zipcode.updateButton.label": "Päivitä"
+  "store/shipping-option-zipcode.updateButton.label": "Päivitä",
+  "store/shipping-option-zipcode.popoverButton.label": "Valitse sijainti",
+  "store/shipping-option-zipcode.popover.description": "Toimitusvaihtoehdot ja -nopeus voivat vaihdella toimitusosoitteen ja myymälän mukaan"
 }

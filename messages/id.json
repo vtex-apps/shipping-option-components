@@ -18,5 +18,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Pilih Toko",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Ambil terdekat",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Ambil",
-  "store/shipping-option-zipcode.updateButton.label": "Perbarui"
+  "store/shipping-option-zipcode.updateButton.label": "Perbarui",
+  "store/shipping-option-zipcode.popoverButton.label": "Pilih lokasi",
+  "store/shipping-option-zipcode.popover.description": "Opsi pengiriman dan kecepatan dapat bervariasi sesuai alamat pengiriman dan toko"
 }

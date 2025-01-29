@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "픽업 장소",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "스토어 선택",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "근처 픽업",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "픽업"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "픽업",
+  "store/shipping-option-zipcode.popoverButton.label": "위치 선택",
+  "store/shipping-option-zipcode.popover.description": "배송 옵션 및 속도는 배송 주소 및 스토어에 따라 다를 수 있습니다"
 }

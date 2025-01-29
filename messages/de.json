@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Abholung bei",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Shop auswählen",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Abholung in der Nähe",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "Abholung"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Abholung",
+  "store/shipping-option-zipcode.popoverButton.label": "Wähle einen Ort",
+  "store/shipping-option-zipcode.popover.description": "Versandoptionen und Versandgeschwindigkeit können je nach Lieferadresse und Lager variieren"
 }
