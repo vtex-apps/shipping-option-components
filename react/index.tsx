@@ -22,7 +22,7 @@ interface Props {
 function ShippingOptionZipCode({
   hideStoreSelection = false,
   compactMode = false,
-  overlayType = 'blocking-modal',
+  overlayType = 'popover-input',
 }: Props) {
   const { production } = useRuntime()
   const intl = useIntl()
