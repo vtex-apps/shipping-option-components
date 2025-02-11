@@ -53,11 +53,3 @@ export const updateOrderForm = (
       'Content-Type': 'application/json',
     },
   }).then((res) => res.json())
-
-export const getProducts = async (zipCode: string, geoCoordinates: string) => {
-  const { products } = await fetch(
-    `/api/io/_v/api/intelligent-search/product_search/zip-code/${zipCode}/coordinates/${geoCoordinates}`
-  ).then((res) => res.json())
-
-  return products
-}

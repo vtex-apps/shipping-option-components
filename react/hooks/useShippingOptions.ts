@@ -108,12 +108,6 @@ const useShippingOptions = () => {
     setIsPageLoading(false)
   }
 
-  // const isValidZipcode = async (zipCode: string, coordinates: string[]) => {
-  //   const products = await getProducts(zipCode, coordinates.join(','))
-
-  //   return products.length > 0
-  // }
-
   const onSubmit = async (reload = true) => {
     if (!countryCode) {
       return
@@ -147,14 +141,6 @@ const useShippingOptions = () => {
 
       return
     }
-
-    // const validZipcode = await isValidZipcode(inputZipCode, coordinates)
-
-    // if (!validZipcode) {
-    //   setIsLoading(false)
-
-    //   return validZipcode
-    // }
 
     setSelectedZipCode(inputZipCode)
 
