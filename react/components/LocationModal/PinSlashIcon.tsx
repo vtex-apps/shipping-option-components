@@ -1,6 +1,6 @@
 import React from 'react'
 
-const IconMarker = () => {
+const PinSlashIcon = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -25,4 +25,4 @@ const IconMarker = () => {
   )
 }
 
-export default IconMarker
+export default PinSlashIcon

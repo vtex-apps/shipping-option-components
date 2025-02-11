@@ -3,7 +3,7 @@ import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import { useIntl } from 'react-intl'
 
-import IconMarker from '../IconMarker'
+import PinSlashIcon from './PinSlashIcon'
 import messages from '../../messages'
 
 const CSS_HANDLES = ['noPickupsStateContent'] as const
@@ -20,7 +20,7 @@ const NoPickupsState = ({ zipCode, onClick }: Props) => {
   return (
     <div className="flex-auto flex flex-column">
       <div className={`flex flex-column ${handle.noPickupsStateContent}`}>
-        <IconMarker />
+        <PinSlashIcon />
         <p className="f3 fw6 mb0 mt5">
           {intl.formatMessage(messages.noPickupsStateTitle)}
         </p>
