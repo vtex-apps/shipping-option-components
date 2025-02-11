@@ -111,7 +111,6 @@ function ShippingOptionZipCode({
         isLoading={isLoading}
         onChange={onChange}
         onSubmit={() => onSubmit(false)}
-        addressLabel={addressLabel}
         inputErrorMessage={inputErrorMessage}
         selectedZipCode={selectedZipCode}
         zipCode={zipCode}

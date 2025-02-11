@@ -13,7 +13,6 @@ const CSS_HANDLES = ['drawerHiddenIcon'] as const
 
 interface Props {
   isLoading: boolean
-  addressLabel?: string
   onSubmit: () => void
   inputErrorMessage?: string
   onChange: (zipCode?: string) => void
@@ -27,7 +26,6 @@ interface Props {
 }
 
 const PikcupDrawer = ({
-  addressLabel,
   isLoading,
   onChange,
   onSubmit,
@@ -85,7 +83,6 @@ const PikcupDrawer = ({
         isLoading={isLoading}
         onChange={onChange}
         onSubmit={onSubmit}
-        addressLabel={addressLabel}
         inputErrorMessage={inputErrorMessage}
         selectedZipCode={selectedZipCode}
         zipCode={zipCode}
