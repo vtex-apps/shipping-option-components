@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "Bekijk winkels in uw regio",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "Kies een winkel",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "Voer uw postcode in",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "De ingevoerde postcode valt niet binnen ons gebied",
+  "store/shipping-option-zipcode.postalCodeInput.error": "De ingevoerde postcode valt niet binnen ons gebied",
   "store/shipping-option-zipcode.currentLocationButton": "Gebruik huidige locatie",
   "store/shipping-option-zipcode.storeHoursButton": "Winkeluren bekijken",
   "store/shipping-option-zipcode.viewMoreButton": "Meer weergeven",
@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "Afhalen op",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "Bezoek een winkel",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Afhalen in de buurt van",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "Afhalen"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "Afhalen",
+  "store/shipping-option-zipcode.popoverButton.label": "Selecteer een locatie",
+  "store/shipping-option-zipcode.popover.description": "Verzendopties en -snelheid kunnen variëren op basis van afleveradres en winkel"
 }

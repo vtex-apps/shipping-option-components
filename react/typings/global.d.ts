@@ -14,6 +14,8 @@ declare interface Pickup {
   }
 }
 
+declare type OverlayType = 'popover-button' | 'popover-input'
+
 declare global {
   interface Window {
     addressLabel?: stirng

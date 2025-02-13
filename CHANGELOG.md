@@ -7,6 +7,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.4] - 2025-01-29
+
+### Fixed
+
+- Missing translations update
+
+## [0.5.3] - 2025-01-17
+
+### Fixed
+
+- The selected pickup point does not change due to a problem updating cookie data
+
+## [0.5.2] - 2025-01-17
+
+### Fixed
+
+- The hideStoreSelection property removes the Pickup Drawer and it cannot be opened
+
+## [0.5.1] - 2024-12-19
+
+### Fixed
+
+- sometimes zip code is not updated due to a problem in `__RUNTIME__.segmentToken`
+
+## [0.5.0] - 2024-12-18
+
+### Added
+
+- Popover to open the location drawer;
+- Popover with input to add postal code.
+
+## [0.4.2] - 2024-11-06
+
+### Fixed
+
+- Selected pickup doesn't work on first load
+
+## [0.4.1] - 2024-11-01
+
+### Fixed
+
+- Drawer opens behind the sidebar
+
+## [0.4.0] - 2024-10-04
+
+### Fixed
+
+- Selected pickup did not change.
+
+## [0.3.0] - 2024-10-04
+
+### Added
+
+- Catalan, Czech, Danish, Greek, Finnish, Hungarian, Indonesian, Norwegian, Polish, Russian, Slovak, Slovenian, Swedish and Ukrainian translations.
+
 ## [0.2.0] - 2024-10-02
 
 ### Added

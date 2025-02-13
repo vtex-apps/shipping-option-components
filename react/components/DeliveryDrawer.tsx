@@ -17,6 +17,7 @@ interface Props {
   zipCode?: string
   selectedZipCode?: string
   compact: boolean
+  overlayType?: OverlayType
 }
 
 const DeliveryDrawer = ({
@@ -28,6 +29,7 @@ const DeliveryDrawer = ({
   selectedZipCode,
   zipCode,
   compact,
+  overlayType,
 }: Props) => {
   const intl = useIntl()
   const { push } = usePixel()
@@ -48,6 +50,11 @@ const DeliveryDrawer = ({
           placeholder={intl.formatMessage(messages.deliverToButtonPlaceholder)}
           label={intl.formatMessage(messages.deliverToButtonLabel)}
           compact={compact}
+          zipCode={zipCode}
+          onChange={onChange}
+          onSubmit={onSubmit}
+          inputErrorMessage={inputErrorMessage}
+          overlayType={overlayType}
         />
       }
       title={intl.formatMessage(messages.storeDeliverDrawerTitle)}

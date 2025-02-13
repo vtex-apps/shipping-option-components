@@ -1,3 +1,5 @@
+import { SHIPPING_INFO_COOKIE } from '../constants'
+
 export function getCookie(name: string) {
   const value = `; ${document.cookie}`
   const parts = value.split(`; ${name}=`)
@@ -9,34 +11,49 @@ export function getCookie(name: string) {
   return undefined
 }
 
-export function getZipCode() {
-  const segment = (window as any)?.__RUNTIME__.segmentToken
+export function setCookie(name: string, val: string) {
+  const date = new Date()
+  const value = val
 
-  if (!segment) {
-    return
+  date.setTime(date.getTime() + 30 * 60 * 1000)
+
+  document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`
+}
+
+export function getFacetsData(facetsDataTarget: string) {
+  // __RUNTIME__.segmentToken is not reliable for the facets. It might not be updated. For this reason we must try to get the info from our custom cookie first
+
+  let facets = atob(getCookie(SHIPPING_INFO_COOKIE) ?? '')
+
+  if (!facets) {
+    const segment = (window as any)?.__RUNTIME__.segmentToken
+
+    if (!segment) {
+      return
+    }
+
+    facets = JSON.parse(atob(segment)).facets
   }
-
-  const { facets } = JSON.parse(atob(segment))
 
   if (!facets) {
     return
   }
 
-  const zipCodeFacet = facets
+  const facetsTarget = facets
     .split(';')
-    .find((facet: string) => facet.indexOf('zip-code') > -1)
+    .find((facet: string) => facet.indexOf(facetsDataTarget) > -1)
 
-  if (!zipCodeFacet) {
+  if (!facetsTarget) {
     return
   }
 
-  const [, zipCode] = zipCodeFacet.split('=')
+  const [, data] = facetsTarget.split('=')
 
-  if (zipCode && zipCode[zipCode.length - 1] === ';') {
-    return zipCode.substring(0, zipCode.length - 1)
+  if (data && data[data.length - 1] === ';') {
+    return data.substring(0, data.length - 1)
   }
 
-  return zipCode
+  return data
 }
 
 export function getCountryCode() {

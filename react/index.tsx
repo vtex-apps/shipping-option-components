@@ -10,11 +10,13 @@ import { getCookie } from './utils/cookie'
 interface Props {
   hideStoreSelection?: boolean
   compactMode?: boolean
+  overlayType?: OverlayType
 }
 
 function ShippingOptionZipCode({
   hideStoreSelection = false,
   compactMode = false,
+  overlayType = 'popover-input',
 }: Props) {
   const { production } = useRuntime()
   const [shouldRender, setShouldRender] = useState<boolean>(!production)
@@ -61,22 +63,22 @@ function ShippingOptionZipCode({
         selectedZipCode={selectedZipCode}
         zipCode={zipCode}
         compact={compactMode}
+        overlayType={overlayType}
       />
-      {!hideStoreSelection && (
-        <PikcupDrawer
-          isLoading={isLoading}
-          onChange={onChange}
-          onSubmit={() => onSubmit(false)}
-          addressLabel={addressLabel}
-          inputErrorMessage={inputErrorMessage}
-          selectedZipCode={selectedZipCode}
-          zipCode={zipCode}
-          pickups={pickups}
-          selectedPickup={selectedPickup}
-          onSelectPickup={onSelectPickup}
-          compact={compactMode}
-        />
-      )}
+      <PikcupDrawer
+        isLoading={isLoading}
+        onChange={onChange}
+        onSubmit={() => onSubmit(false)}
+        addressLabel={addressLabel}
+        inputErrorMessage={inputErrorMessage}
+        selectedZipCode={selectedZipCode}
+        zipCode={zipCode}
+        pickups={pickups}
+        selectedPickup={selectedPickup}
+        onSelectPickup={onSelectPickup}
+        compact={compactMode}
+        hideStoreSelection={hideStoreSelection}
+      />
     </>
   )
 }

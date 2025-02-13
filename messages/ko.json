@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "해당 지역의 스토어 보기",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "스토어 선택",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "우편번호 입력",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "입력한 우편번호가 당사의 서비스 지역 내에 있지 않습니다",
+  "store/shipping-option-zipcode.postalCodeInput.error": "입력한 우편번호가 당사의 서비스 지역 내에 있지 않습니다",
   "store/shipping-option-zipcode.currentLocationButton": "현재 위치 사용",
   "store/shipping-option-zipcode.storeHoursButton": "매장 시간 보기",
   "store/shipping-option-zipcode.viewMoreButton": "더 보기",
@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "픽업 장소",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "스토어 선택",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "근처 픽업",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "픽업"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "픽업",
+  "store/shipping-option-zipcode.popoverButton.label": "위치 선택",
+  "store/shipping-option-zipcode.popover.description": "배송 옵션 및 속도는 배송 주소 및 스토어에 따라 다를 수 있습니다"
 }

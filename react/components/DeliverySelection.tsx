@@ -1,7 +1,9 @@
 import React from 'react'
+import { useIntl } from 'react-intl'
 
 import PostalCodeInput from './PostalCodeInput'
 import SubmitButton from './SubmitButton'
+import messages from '../messages'
 
 interface Props {
   onSubmit: (zipCode?: string) => void
@@ -24,6 +26,7 @@ const DeliverySelection = ({
 }: Props) => {
   const newZipCodeTyped = zipCode !== selectedZipCode
   const shouldHideUpdateButton = (!zipCode || !newZipCodeTyped) && !isLoading
+  const intl = useIntl()
 
   return (
     <div className="flex flex-column justify-between">
@@ -33,6 +36,8 @@ const DeliverySelection = ({
         errorMessage={inputErrorMessage}
         onChange={onChange}
         addressLabel={addressLabel}
+        placeholder={intl.formatMessage(messages.postalCodeInputPlaceHolder)}
+        newZipCodeTyped={newZipCodeTyped}
       />
       <div className="fixed left-0 bottom-0 w-100 flex justify-center mb7">
         <SubmitButton

@@ -4,7 +4,7 @@ import { useRuntime, useSSR } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
 import { usePixel } from 'vtex.pixel-manager'
 
-import { getCountryCode, getOrderFormId, getZipCode } from '../utils/cookie'
+import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
 import messages from '../messages'
 import {
   getAddress,
@@ -62,7 +62,7 @@ const useShippingOptions = () => {
       return
     }
 
-    const segmentZipCode = getZipCode()
+    const segmentZipCode = getFacetsData('zip-code')
     const segmentCountryCode = getCountryCode()
 
     setSelectedZipCode(segmentZipCode)

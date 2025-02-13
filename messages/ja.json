@@ -7,7 +7,7 @@
   "store/shipping-option-zipcode.pickupDrawer.title.empty": "お住まいの地域の店舗を見る",
   "store/shipping-option-zipcode.pickupDrawer.title.filled": "店舗を選択",
   "store/shipping-option-zipcode.postalCodeInput.placeholder": "郵便番号を入力してください",
-  "store/shipping-option-zipcode.postalCodeInput.error.": "入力された郵便番号は、当社のサービス提供地域外です。",
+  "store/shipping-option-zipcode.postalCodeInput.error": "入力された郵便番号は、当社のサービス提供地域外です。",
   "store/shipping-option-zipcode.currentLocationButton": "現在地を使用",
   "store/shipping-option-zipcode.storeHoursButton": "営業時間を見る",
   "store/shipping-option-zipcode.viewMoreButton": "もっと見る",
@@ -17,5 +17,7 @@
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.title": "ピックアップ場所",
   "store/shipping-option-zipcode.shippinFilter.pkcupAt.chooseAStore": "店舗を選択",
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "お近くのピックアップ場所",
-  "store/shipping-option-zipcode.shippinFilter.pickpu": "ピックアップ"
+  "store/shipping-option-zipcode.shippinFilter.pickpu": "ピックアップ",
+  "store/shipping-option-zipcode.popoverButton.label": "場所を選択",
+  "store/shipping-option-zipcode.popover.description": "発送オプションと所要日数は、配送先住所や店舗によって異なる場合があります"
 }

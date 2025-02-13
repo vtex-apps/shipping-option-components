@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useIntl } from 'react-intl'
 import { Input, IconClear } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
-import messages from '../messages'
 import '../styles.css'
 import PinIcon from './PinIcon'
 
-const CSS_HANDLES = ['postalCodeInputClearButton', 'zipCodeValue'] as const
+const CSS_HANDLES = [
+  'postalCodeInputClearButton',
+  'zipCodeValue',
+  'postalCodeInputContainer',
+] as const
 
 interface ZipCodeValueProps {
   zipCode: string
@@ -32,6 +34,9 @@ interface Props {
   addressLabel?: string
   zipCode?: string
   errorMessage?: string
+  showClearButton?: boolean
+  placeholder?: string
+  newZipCodeTyped?: boolean
 }
 
 const PostalCodeInput = ({
@@ -40,6 +45,9 @@ const PostalCodeInput = ({
   onSubmit,
   onChange,
   addressLabel,
+  showClearButton = true,
+  placeholder,
+  newZipCodeTyped,
 }: Props) => {
   const [isZipCodeSet, setIsZipCodeSet] = useState(!!zipCode)
 
@@ -49,14 +57,13 @@ const PostalCodeInput = ({
     }
   }, [errorMessage])
 
-  const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
 
   return (
-    <div className="mb7">
+    <div className={handles.postalCodeInputContainer}>
       {isZipCodeSet ? (
         <ZipCodeValue
-          zipCode={addressLabel ?? ''}
+          zipCode={(newZipCodeTyped ? zipCode : addressLabel) ?? ''}
           onClick={() => setIsZipCodeSet(false)}
         />
       ) : (
@@ -76,16 +83,18 @@ const PostalCodeInput = ({
           }}
           value={zipCode}
           errorMessage={errorMessage}
-          placeholder={intl.formatMessage(messages.postalCodeInputPlaceHolder)}
+          placeholder={placeholder}
           suffix={
-            <button
-              className={handles.postalCodeInputClearButton}
-              onClick={() => {
-                onChange('')
-              }}
-            >
-              <IconClear />
-            </button>
+            showClearButton ? (
+              <button
+                className={handles.postalCodeInputClearButton}
+                onClick={() => {
+                  onChange('')
+                }}
+              >
+                <IconClear />
+              </button>
+            ) : null
           }
         />
       )}

@@ -1,12 +1,15 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { usePixel } from 'vtex.pixel-manager'
+import { useCssHandles } from 'vtex.css-handles'
 
 import ShippingOptionDrawer from './ShippingOptionDrawer'
 import ShippingOptionButton from './ShippingOptionButton'
 import { STORE_DRAWER_PIXEL_EVENT_ID } from '../constants'
 import messages from '../messages'
 import PickupSelection from './PickupSelection'
+
+const CSS_HANDLES = ['drawerHiddenIcon'] as const
 
 interface Props {
   isLoading: boolean
@@ -20,6 +23,7 @@ interface Props {
   pickups: Pickup[]
   onSelectPickup: (pickup: Pickup) => void
   compact: boolean
+  hideStoreSelection: boolean
 }
 
 const PikcupDrawer = ({
@@ -34,9 +38,11 @@ const PikcupDrawer = ({
   selectedPickup,
   onSelectPickup,
   compact,
+  hideStoreSelection,
 }: Props) => {
   const intl = useIntl()
   const { push } = usePixel()
+  const handles = useCssHandles(CSS_HANDLES)
 
   const onOpen = () => {
     push({
@@ -56,14 +62,18 @@ const PikcupDrawer = ({
   return (
     <ShippingOptionDrawer
       icon={
-        <ShippingOptionButton
-          onClick={onOpen}
-          loading={isLoading}
-          value={storeLabel}
-          placeholder={intl.formatMessage(messages.storeButtonPlaceHolder)}
-          label={intl.formatMessage(messages.storeButtonLabel)}
-          compact={compact}
-        />
+        hideStoreSelection ? (
+          <div className={`${handles.drawerHiddenIcon}`} />
+        ) : (
+          <ShippingOptionButton
+            onClick={onOpen}
+            loading={isLoading}
+            value={storeLabel}
+            placeholder={intl.formatMessage(messages.storeButtonPlaceHolder)}
+            label={intl.formatMessage(messages.storeButtonLabel)}
+            compact={compact}
+          />
+        )
       }
       title={intl.formatMessage(drawerTitleMessage)}
       customPixelEventId={STORE_DRAWER_PIXEL_EVENT_ID}
