@@ -8,13 +8,15 @@ export const getAddress = (
   ).then((res) => res.json())
 
 export const updateSession = (
+  countryCode: string,
   zipCode: string,
   geoCoordinates: number[],
   pickup?: Pickup
+  // eslint-disable-next-line max-params
 ) =>
   fetch('/api/sessions', {
     method: 'POST',
-    body: `{"public":{"facets":{"value":"zip-code=${zipCode};coordinates=${geoCoordinates.join(
+    body: `{"public":{"facets":{"value":"zip-code=${zipCode};country=${countryCode};coordinates=${geoCoordinates.join(
       ','
     )}${pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''}"}}}`,
     headers: {

@@ -45,7 +45,12 @@ const useShippingOptions = () => {
 
       setSelectecPickup(responsePickups.items[0])
 
-      await updateSession(zipCode, coordinates, responsePickups.items[0])
+      await updateSession(
+        country,
+        zipCode,
+        coordinates,
+        responsePickups.items[0]
+      )
 
       setIsLoading(false)
     },
@@ -87,7 +92,8 @@ const useShippingOptions = () => {
   const onSelectPickup = async (pickup: Pickup) => {
     setSelectecPickup(pickup)
 
-    await updateSession(selectedZipCode!, geoCoordinates!, pickup)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    await updateSession(countryCode!, selectedZipCode!, geoCoordinates!, pickup)
 
     location.reload()
   }
@@ -127,7 +133,7 @@ const useShippingOptions = () => {
       return
     }
 
-    await updateSession(inputZipCode, coordinates)
+    await updateSession(countryCode, inputZipCode, coordinates)
 
     if (!reload) {
       await fetchPickups(countryCode, inputZipCode, coordinates)
