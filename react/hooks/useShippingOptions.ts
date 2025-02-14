@@ -37,20 +37,25 @@ const useShippingOptions = () => {
 
       setPickups(responsePickups.items)
 
-      if (responsePickups.items.length === 0) {
+      if (responsePickups?.items?.length === 0) {
         setIsLoading(false)
 
         return
       }
 
-      setSelectecPickup(responsePickups.items[0])
+      let [pickup] = responsePickups.items
 
-      await updateSession(
-        country,
-        zipCode,
-        coordinates,
-        responsePickups.items[0]
-      )
+      const pickupPointId = getFacetsData('pickupPoint')
+
+      if (pickupPointId) {
+        pickup = responsePickups.items.find(
+          (p: any) => p.pickupPoint.id === pickupPointId
+        )
+      }
+
+      setSelectecPickup(pickup)
+
+      await updateSession(country, zipCode, coordinates, pickup)
 
       setIsLoading(false)
     },
@@ -109,7 +114,6 @@ const useShippingOptions = () => {
       return
     }
 
-    setSelectedZipCode(inputZipCode)
     setPickups([])
     setCity(undefined)
 
@@ -133,10 +137,11 @@ const useShippingOptions = () => {
       return
     }
 
+    setSelectedZipCode(inputZipCode)
+
     await updateSession(countryCode, inputZipCode, coordinates)
 
     if (!reload) {
-      await fetchPickups(countryCode, inputZipCode, coordinates)
       setIsLoading(false)
     }
 
