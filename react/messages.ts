@@ -62,6 +62,28 @@ const messages = defineMessages({
     id: 'store/shipping-option-zipcode.popover.postalCodeLink',
     defaultMessaage: '',
   },
+  locationModalTitle: {
+    id: 'store/shipping-option-zipcode.location-modal.title',
+    defaultMessaage: '',
+  },
+  locationModalDescription: {
+    id: 'store/shipping-option-zipcode.location-modal.description',
+    defaultMessaage: '',
+  },
+  noPickupsStateTitle: {
+    id: 'store/shipping-option-zipcode.location-modal.no-pickups-state.title',
+    defaultMessaage: '',
+  },
+  noPickupsStateDescription: {
+    id:
+      'store/shipping-option-zipcode.location-modal.no-pickups-state.description',
+    defaultMessaage: '',
+  },
+  noPickupsStateButtonLabel: {
+    id:
+      'store/shipping-option-zipcode.location-modal.no-pickups-state.button.label',
+    defaultMessaage: '',
+  },
 })
 
 export default messages
