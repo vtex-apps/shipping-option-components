@@ -31,7 +31,7 @@ const ZipCodeValue = ({ zipCode, onClick }: ZipCodeValueProps) => {
 interface Props {
   onSubmit: () => void
   onChange: (zipCode?: string) => void
-  addressLabel?: string
+  addressLabel?: string | null
   zipCode?: string
   errorMessage?: string
   showClearButton?: boolean

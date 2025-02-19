@@ -11,7 +11,7 @@ interface Props {
   zipCode?: string
   onChange: (zipCode?: string) => void
   addressLabel?: string
-  selectedZipCode?: string
+  selectedZipCode?: string | null
   isLoading: boolean
 }
 

@@ -23,5 +23,10 @@
   "store/shipping-option-zipcode.popover.description": "Offers and delivery options vary based on region.",
   "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Continue",
   "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Postal Code",
-  "store/shipping-option-zipcode.popover.postalCodeLink": "I don't know my postal code"
+  "store/shipping-option-zipcode.popover.postalCodeLink": "I don't know my postal code",
+  "store/shipping-option-zipcode.location-modal.title": "Enter a location",
+  "store/shipping-option-zipcode.location-modal.description": "Offers and delivery options vary based on region.",
+  "store/shipping-option-zipcode.location-modal.no-pickups-state.title": "Store unavailable in region",
+  "store/shipping-option-zipcode.location-modal.no-pickups-state.description": "There are no products available for postal code",
+  "store/shipping-option-zipcode.location-modal.no-pickups-state.button.label": "Enter another location"
 }

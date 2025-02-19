@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { usePixel } from 'vtex.pixel-manager'
+import { useDrawer } from 'vtex.store-drawer/DrawerContext'
 import { useCssHandles } from 'vtex.css-handles'
 
 import ShippingOptionDrawer from './ShippingOptionDrawer'
@@ -18,7 +19,7 @@ interface Props {
   inputErrorMessage?: string
   onChange: (zipCode?: string) => void
   zipCode?: string
-  selectedZipCode?: string
+  selectedZipCode?: string | null
   selectedPickup?: Pickup
   pickups: Pickup[]
   onSelectPickup: (pickup: Pickup) => void
@@ -59,6 +60,16 @@ const PikcupDrawer = ({
     ? selectedPickup.pickupPoint.friendlyName
     : undefined
 
+  const PickupSelectionWrapper = (
+    props: React.ComponentProps<typeof PickupSelection>
+  ) => {
+    const close = useDrawer()
+
+    return (
+      <PickupSelection {...props} onClose={close} shouldPersistFacet={false} />
+    )
+  }
+
   return (
     <ShippingOptionDrawer
       icon={
@@ -81,7 +92,7 @@ const PikcupDrawer = ({
       inputErrorMessage={inputErrorMessage}
       isLoading={isLoading}
     >
-      <PickupSelection
+      <PickupSelectionWrapper
         isLoading={isLoading}
         onChange={onChange}
         onSubmit={onSubmit}

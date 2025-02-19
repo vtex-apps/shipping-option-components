@@ -1,11 +1,19 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from 'react'
-import { useSSR, useRuntime } from 'vtex.render-runtime'
+import { usePixelEventCallback } from 'vtex.pixel-manager'
+import { useIntl } from 'react-intl'
 
 import useShippingOptions from './hooks/useShippingOptions'
-import DeliveryDrawer from './components/DeliveryDrawer'
+import ShippingSelectionModal from './components/ShippingSelectionModal'
+import DeliveryModalButton from './components/ShippingSelectionModal/DeliveryModalButton'
+import {
+  SHIPPING_MODAL_PIXEL_EVENT_ID,
+  DELIVER_DRAWER_PIXEL_EVENT_ID,
+} from './constants'
 import PikcupDrawer from './components/PickupDrawer'
-import { getCookie } from './utils/cookie'
+import { LocationModal } from './components/LocationModal'
+import ShippingOptionButton from './components/ShippingOptionButton'
+import messages from './messages'
 
 interface Props {
   hideStoreSelection?: boolean
@@ -14,17 +22,24 @@ interface Props {
 }
 
 function ShippingOptionZipCode({
-  hideStoreSelection = false,
+  // hideStoreSelection = false,
   compactMode = false,
   overlayType = 'popover-input',
+  hideStoreSelection = false,
 }: Props) {
-  const { production } = useRuntime()
-  const [shouldRender, setShouldRender] = useState<boolean>(!production)
+  const intl = useIntl()
+  const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState<boolean>(false)
+  const [
+    wasLocationModalOpenedByEvent,
+    setWasLocationModalOpenedByEvent,
+  ] = useState<boolean>(false)
 
   const {
     inputErrorMessage,
     zipCode,
     isLoading,
+    isFirstLoading,
     onSubmit,
     addressLabel,
     onChange,
@@ -32,52 +47,116 @@ function ShippingOptionZipCode({
     pickups,
     selectedPickup,
     onSelectPickup,
+    geoCoordinates,
+    shippingOption,
   } = useShippingOptions()
 
-  const isSSR = useSSR()
+  usePixelEventCallback({
+    eventId: SHIPPING_MODAL_PIXEL_EVENT_ID,
+    handler: () => {
+      if (selectedZipCode) {
+        setIsShippingModalOpen(true)
+      } else {
+        setWasLocationModalOpenedByEvent(true)
+        setIsLocationModalOpen(true)
+      }
+    },
+  })
+
+  usePixelEventCallback({
+    eventId: DELIVER_DRAWER_PIXEL_EVENT_ID,
+    handler: () => setIsLocationModalOpen(true),
+  })
 
   useEffect(() => {
-    if (!isSSR) {
-      return
+    if (selectedZipCode === null && overlayType === 'blocking-modal') {
+      setIsLocationModalOpen(true)
     }
+  }, [selectedZipCode, overlayType])
 
-    const variant = getCookie('sp-variant')
-
-    if (production && variant && variant.indexOf('delivery_promises') > -1) {
-      setShouldRender(true)
-    }
-  }, [production, isSSR])
-
-  if (!shouldRender) {
-    return null
-  }
+  const isBlockingModal =
+    overlayType === 'blocking-modal' && !isFirstLoading && !selectedZipCode
 
   return (
     <>
-      <DeliveryDrawer
-        addressLabel={addressLabel}
-        isLoading={isLoading}
+      {selectedZipCode && (
+        <DeliveryModalButton
+          onClick={() => setIsShippingModalOpen(true)}
+          selectedShipping={shippingOption}
+          selectedPickup={selectedPickup}
+          loading={isLoading}
+        />
+      )}
+
+      <ShippingOptionButton
+        onClick={() => {
+          setWasLocationModalOpenedByEvent(false)
+          setIsLocationModalOpen(true)
+        }}
+        loading={isLoading}
+        value={addressLabel}
+        placeholder={intl.formatMessage(messages.deliverToButtonPlaceholder)}
+        label={intl.formatMessage(messages.deliverToButtonLabel)}
+        compact={compactMode}
+        zipCode={zipCode}
         onChange={onChange}
         onSubmit={onSubmit}
         inputErrorMessage={inputErrorMessage}
-        selectedZipCode={selectedZipCode}
-        zipCode={zipCode}
-        compact={compactMode}
         overlayType={overlayType}
       />
-      <PikcupDrawer
-        isLoading={isLoading}
+      <div style={{ display: 'none' }}>
+        <PikcupDrawer
+          isLoading={isLoading}
+          onChange={onChange}
+          onSubmit={() => onSubmit(false)}
+          inputErrorMessage={inputErrorMessage}
+          selectedZipCode={selectedZipCode}
+          zipCode={zipCode}
+          pickups={pickups}
+          selectedPickup={selectedPickup}
+          onSelectPickup={onSelectPickup}
+          compact={compactMode}
+          hideStoreSelection={hideStoreSelection}
+        />
+      </div>
+
+      <LocationModal
+        isOpen={isLocationModalOpen || isBlockingModal}
+        onClose={() => setIsLocationModalOpen(false)}
         onChange={onChange}
-        onSubmit={() => onSubmit(false)}
-        addressLabel={addressLabel}
+        onSubmit={async () => {
+          const shouldReload = !wasLocationModalOpenedByEvent
+
+          await onSubmit(shouldReload)
+
+          if (!shouldReload) {
+            setIsLocationModalOpen(false)
+            setIsShippingModalOpen(true)
+          }
+        }}
+        isLoading={isLoading}
         inputErrorMessage={inputErrorMessage}
-        selectedZipCode={selectedZipCode}
         zipCode={zipCode}
-        pickups={pickups}
-        selectedPickup={selectedPickup}
-        onSelectPickup={onSelectPickup}
-        compact={compactMode}
-        hideStoreSelection={hideStoreSelection}
+        showCloseButton={!isBlockingModal}
+      />
+
+      <ShippingSelectionModal
+        isOpen={isShippingModalOpen}
+        onClose={() => setIsShippingModalOpen(false)}
+        geoCoordinates={geoCoordinates}
+        selectedShipping={shippingOption}
+        pickupProps={{
+          isLoading,
+          onChange,
+          onSelectPickup,
+          onSubmit: () => onSubmit(false),
+          pickups,
+          addressLabel,
+          inputErrorMessage,
+          selectedPickup,
+          selectedZipCode,
+          zipCode,
+        }}
       />
     </>
   )

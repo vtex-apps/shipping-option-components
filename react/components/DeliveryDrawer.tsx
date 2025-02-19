@@ -1,12 +1,14 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { usePixel } from 'vtex.pixel-manager'
+import { useCssHandles } from 'vtex.css-handles'
 
 import ShippingOptionDrawer from './ShippingOptionDrawer'
 import ShippingOptionButton from './ShippingOptionButton'
 import DeliverySelection from './DeliverySelection'
 import { DELIVER_DRAWER_PIXEL_EVENT_ID } from '../constants'
 import messages from '../messages'
+import PinIcon from './PinIcon'
 
 interface Props {
   isLoading: boolean
@@ -15,22 +17,27 @@ interface Props {
   inputErrorMessage?: string
   onChange: (zipCode?: string) => void
   zipCode?: string
-  selectedZipCode?: string
+  selectedZipCode?: string | null
   compact: boolean
+  city?: string
   overlayType?: OverlayType
 }
 
+const CSS_HANDLES = ['deliveryDrawerValue']
+
 const DeliveryDrawer = ({
   addressLabel,
+  city,
   isLoading,
   onChange,
   onSubmit,
   inputErrorMessage,
   selectedZipCode,
   zipCode,
-  compact,
+  // compact,
   overlayType,
 }: Props) => {
+  const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
   const { push } = usePixel()
 
@@ -46,10 +53,21 @@ const DeliveryDrawer = ({
         <ShippingOptionButton
           onClick={onOpen}
           loading={isLoading}
-          value={addressLabel}
+          value={
+            city && selectedZipCode ? (
+              <div
+                className={`${handles.deliveryDrawerValue} flex flex-column`}
+              >
+                <span className="truncate tl">{city}</span>
+                <span className="tl">{selectedZipCode}</span>
+              </div>
+            ) : (
+              addressLabel
+            )
+          }
           placeholder={intl.formatMessage(messages.deliverToButtonPlaceholder)}
-          label={intl.formatMessage(messages.deliverToButtonLabel)}
-          compact={compact}
+          label={<PinIcon filled={false} />}
+          compact={false} // remove
           zipCode={zipCode}
           onChange={onChange}
           onSubmit={onSubmit}
