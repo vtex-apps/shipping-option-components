@@ -44,7 +44,6 @@ const AddLocation = ({
           placeholder={intl.formatMessage(
             messages.popoverPostalCodeInputPlaceHolder
           )}
-          newZipCodeTyped
         />
         <div className="mt3">
           <PostalCodeHelpLink />

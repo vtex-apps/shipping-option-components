@@ -33,7 +33,6 @@ const ShippingSelectionModal = ({
     onSelectPickup,
     onSubmit,
     pickups,
-    addressLabel,
     inputErrorMessage,
     selectedPickup,
     selectedZipCode,
@@ -68,7 +67,6 @@ const ShippingSelectionModal = ({
           onSelectPickup={onSelectPickup}
           onSubmit={onSubmit}
           pickups={pickups}
-          addressLabel={addressLabel}
           inputErrorMessage={inputErrorMessage}
           selectedPickup={selectedPickup}
           selectedZipCode={selectedZipCode}
