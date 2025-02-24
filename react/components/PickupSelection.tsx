@@ -11,7 +11,6 @@ interface Props {
   inputErrorMessage?: string
   zipCode?: string
   onChange: (zipCode?: string) => void
-  addressLabel?: string | null
   selectedZipCode?: string | null
   isLoading: boolean
   pickups: Pickup[]
@@ -26,7 +25,6 @@ const PickupSelection = ({
   inputErrorMessage,
   zipCode,
   onChange,
-  addressLabel,
   selectedZipCode,
   isLoading,
   pickups,
@@ -47,9 +45,7 @@ const PickupSelection = ({
           onSubmit={onSubmit}
           errorMessage={inputErrorMessage}
           onChange={onChange}
-          addressLabel={addressLabel}
           placeholder={intl.formatMessage(messages.postalCodeInputPlaceHolder)}
-          newZipCodeTyped={newZipCodeTyped}
         />
       </div>
       <div className="m-100 flex flex-column justify-center">

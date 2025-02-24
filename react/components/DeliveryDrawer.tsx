@@ -85,7 +85,6 @@ const DeliveryDrawer = ({
         isLoading={isLoading}
         onChange={onChange}
         onSubmit={onSubmit}
-        addressLabel={addressLabel}
         inputErrorMessage={inputErrorMessage}
         selectedZipCode={selectedZipCode}
         zipCode={zipCode}
