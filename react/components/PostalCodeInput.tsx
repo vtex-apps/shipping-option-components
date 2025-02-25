@@ -23,7 +23,7 @@ const PostalCodeInput = ({
   errorMessage,
   onSubmit,
   onChange,
-  showClearButton = true,
+  showClearButton = false,
   placeholder,
 }: Props) => {
   const handles = useCssHandles(CSS_HANDLES)
