@@ -40,7 +40,7 @@ const PickupSelection = ({
   const intl = useIntl()
 
   return (
-    <div className="flex flex-column justify-between">
+    <div className="flex flex-column justify-between mt5">
       <div className="mb7">
         <PostalCodeInput
           zipCode={zipCode}

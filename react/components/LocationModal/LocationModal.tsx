@@ -58,7 +58,7 @@ export const LocationModal = ({
     ...customStyles,
     content: {
       ...customStyles.content,
-      padding: showCloseButton ? '40px' : '64px 40px',
+      padding: showCloseButton ? '40px 40px 64px 40px' : '64px 40px',
     },
   }
 
