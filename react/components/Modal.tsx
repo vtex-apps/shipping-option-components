@@ -9,6 +9,7 @@ interface Props {
   isOpen: boolean
   title: string
   showArrowBack: boolean
+  showTopCloseButton: boolean
   onArrowBack: () => void
 }
 
@@ -19,13 +20,15 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    padding: '40px',
+    padding: '40px 40px 64px 40px',
     transform: 'translate(-50%, -50%)',
-    borderRadios: '12px',
+    borderRadius: '12px',
     minHeight: '388px',
     maxHeight: '640px',
     width: 'unset',
     minWidth: 'unset',
+    display: 'flex',
+    'flex-direction': 'column',
   },
   overlay: {
     backgroundColor: 'rgba(3, 4, 78, 0.55)',
@@ -48,6 +51,7 @@ const Modal = ({
   title,
   onArrowBack,
   showArrowBack,
+  showTopCloseButton,
 }: PropsWithChildren<Props>) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { isMobile } = useDevice()
@@ -60,11 +64,16 @@ const Modal = ({
 
   return (
     <ReactModal style={customStyles} isOpen={isOpen} onRequestClose={onClose}>
+      {showTopCloseButton && (
+        <button onClick={onClose} className={handles.modalCloseButton}>
+          <IconClose size={24} />
+        </button>
+      )}
       <div className="flex justify-between items-center mb3">
         <div className="flex items-center flex-row">
           {showArrowBack && (
             <button
-              className={`pa0 mr3 ${handles.modalBackButton}`}
+              className={`pa0 mr4 ${handles.modalBackButton}`}
               onClick={onArrowBack}
             >
               <IconArrowBack />
@@ -74,11 +83,13 @@ const Modal = ({
             {title}
           </p>
         </div>
-        <div className="flex justify-end">
-          <button onClick={onClose} className={handles.modalCloseButton}>
-            <IconClose />
-          </button>
-        </div>
+        {!showTopCloseButton && (
+          <div className="flex justify-end">
+            <button onClick={onClose} className={handles.modalCloseButton}>
+              <IconClose size={24} />
+            </button>
+          </div>
+        )}
       </div>
       {children}
     </ReactModal>

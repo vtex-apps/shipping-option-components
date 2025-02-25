@@ -16,13 +16,13 @@ const ShippingOptionButton = ({ icon, label, onClick, isSelected }: Props) => {
   return (
     <button
       onClick={onClick}
-      className={`br2 ${handles.shippingOptionButton} ${
+      className={`br2 w-100 ${handles.shippingOptionButton} ${
         isSelected ? handles.shippingOptionButtonSelected : ''
       }`}
     >
-      <div className="flex flex-column items-center pt6 pb6">
+      <div className="flex items-center">
         {icon}
-        <p className="f3 mt4 mb0 tc">{label}</p>
+        <p className="f3 ml4 mt0 mb0 tc">{label}</p>
       </div>
     </button>
   )

@@ -133,19 +133,12 @@
 
 .shippingOptionButton {
   border: 1px solid var(--border-2, #e2e4e6);
-  padding: 20px;
-  flex: 1;
+  border-radius: 8px;
+  padding: 28px 40px;
 }
 
 .shippingOptionButtonSelected {
   border: 1px solid var(--border-1, #7e7e7e);
-}
-
-@media (min-width: 550px) {
-  .shippingOptionButton {
-    width: 210px;
-    height: 162px;
-  }
 }
 
 .shippingOptionButton:hover {

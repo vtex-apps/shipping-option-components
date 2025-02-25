@@ -82,6 +82,7 @@ const ShippingSelectionModal = ({
     <Modal
       onArrowBack={() => setStage('shippingSelection')}
       showArrowBack={stage !== 'shippingSelection'}
+      showTopCloseButton={stage === 'shippingSelection'}
       title={stageContent[stage].title}
       isOpen={isOpen}
       onClose={onClose}
