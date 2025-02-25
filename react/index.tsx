@@ -151,7 +151,6 @@ function ShippingOptionZipCode({
           onSelectPickup,
           onSubmit: () => onSubmit(false),
           pickups,
-          addressLabel,
           inputErrorMessage,
           selectedPickup,
           selectedZipCode,

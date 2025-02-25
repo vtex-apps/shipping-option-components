@@ -72,7 +72,6 @@ const DeliveryPopover = ({
               placeholder={intl.formatMessage(
                 messages.popoverPostalCodeInputPlaceHolder
               )}
-              newZipCodeTyped
             />
             <Button isLoading={isLoading} onClick={onSubmit}>
               {intl.formatMessage(messages.popoverSubmitButtonLabel)}
