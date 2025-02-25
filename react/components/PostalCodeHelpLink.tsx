@@ -1,10 +1,11 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { helpers } from 'vtex.address-form'
+import { AddressRules, helpers } from 'vtex.address-form'
 import { Link } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
 import messages from '../messages'
+import { getCountryCode } from '../utils/cookie'
 
 const POSTAL_CODE_FIELD = 'postalCode'
 
@@ -14,7 +15,7 @@ interface Props {
   rules?: any
 }
 
-const PostalCodeHelpLink = ({ rules }: Props) => {
+const HelpLink = helpers.injectRules(({ rules }: Props) => {
   const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -41,6 +42,14 @@ const PostalCodeHelpLink = ({ rules }: Props) => {
       {intl.formatMessage(messages.popoverPostalCodeLink)}
     </Link>
   )
+})
+
+const PostalCodeHelpLink = () => {
+  return (
+    <AddressRules country={getCountryCode()} shouldUseIOFetching>
+      <HelpLink />
+    </AddressRules>
+  )
 }
 
-export default helpers.injectRules(PostalCodeHelpLink)
+export default PostalCodeHelpLink

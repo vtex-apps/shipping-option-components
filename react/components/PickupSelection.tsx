@@ -1,5 +1,4 @@
 import React from 'react'
-import { useDrawer } from 'vtex.store-drawer/DrawerContext'
 import { useIntl } from 'react-intl'
 
 import PostalCodeInput from './PostalCodeInput'
@@ -12,12 +11,13 @@ interface Props {
   inputErrorMessage?: string
   zipCode?: string
   onChange: (zipCode?: string) => void
-  addressLabel?: string
-  selectedZipCode?: string
+  selectedZipCode?: string | null
   isLoading: boolean
   pickups: Pickup[]
   selectedPickup?: Pickup
-  onSelectPickup: (pickup: Pickup) => void
+  onSelectPickup: (pickup: Pickup, shouldPersistFacet?: boolean) => void
+  onClose?: () => void
+  shouldPersistFacet?: boolean
 }
 
 const PickupSelection = ({
@@ -25,29 +25,27 @@ const PickupSelection = ({
   inputErrorMessage,
   zipCode,
   onChange,
-  addressLabel,
   selectedZipCode,
   isLoading,
   pickups,
   selectedPickup,
   onSelectPickup,
+  onClose,
+  shouldPersistFacet,
 }: Props) => {
   const newZipCodeTyped = zipCode !== selectedZipCode
   const shouldHideUpdateButton = (!zipCode || !newZipCodeTyped) && !isLoading
-  const { close } = useDrawer()
   const intl = useIntl()
 
   return (
-    <div className="flex flex-column justify-between">
+    <div className="flex flex-column justify-between mt5">
       <div className="mb7">
         <PostalCodeInput
           zipCode={zipCode}
           onSubmit={onSubmit}
           errorMessage={inputErrorMessage}
           onChange={onChange}
-          addressLabel={addressLabel}
           placeholder={intl.formatMessage(messages.postalCodeInputPlaceHolder)}
-          newZipCodeTyped={newZipCodeTyped}
         />
       </div>
       <div className="m-100 flex flex-column justify-center">
@@ -59,8 +57,8 @@ const PickupSelection = ({
               selectedPickup.pickupPoint.id === currentPickup.pickupPoint.id
             }
             onClick={() => {
-              onSelectPickup(currentPickup)
-              close()
+              onSelectPickup(currentPickup, shouldPersistFacet)
+              onClose?.()
             }}
             pickup={currentPickup}
           />

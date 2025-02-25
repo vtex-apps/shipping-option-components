@@ -15,9 +15,9 @@ const CSS_HANDLES = [
 interface Props {
   onClick: () => void
   loading: boolean
-  label: string
+  label: React.ReactNode
   placeholder: string
-  value?: string
+  value?: React.ReactNode
   compact: boolean
   zipCode?: string
   onChange?: (zipCode?: string) => void
@@ -51,18 +51,23 @@ const ShippingOptionButton = ({
     setIsPopoverOpen(false)
   }
 
-  const showPopover =
+  const popoverOverlay =
     overlayType === 'popover-button' || overlayType === 'popover-input'
+      ? overlayType
+      : undefined
 
   const isFirstLoading = !zipCode && loading
 
-  const openPopover = !isFirstLoading && !value && showPopover && isPopoverOpen
+  const openPopover =
+    !isFirstLoading && !value && !!popoverOverlay && isPopoverOpen
 
   return (
-    <div className={`${handles.shippingButtonContainer} flex items-center`}>
+    <div
+      className={`${handles.shippingButtonContainer} flex items-center h-100`}
+    >
       <button
         onClick={onClick}
-        className={`${handles.buttonWrapper} flex h2 items-center br3 pt3 pb3 b--none`}
+        className={`${handles.buttonWrapper} flex items-center br3 pt4 pr4 pb4 pl0 b--none`}
       >
         {!compact && (
           <p className={`${handles.buttonLabel} ma0 c-on-base f6 mr2`}>
@@ -88,7 +93,7 @@ const ShippingOptionButton = ({
           isLoading={loading}
           inputErrorMessage={inputErrorMessage}
           zipCode={zipCode}
-          variant={overlayType}
+          variant={popoverOverlay}
         />
       )}
     </div>
