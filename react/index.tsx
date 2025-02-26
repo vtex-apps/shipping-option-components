@@ -35,6 +35,11 @@ function ShippingOptionZipCode({
     setWasLocationModalOpenedByEvent,
   ] = useState<boolean>(false)
 
+  const [
+    wasShippingModalOpenedByEvent,
+    setWasShippingModalOpenedByEvent,
+  ] = useState<boolean>(false)
+
   const {
     inputErrorMessage,
     zipCode,
@@ -56,6 +61,7 @@ function ShippingOptionZipCode({
     handler: () => {
       if (selectedZipCode) {
         setIsShippingModalOpen(true)
+        setWasShippingModalOpenedByEvent(true)
       } else {
         setWasLocationModalOpenedByEvent(true)
         setIsLocationModalOpen(true)
@@ -81,7 +87,10 @@ function ShippingOptionZipCode({
     <>
       {selectedZipCode && (
         <DeliveryModalButton
-          onClick={() => setIsShippingModalOpen(true)}
+          onClick={() => {
+            setWasShippingModalOpenedByEvent(false)
+            setIsShippingModalOpen(true)
+          }}
           selectedShipping={shippingOption}
           selectedPickup={selectedPickup}
           loading={isLoading}
@@ -157,6 +166,7 @@ function ShippingOptionZipCode({
           selectedZipCode,
           zipCode,
         }}
+        showCloseButton={!wasShippingModalOpenedByEvent}
       />
     </>
   )

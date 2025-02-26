@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react'
 import ReactModal from 'react-modal'
 import { useCssHandles } from 'vtex.css-handles'
 import { useDevice } from 'vtex.device-detector'
-import { IconArrowBack } from 'vtex.styleguide'
+import { IconClose, IconArrowBack } from 'vtex.styleguide'
 
 interface Props {
   onClose: () => void
@@ -10,6 +10,7 @@ interface Props {
   title: string
   showArrowBack: boolean
   onArrowBack: () => void
+  showCloseButton: boolean
 }
 
 const customStyles = {
@@ -43,10 +44,12 @@ const CSS_HANDLES = [
 
 const Modal = ({
   children,
+  onClose,
   isOpen,
   title,
   onArrowBack,
   showArrowBack,
+  showCloseButton,
 }: PropsWithChildren<Props>) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { isMobile } = useDevice()
@@ -58,7 +61,11 @@ const Modal = ({
   }
 
   return (
-    <ReactModal style={customStyles} isOpen={isOpen}>
+    <ReactModal
+      style={customStyles}
+      isOpen={isOpen}
+      onRequestClose={showCloseButton ? onClose : undefined}
+    >
       <div className="flex justify-between items-center mb3">
         <div className="flex items-center flex-row">
           {showArrowBack && (
@@ -73,6 +80,13 @@ const Modal = ({
             {title}
           </p>
         </div>
+        {showCloseButton && (
+          <div className="flex justify-end">
+            <button onClick={onClose} className={handles.modalCloseButton}>
+              <IconClose />
+            </button>
+          </div>
+        )}
       </div>
       {children}
     </ReactModal>

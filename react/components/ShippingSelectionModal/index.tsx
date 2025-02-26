@@ -12,6 +12,7 @@ interface Props {
   isOpen: boolean
   onClose: () => void
   selectedShipping?: 'delivery' | 'pickup-in-point'
+  showCloseButton: boolean
 }
 
 type Stages = 'shippingSelection' | 'pickupSelection'
@@ -26,6 +27,7 @@ const ShippingSelectionModal = ({
   onClose,
   geoCoordinates,
   selectedShipping,
+  showCloseButton,
 }: Props) => {
   const {
     isLoading,
@@ -85,6 +87,7 @@ const ShippingSelectionModal = ({
       title={stageContent[stage].title}
       isOpen={isOpen}
       onClose={onClose}
+      showCloseButton={showCloseButton}
     >
       {stageContent[stage].content}
     </Modal>
