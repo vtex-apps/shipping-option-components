@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove DP variant validation.
+
 ## [0.5.4] - 2025-01-29
 
 ### Fixed
