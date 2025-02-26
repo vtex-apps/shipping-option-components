@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
 ### Added
 
 - country inside the body facets 
+
+## [0.5.5] - 2025-02-26
+
+### Removed
+
+- Remove DP variant validation.
 
 ## [0.5.4] - 2025-01-29
 
