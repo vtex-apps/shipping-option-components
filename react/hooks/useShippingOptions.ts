@@ -97,8 +97,11 @@ const useShippingOptions = () => {
   const onSelectPickup = async (pickup: Pickup) => {
     setSelectecPickup(pickup)
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    await updateSession(countryCode!, selectedZipCode!, geoCoordinates!, pickup)
+    if (!countryCode || !selectedZipCode || !geoCoordinates) {
+      return
+    }
+
+    await updateSession(countryCode, selectedZipCode, geoCoordinates, pickup)
 
     location.reload()
   }
