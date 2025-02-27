@@ -4,7 +4,7 @@ import { useRuntime, useSSR } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
 import { usePixel } from 'vtex.pixel-manager'
 
-import { getCountryCode, getOrderFormId, getFacetsData } from '../utils/cookie'
+import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
 import messages from '../messages'
 import {
   getAddress,
@@ -55,7 +55,7 @@ const useShippingOptions = () => {
 
       setSelectecPickup(pickup)
 
-      await updateSession(zipCode, coordinates, pickup)
+      await updateSession(country, zipCode, coordinates, pickup)
 
       setIsLoading(false)
     },
@@ -97,7 +97,11 @@ const useShippingOptions = () => {
   const onSelectPickup = async (pickup: Pickup) => {
     setSelectecPickup(pickup)
 
-    await updateSession(selectedZipCode!, geoCoordinates!, pickup)
+    if (!countryCode || !selectedZipCode || !geoCoordinates) {
+      return
+    }
+
+    await updateSession(countryCode, selectedZipCode, geoCoordinates, pickup)
 
     location.reload()
   }
@@ -138,9 +142,10 @@ const useShippingOptions = () => {
 
     setSelectedZipCode(inputZipCode)
 
-    await updateSession(inputZipCode, coordinates)
-
-    await fetchPickups(countryCode, inputZipCode, coordinates)
+    await Promise.all([
+      updateSession(countryCode, inputZipCode, coordinates),
+      fetchPickups(countryCode, inputZipCode, coordinates),
+    ])
 
     if (!reload) {
       setIsLoading(false)

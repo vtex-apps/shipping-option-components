@@ -10,22 +10,32 @@ export const getAddress = (
     `/api/checkout/pub/postal-code/${countryCode}/${zipCode}?an=${account}`
   ).then((res) => res.json())
 
-export const updateSession = (
+// FIXME in the future the country should not be passed here, instead it should go to session
+// so this should be fixed for not to pass the country anymore
+export const updateSession = async (
+  countryCode: string,
   zipCode: string,
   geoCoordinates: number[],
   pickup?: Pickup
+  // eslint-disable-next-line max-params
 ) => {
-  const facetsValue = `zip-code=${zipCode};coordinates=${geoCoordinates.join(
-    ','
-  )}${pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''}`
+  const facetsValue = JSON.stringify({
+    public: {
+      facets: {
+        value: `zip-code=${zipCode};country=${countryCode};coordinates=${geoCoordinates.join(
+          ','
+        )}${pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''}`,
+      },
+    },
+  })
 
   // __RUNTIME__.segmentToken is not reliable for the facets. It might not be updated. For this reason we must try to get the info from our custom cookie first
   // Encode to base64 because ";" is not allowed in cookies
   setCookie(SHIPPING_INFO_COOKIE, btoa(facetsValue))
 
-  return fetch('/api/sessions', {
+  await fetch('/api/sessions', {
     method: 'POST',
-    body: `{"public":{"facets":{"value":"${facetsValue}"}}}`,
+    body: facetsValue,
     headers: {
       'Content-Type': 'application/json',
     },
