@@ -10,7 +10,7 @@ export const getAddress = (
     `/api/checkout/pub/postal-code/${countryCode}/${zipCode}?an=${account}`
   ).then((res) => res.json())
 
-export const updateSession = (
+export const updateSession = async (
   countryCode: string,
   zipCode: string,
   geoCoordinates: number[],
@@ -25,7 +25,7 @@ export const updateSession = (
   // Encode to base64 because ";" is not allowed in cookies
   setCookie(SHIPPING_INFO_COOKIE, btoa(facetsValue))
 
-  fetch('/api/sessions', {
+  await fetch('/api/sessions', {
     method: 'POST',
     body: `{"public":{"facets":{"value":"${facetsValue}"}}}`,
     headers: {
