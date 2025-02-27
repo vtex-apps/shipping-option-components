@@ -10,6 +10,8 @@ export const getAddress = (
     `/api/checkout/pub/postal-code/${countryCode}/${zipCode}?an=${account}`
   ).then((res) => res.json())
 
+// FIXME in the future the country should not be passed here, instead it should go to session
+// so this should be fixed for not to pass the country anymore
 export const updateSession = async (
   countryCode: string,
   zipCode: string,
