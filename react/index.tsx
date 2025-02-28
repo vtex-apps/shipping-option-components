@@ -67,14 +67,14 @@ function ShippingOptionZipCode({
     handler: () => setIsLocationModalOpen(true),
   })
 
+  const nonDismissibleModal =
+    selectedZipCode === null && overlayType === 'blocking-modal'
+
   useEffect(() => {
-    if (selectedZipCode === null && overlayType === 'blocking-modal') {
+    if (nonDismissibleModal) {
       setIsLocationModalOpen(true)
     }
-  }, [selectedZipCode, overlayType])
-
-  const nonDismissibleModal =
-    overlayType === 'blocking-modal' && !selectedZipCode
+  }, [nonDismissibleModal])
 
   return (
     <>
