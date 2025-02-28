@@ -16,6 +16,10 @@ declare interface Pickup {
 
 declare type OverlayType = 'popover-button' | 'popover-input' | 'blocking-modal'
 
+interface StageContent {
+  [key: string]: { title: string; content: React.JSX.Element }
+}
+
 declare global {
   interface Window {
     addressLabel?: stirng

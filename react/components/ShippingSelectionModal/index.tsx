@@ -16,10 +16,6 @@ interface Props {
 
 type Stages = 'shippingSelection' | 'pickupSelection'
 
-interface StageContent {
-  [key: string]: { title: string; content: React.JSX.Element }
-}
-
 const ShippingSelectionModal = ({
   pickupProps,
   isOpen,
@@ -80,7 +76,7 @@ const ShippingSelectionModal = ({
     <Modal
       onArrowBack={() => setStage('shippingSelection')}
       showArrowBack={stage !== 'shippingSelection'}
-      showTopCloseButton={stage === 'shippingSelection'}
+      isTopCloseButton={stage === 'shippingSelection'}
       title={stageContent[stage].title}
       isOpen={isOpen}
       onClose={onClose}

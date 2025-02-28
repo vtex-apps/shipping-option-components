@@ -9,7 +9,8 @@ interface Props {
   isOpen: boolean
   title: string
   showArrowBack: boolean
-  showTopCloseButton: boolean
+  isTopCloseButton: boolean
+  nonDismissible?: boolean
   onArrowBack: () => void
 }
 
@@ -51,7 +52,8 @@ const Modal = ({
   title,
   onArrowBack,
   showArrowBack,
-  showTopCloseButton,
+  isTopCloseButton,
+  nonDismissible = false,
 }: PropsWithChildren<Props>) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { isMobile } = useDevice()
@@ -62,15 +64,24 @@ const Modal = ({
     customStyles.content.minWidth = '522px'
   }
 
+  if (nonDismissible) {
+    customStyles.content.padding = '64px 40px'
+  } else {
+    customStyles.content.padding = '40px 40px 64px 40px'
+  }
+
   return (
-    <ReactModal style={customStyles} isOpen={isOpen} onRequestClose={onClose}>
-      {showTopCloseButton && (
-        <button onClick={onClose} className={handles.modalCloseButton}>
-          <IconClose size={24} />
-        </button>
-      )}
-      <div className="flex justify-between items-center mb3">
-        <div className="flex items-center flex-row">
+    <ReactModal
+      style={customStyles}
+      isOpen={isOpen}
+      onRequestClose={nonDismissible ? undefined : onClose}
+    >
+      <div
+        className={`flex justify-between items-center mb3 ${
+          isTopCloseButton ? 'flex-column-reverse' : 'flex-row'
+        }`}
+      >
+        <div className="flex items-center self-start flex-row">
           {showArrowBack && (
             <button
               className={`pa0 mr4 ${handles.modalBackButton}`}
@@ -83,8 +94,9 @@ const Modal = ({
             {title}
           </p>
         </div>
-        {!showTopCloseButton && (
-          <div className="flex justify-end">
+
+        {!nonDismissible && (
+          <div className="flex justify-end self-end">
             <button onClick={onClose} className={handles.modalCloseButton}>
               <IconClose size={24} />
             </button>
