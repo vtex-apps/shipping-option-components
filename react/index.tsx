@@ -39,7 +39,6 @@ function ShippingOptionZipCode({
     inputErrorMessage,
     zipCode,
     isLoading,
-    isFirstLoading,
     onSubmit,
     addressLabel,
     onChange,
@@ -68,14 +67,14 @@ function ShippingOptionZipCode({
     handler: () => setIsLocationModalOpen(true),
   })
 
+  const nonDismissibleModal =
+    selectedZipCode === null && overlayType === 'blocking-modal'
+
   useEffect(() => {
-    if (selectedZipCode === null && overlayType === 'blocking-modal') {
+    if (nonDismissibleModal) {
       setIsLocationModalOpen(true)
     }
-  }, [selectedZipCode, overlayType])
-
-  const isBlockingModal =
-    overlayType === 'blocking-modal' && !isFirstLoading && !selectedZipCode
+  }, [nonDismissibleModal])
 
   return (
     <>
@@ -121,7 +120,7 @@ function ShippingOptionZipCode({
       </div>
 
       <LocationModal
-        isOpen={isLocationModalOpen || isBlockingModal}
+        isOpen={isLocationModalOpen}
         onClose={() => setIsLocationModalOpen(false)}
         onChange={onChange}
         onSubmit={async () => {
@@ -137,7 +136,7 @@ function ShippingOptionZipCode({
         isLoading={isLoading}
         inputErrorMessage={inputErrorMessage}
         zipCode={zipCode}
-        showCloseButton={!isBlockingModal}
+        nonDismissibleModal={nonDismissibleModal}
       />
 
       <ShippingSelectionModal

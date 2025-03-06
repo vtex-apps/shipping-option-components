@@ -24,15 +24,10 @@ const AddLocation = ({
   const intl = useIntl()
 
   return (
-    <div className="flex-auto flex flex-column justify-between">
-      <div className="flex flex-column">
-        <p className="f3 fw6 ma0">
-          {intl.formatMessage(messages.locationModalTitle)}
-        </p>
-        <p className="t-small mt3 mb0 c-muted-1">
-          {intl.formatMessage(messages.locationModalDescription)}
-        </p>
-      </div>
+    <div className="flex-auto flex flex-column justify-between mt0">
+      <p className="mid-gray ma0">
+        {intl.formatMessage(messages.locationModalDescription)}
+      </p>
 
       <div>
         <PostalCodeInput
