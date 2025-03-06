@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Major layout adjustments
+- Shipping modal
+
 ## [0.6.1] - 2025-03-13
 
 ### Fixed
@@ -17,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- country inside the body facets 
+- country inside the body facets
 
 ## [0.5.5] - 2025-02-26
 
