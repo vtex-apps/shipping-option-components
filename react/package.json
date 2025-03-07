@@ -1,6 +1,6 @@
 {
   "name": "CHANGE_ME",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "scripts": {
     "test": "vtex-test-tools test"
   },
