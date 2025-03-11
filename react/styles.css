@@ -173,6 +173,10 @@
   align-self: end;
 }
 
+.updateButtonContainer {
+  bottom: -30px;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

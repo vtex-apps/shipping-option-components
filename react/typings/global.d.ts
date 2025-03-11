@@ -11,6 +11,7 @@ declare interface Pickup {
       number: string
       state: string
     }
+    isActive: boolean
   }
 }
 
