@@ -84,6 +84,19 @@ const messages = defineMessages({
       'store/shipping-option-zipcode.location-modal.no-pickups-state.button.label',
     defaultMessaage: '',
   },
+  noStoresStateTitle: {
+    id: 'store/shipping-option-zipcode.store-modal.no-stores-state.title',
+    defaultMessaage: '',
+  },
+  noStoresStateDescription: {
+    id: 'store/shipping-option-zipcode.store-modal.no-stores-state.description',
+    defaultMessaage: '',
+  },
+  noStoresStateButton: {
+    id:
+      'store/shipping-option-zipcode.store-modal.no-stores-state.button.label',
+    defaultMessaage: '',
+  },
 })
 
 export default messages

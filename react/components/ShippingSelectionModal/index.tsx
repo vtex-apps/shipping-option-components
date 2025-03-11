@@ -24,7 +24,6 @@ const ShippingSelectionModal = ({
   selectedShipping,
 }: Props) => {
   const {
-    isLoading,
     onChange,
     onSelectPickup,
     onSubmit,
@@ -58,7 +57,6 @@ const ShippingSelectionModal = ({
       title: 'Elige una tienda',
       content: (
         <PickupSelection
-          isLoading={isLoading}
           onChange={onChange}
           onSelectPickup={onSelectPickup}
           onSubmit={onSubmit}
@@ -67,6 +65,7 @@ const ShippingSelectionModal = ({
           selectedPickup={selectedPickup}
           selectedZipCode={selectedZipCode}
           zipCode={zipCode}
+          onDeliverySelection={onDeliverySelection}
         />
       ),
     },

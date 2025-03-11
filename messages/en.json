@@ -28,5 +28,8 @@
   "store/shipping-option-zipcode.location-modal.description": "Offers and delivery options vary based on region.",
   "store/shipping-option-zipcode.location-modal.no-pickups-state.title": "Store unavailable in region",
   "store/shipping-option-zipcode.location-modal.no-pickups-state.description": "There are no products available for postal code",
-  "store/shipping-option-zipcode.location-modal.no-pickups-state.button.label": "Enter another location"
+  "store/shipping-option-zipcode.location-modal.no-pickups-state.button.label": "Enter another location",
+  "store/shipping-option-zipcode.store-modal.no-stores-state.title": "No stores available",
+  "store/shipping-option-zipcode.store-modal.no-stores-state.description": "There are no stores available for the postal code 10017",
+  "store/shipping-option-zipcode.store-modal.no-stores-state.button.label": "Continue with delivery"
 }

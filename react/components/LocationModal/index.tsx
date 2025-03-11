@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useIntl } from 'react-intl'
 
-import NoPickupsState from './NoPickupsState'
 import AddLocation from './AddLocation'
 import Modal from '../Modal'
 import messages from '../../messages'
+import EmptyState from '../EmptyState'
 
 type Stages = 'locationSelection' | 'noPickupState'
 
@@ -49,9 +49,14 @@ export const LocationModal = ({
     noPickupState: {
       title: '',
       content: (
-        <NoPickupsState
-          zipCode={zipCode ?? ''}
+        <EmptyState
+          title={intl.formatMessage(messages.noPickupsStateTitle)}
+          description={`${intl.formatMessage(
+            messages.noPickupsStateDescription
+          )} ${zipCode}`}
+          buttonLabel={intl.formatMessage(messages.noPickupsStateButtonLabel)}
           onClick={() => setStage('locationSelection')}
+          variant="secondary"
         />
       ),
     },
