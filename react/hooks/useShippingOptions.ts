@@ -142,10 +142,9 @@ const useShippingOptions = () => {
 
     setSelectedZipCode(inputZipCode)
 
-    await Promise.all([
-      updateSession(countryCode, inputZipCode, coordinates),
-      fetchPickups(countryCode, inputZipCode, coordinates),
-    ])
+    await updateSession(countryCode, inputZipCode, coordinates)
+
+    await fetchPickups(countryCode, inputZipCode, coordinates)
 
     if (!reload) {
       setIsLoading(false)

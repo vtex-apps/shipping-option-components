@@ -19,15 +19,9 @@ export const updateSession = async (
   pickup?: Pickup
   // eslint-disable-next-line max-params
 ) => {
-  const facetsValue = JSON.stringify({
-    public: {
-      facets: {
-        value: `zip-code=${zipCode};country=${countryCode};coordinates=${geoCoordinates.join(
-          ','
-        )}${pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''}`,
-      },
-    },
-  })
+  const facetsValue = `zip-code=${zipCode};country=${countryCode};coordinates=${geoCoordinates.join(
+    ','
+  )}${pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''}`
 
   // __RUNTIME__.segmentToken is not reliable for the facets. It might not be updated. For this reason we must try to get the info from our custom cookie first
   // Encode to base64 because ";" is not allowed in cookies
@@ -35,7 +29,13 @@ export const updateSession = async (
 
   await fetch('/api/sessions', {
     method: 'POST',
-    body: facetsValue,
+    body: JSON.stringify({
+      public: {
+        facets: {
+          value: facetsValue,
+        },
+      },
+    }),
     headers: {
       'Content-Type': 'application/json',
     },
