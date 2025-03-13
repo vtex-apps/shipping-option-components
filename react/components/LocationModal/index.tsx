@@ -51,9 +51,9 @@ export const LocationModal = ({
       content: (
         <EmptyState
           title={intl.formatMessage(messages.noPickupsStateTitle)}
-          description={`${intl.formatMessage(
-            messages.noPickupsStateDescription
-          )} ${zipCode}`}
+          description={intl.formatMessage(messages.noPickupsStateDescription, {
+            postalCode: ` ${zipCode}`,
+          })}
           buttonLabel={intl.formatMessage(messages.noPickupsStateButtonLabel)}
           onClick={() => setStage('locationSelection')}
           variant="secondary"

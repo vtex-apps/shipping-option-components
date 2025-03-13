@@ -1,9 +1,11 @@
 import React from 'react'
 import { useCssHandles } from 'vtex.css-handles'
+import { useIntl } from 'react-intl'
 
 import ShippingSelectionOptionButton from './ShippingSelectionOptionButton'
 import DeliveryIcon from './DeliveryIcon'
 import PickupIcon from './PickupIcon'
+import messages from '../../messages'
 
 const CSS_HANDLES = ['shippingMethodModalOptions']
 
@@ -18,12 +20,13 @@ const ShippingMethodStage = ({
   onPickupSelection,
   selectedShipping,
 }: Props) => {
+  const intl = useIntl()
   const handles = useCssHandles(CSS_HANDLES)
 
   return (
     <>
       <p className="mid-gray ma0">
-        La disponibilidad de dos productos varía según el método.
+        {intl.formatMessage(messages.shippingSelectionModalDescription)}
       </p>
       <div
         className={`flex flex-column w-100 mt8 justify-around ${handles.shippingMethodModalOptions}`}
@@ -31,13 +34,17 @@ const ShippingMethodStage = ({
         <ShippingSelectionOptionButton
           onClick={onDeliverySelection}
           icon={<DeliveryIcon />}
-          label="Entregar a domicilio"
+          label={intl.formatMessage(
+            messages.shippingSelectionModalDeliveryButton
+          )}
           isSelected={selectedShipping === 'delivery'}
         />
         <ShippingSelectionOptionButton
           onClick={onPickupSelection}
           icon={<PickupIcon />}
-          label="Recoger en una tienda"
+          label={intl.formatMessage(
+            messages.shippingSelectionModalPickupButton
+          )}
           isSelected={selectedShipping === 'pickup-in-point'}
         />
       </div>
