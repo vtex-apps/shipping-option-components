@@ -20,5 +20,21 @@
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Retirada",
   "store/shipping-option-zipcode.updateButton.label": "Atualizar",
   "store/shipping-option-zipcode.popoverButton.label": "Selecione um local",
-  "store/shipping-option-zipcode.popover.description": "As ofertas e opções de entrega variam de acordo com a região."
+  "store/shipping-option-zipcode.popover.description": "As ofertas e opções de entrega variam de acordo com a região.",
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Continuar",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Código postal",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "Não sei meu CEP",
+  "store/shipping-option-zipcode.locationModal.title": "Insira uma localização",
+  "store/shipping-option-zipcode.locationModal.description": "As ofertas e opções de entrega variam de acordo com a região.",
+  "store/shipping-option-zipcode.locationModal.noPickupsState.title": "Loja indisponível na região",
+  "store/shipping-option-zipcode.locationModal.noPickupsState.description": "Não há produtos disponíveis para o CEP {postalCode}",
+  "store/shipping-option-zipcode.locationModal.noPickupsState.button.label": "Inserir outra localização",
+  "store/shipping-option-zipcode.shippingSelectionModal.title": "Escolha um método de envio",
+  "store/shipping-option-zipcode.shippingSelectionModal.description": "A disponibilidade dos produtos pode variar de acordo com o método.",
+  "store/shipping-option-zipcode.shippingSelectionModal.deliveryButton.label": "Entrega",
+  "store/shipping-option-zipcode.shippingSelectionModal.pickupButton.label": "Retirada",
+  "store/shipping-option-zipcode.pickupSelection.title": "Escolha uma loja",
+  "store/shipping-option-zipcode.pickupSelection.noStoresState.title": "Não há lojas disponíveis",
+  "store/shipping-option-zipcode.pickupSelection.noStoresState.description": "Não há lojas que atendam o CEP {postalCode}",
+  "store/shipping-option-zipcode.pickupSelection.noStoresState.button.label": "Continuar com entrega"
 }

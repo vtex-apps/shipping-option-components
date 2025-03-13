@@ -50,7 +50,9 @@ const PickupSelection = ({
           onClick={onDeliverySelection}
           buttonLabel={intl.formatMessage(messages.noStoresStateButton)}
           title={intl.formatMessage(messages.noStoresStateTitle)}
-          description={intl.formatMessage(messages.noStoresStateDescription)}
+          description={intl.formatMessage(messages.noStoresStateDescription, {
+            postalCode: ` ${zipCode}`,
+          })}
         />
       ) : (
         <PickupList
