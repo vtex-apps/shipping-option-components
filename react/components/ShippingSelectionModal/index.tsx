@@ -1,10 +1,12 @@
 /* eslint-disable no-restricted-globals */
 import React, { useState } from 'react'
+import { useIntl } from 'react-intl'
 
 import Modal from '../Modal'
 import ShippingMethodStage from './ShippingMethodStage'
 import PickupSelection from '../PickupSelection'
 import { updateSession } from '../../client'
+import messages from '../../messages'
 
 interface Props {
   pickupProps: React.ComponentProps<typeof PickupSelection>
@@ -23,8 +25,8 @@ const ShippingSelectionModal = ({
   geoCoordinates,
   selectedShipping,
 }: Props) => {
+  const intl = useIntl()
   const {
-    isLoading,
     onChange,
     onSelectPickup,
     onSubmit,
@@ -45,7 +47,7 @@ const ShippingSelectionModal = ({
 
   const stageContent: StageContent = {
     shippingSelection: {
-      title: 'Seleccione un método de envío',
+      title: intl.formatMessage(messages.shippingSelectionModalTitle),
       content: (
         <ShippingMethodStage
           selectedShipping={selectedShipping}
@@ -55,10 +57,9 @@ const ShippingSelectionModal = ({
       ),
     },
     pickupSelection: {
-      title: 'Elige una tienda',
+      title: intl.formatMessage(messages.pickupSelectionTitle),
       content: (
         <PickupSelection
-          isLoading={isLoading}
           onChange={onChange}
           onSelectPickup={onSelectPickup}
           onSubmit={onSubmit}
@@ -67,6 +68,7 @@ const ShippingSelectionModal = ({
           selectedPickup={selectedPickup}
           selectedZipCode={selectedZipCode}
           zipCode={zipCode}
+          onDeliverySelection={onDeliverySelection}
         />
       ),
     },

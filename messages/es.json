@@ -21,5 +21,20 @@
   "store/shipping-option-zipcode.updateButton.label": "Actualizar",
   "store/shipping-option-zipcode.popoverButton.label": "Selecciona una ubicación",
   "store/shipping-option-zipcode.popover.description": "Las ofertas y las opciones de entrega varían según la región.",
-  "store/shipping-option-zipcode.popover.postalCodeLink": "No se mi codigo postal"
+  "store/shipping-option-zipcode.deliveryPopover.submitButton.label": "Continuar",
+  "store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder": "Código postal",
+  "store/shipping-option-zipcode.popover.postalCodeLink": "No se mi codigo postal",
+  "store/shipping-option-zipcode.locationModal.title": "Ingresa una ubicación",
+  "store/shipping-option-zipcode.locationModal.description": "Las ofertas y las opciones de entrega varían según la región.",
+  "store/shipping-option-zipcode.locationModal.noPickupsState.title": "Tienda no disponible en la región",
+  "store/shipping-option-zipcode.locationModal.noPickupsState.description": "No hay productos disponibles para o código postal",
+  "store/shipping-option-zipcode.locationModal.noPickupsState.button.label": "Introduce otra ubicación",
+  "store/shipping-option-zipcode.shippingSelectionModal.title": "Seleccione un método de envío",
+  "store/shipping-option-zipcode.shippingSelectionModal.description": "La disponibilidad de dos productos varía según el método.",
+  "store/shipping-option-zipcode.shippingSelectionModal.deliveryButton.label": "Entregar a domicilio",
+  "store/shipping-option-zipcode.shippingSelectionModal.pickupButton.label": "Recoger en una tienda",
+  "store/shipping-option-zipcode.pickupSelection.title": "Elige una tienda",
+  "store/shipping-option-zipcode.pickupSelection.noStoresState.title": "No hay tiendas disponibles",
+  "store/shipping-option-zipcode.pickupSelection.noStoresState.description": "No hay tiendas que atiendan el código postal {postalCode}",
+  "store/shipping-option-zipcode.pickupSelection.noStoresState.button.label": "Continuar con la entrega"
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 
-import '../styles.css'
+import '../../styles.css'
 
 interface Props {
   pickup: Pickup

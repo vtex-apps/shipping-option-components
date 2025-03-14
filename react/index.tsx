@@ -145,7 +145,6 @@ function ShippingOptionZipCode({
         geoCoordinates={geoCoordinates}
         selectedShipping={shippingOption}
         pickupProps={{
-          isLoading,
           onChange,
           onSelectPickup,
           onSubmit: () => onSubmit(false),
