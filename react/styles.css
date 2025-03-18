@@ -120,7 +120,7 @@
 .shippingOptionButton,
 .modalCloseButton,
 .modalBackButton,
-.deliiveryModalButton {
+.deliveryModalButton {
   cursor: pointer;
   background-color: unset;
   border: 0;
