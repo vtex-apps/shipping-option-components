@@ -15,7 +15,7 @@ interface Props {
 }
 
 const CSS_HANDLES = [
-  'deliiveryModalButton',
+  'deliveryModalButton',
   'deliveryModalButtonLabel',
   'deliveryModalButtonLabelLimited',
 ]
@@ -37,7 +37,7 @@ const DeliveryModalButton = ({
   return (
     <button
       onClick={onClick}
-      className={`flex flex-row items-center pa4 ${handles.deliiveryModalButton}`}
+      className={`flex flex-row items-center pa4 ${handles.deliveryModalButton}`}
     >
       {selectedShipping ? (
         SHIPPING_ICONS[selectedShipping]
