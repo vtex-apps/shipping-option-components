@@ -12,7 +12,7 @@
 
 The Shipping Option Components app exports a component that aims to allow you to filter store products by location or pickup point.
 
-![Media Placeholder](https://user-images.githubusercontent.com/52087100/71204177-42ca4f80-227e-11ea-89e6-e92e65370c69.png)
+![Media Placeholder](https://github.com/user-attachments/assets/6f334e28-fd01-42e9-a536-64eb9742e70c)
 
 ## Configuration
 
