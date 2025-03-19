@@ -117,13 +117,13 @@ const useShippingOptions = () => {
 
   const onSubmit = async (reload = true) => {
     if (!countryCode) {
-      return
+      return false
     }
 
     if (!inputZipCode) {
       onError(intl.formatMessage(messages.postalCodeInputPlaceHolder))
 
-      return
+      return false
     }
 
     setPickups([])
@@ -146,7 +146,7 @@ const useShippingOptions = () => {
     if (coordinates.length === 0) {
       onError(intl.formatMessage(messages.postalCodeInputError))
 
-      return
+      return false
     }
 
     setGeoCoordinates(coordinates)
@@ -164,6 +164,8 @@ const useShippingOptions = () => {
     if (reload) {
       location.reload()
     }
+
+    return true
   }
 
   const onChange = (zipCode?: string) => {
