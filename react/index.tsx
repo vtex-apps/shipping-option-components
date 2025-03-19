@@ -19,13 +19,14 @@ interface Props {
   hideStoreSelection?: boolean
   compactMode?: boolean
   overlayType?: OverlayType
+  enabled: boolean
 }
 
 function ShippingOptionZipCode({
-  // hideStoreSelection = false,
   compactMode = false,
   overlayType = 'popover-input',
   hideStoreSelection = false,
+  enabled,
 }: Props) {
   const intl = useIntl()
   const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
@@ -82,6 +83,10 @@ function ShippingOptionZipCode({
 
   const isBlockingModal =
     overlayType === 'blocking-modal' && !isFirstLoading && !selectedZipCode
+
+  if (!enabled) {
+    return null
+  }
 
   return (
     <>
@@ -170,6 +175,10 @@ function ShippingOptionZipCode({
       />
     </>
   )
+}
+
+ShippingOptionZipCode.schema = {
+  title: 'Seletor de localização',
 }
 
 export default ShippingOptionZipCode

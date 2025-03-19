@@ -1,5 +1,8 @@
 {
   "shipping-option-location-selector": {
-    "component": "index"
+    "component": "index",
+    "content": {
+      "$ref": "app:vtex.shipping-option-components#/definitions/ShippingOptionLocationSelector"
+    }
   }
 }
