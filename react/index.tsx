@@ -179,7 +179,7 @@ function ShippingOptionZipCode({
 }
 
 ShippingOptionZipCode.schema = {
-  title: 'Seletor de localização',
+  title: 'Selector de ubicación',
 }
 
 export default ShippingOptionZipCode

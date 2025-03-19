@@ -1,10 +1,10 @@
 {
   "definitions": {
     "ShippingOptionLocationSelector": {
-      "title": "Seletor de localização",
+      "title": "Selector de ubicación",
       "properties": {
         "enabled": {
-          "title": "Habilitada",
+          "title": "Activado",
           "type": "boolean",
           "default": true
         }
