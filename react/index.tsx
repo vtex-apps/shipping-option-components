@@ -60,11 +60,12 @@ function ShippingOptionZipCode({
   usePixelEventCallback({
     eventId: SHIPPING_MODAL_PIXEL_EVENT_ID,
     handler: () => {
+      setWasShippingModalOpenedByEvent(true)
+      setWasLocationModalOpenedByEvent(true)
+
       if (selectedZipCode) {
         setIsShippingModalOpen(true)
-        setWasShippingModalOpenedByEvent(true)
       } else {
-        setWasLocationModalOpenedByEvent(true)
         setIsLocationModalOpen(true)
       }
     },
@@ -151,7 +152,7 @@ function ShippingOptionZipCode({
         isLoading={isLoading}
         inputErrorMessage={inputErrorMessage}
         zipCode={zipCode}
-        showCloseButton={!isBlockingModal}
+        showCloseButton={!isBlockingModal && !wasLocationModalOpenedByEvent}
       />
 
       <ShippingSelectionModal
