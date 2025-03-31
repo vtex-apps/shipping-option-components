@@ -11,7 +11,7 @@ interface Props {
   showArrowBack: boolean
   isTopCloseButton: boolean
   nonDismissible?: boolean
-  onArrowBack: () => void
+  onArrowBack?: () => void
 }
 
 const customStyles = {
@@ -82,7 +82,7 @@ const Modal = ({
         }`}
       >
         <div className="flex items-center self-start flex-row">
-          {showArrowBack && (
+          {showArrowBack && onArrowBack && (
             <button
               className={`pa0 mr4 ${handles.modalBackButton}`}
               onClick={onArrowBack}

@@ -15,7 +15,9 @@ declare interface Pickup {
   }
 }
 
-declare type OverlayType = 'popover-button' | 'popover-input' | 'blocking-modal'
+declare type CallToAction = 'popover-button' | 'popover-input' | 'modal'
+
+declare type ShippingSelection = 'only-pickup' | 'delivery-and-pickup'
 
 interface StageContent {
   [key: string]: { title: string; content: React.JSX.Element }

@@ -9,27 +9,33 @@ import DeliveryModalButton from './components/ShippingSelectionModal/DeliveryMod
 import {
   SHIPPING_MODAL_PIXEL_EVENT_ID,
   DELIVER_DRAWER_PIXEL_EVENT_ID,
+  STORE_DRAWER_PIXEL_EVENT_ID,
 } from './constants'
-import PikcupDrawer from './components/PickupDrawer'
 import { LocationModal } from './components/LocationModal'
 import ShippingOptionButton from './components/ShippingOptionButton'
 import messages from './messages'
+import PickupModal from './components/PickupModal'
 
 interface Props {
   hideStoreSelection?: boolean
   compactMode?: boolean
-  overlayType?: OverlayType
+  callToAction?: CallToAction
+  dismissible?: boolean
+  shippingSelection?: ShippingSelection
+  countryCode: string
 }
 
 function ShippingOptionZipCode({
-  // hideStoreSelection = false,
   compactMode = false,
-  overlayType = 'popover-input',
-  hideStoreSelection = false,
+  callToAction = 'popover-input',
+  dismissible = false,
+  shippingSelection,
+  countryCode,
 }: Props) {
   const intl = useIntl()
   const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
   const [isLocationModalOpen, setIsLocationModalOpen] = useState<boolean>(false)
+  const [isPickupModalOpen, setisPickupModalOpen] = useState<boolean>(false)
   const [
     wasLocationModalOpenedByEvent,
     setWasLocationModalOpenedByEvent,
@@ -63,30 +69,28 @@ function ShippingOptionZipCode({
   })
 
   usePixelEventCallback({
+    eventId: STORE_DRAWER_PIXEL_EVENT_ID,
+    handler: () => {
+      setisPickupModalOpen(true)
+    },
+  })
+
+  usePixelEventCallback({
     eventId: DELIVER_DRAWER_PIXEL_EVENT_ID,
     handler: () => setIsLocationModalOpen(true),
   })
 
-  const nonDismissibleModal =
-    selectedZipCode === null && overlayType === 'blocking-modal'
-
   useEffect(() => {
-    if (nonDismissibleModal) {
+    if (selectedZipCode === null && callToAction === 'modal') {
       setIsLocationModalOpen(true)
     }
-  }, [nonDismissibleModal])
+  }, [callToAction, selectedZipCode])
+
+  const showDeliveryModalButton = shippingSelection === 'delivery-and-pickup'
+  const showPickupButton = shippingSelection === 'only-pickup'
 
   return (
     <>
-      {selectedZipCode && (
-        <DeliveryModalButton
-          onClick={() => setIsShippingModalOpen(true)}
-          selectedShipping={shippingOption}
-          selectedPickup={selectedPickup}
-          loading={isLoading}
-        />
-      )}
-
       <ShippingOptionButton
         onClick={() => {
           setWasLocationModalOpenedByEvent(false)
@@ -101,23 +105,28 @@ function ShippingOptionZipCode({
         onChange={onChange}
         onSubmit={onSubmit}
         inputErrorMessage={inputErrorMessage}
-        overlayType={overlayType}
+        callToAction={callToAction}
       />
-      <div style={{ display: 'none' }}>
-        <PikcupDrawer
-          isLoading={isLoading}
-          onChange={onChange}
-          onSubmit={() => onSubmit(false)}
-          inputErrorMessage={inputErrorMessage}
-          selectedZipCode={selectedZipCode}
-          zipCode={zipCode}
-          pickups={pickups}
+
+      {selectedZipCode && showDeliveryModalButton && (
+        <DeliveryModalButton
+          onClick={() => setIsShippingModalOpen(true)}
+          selectedShipping={shippingOption}
           selectedPickup={selectedPickup}
-          onSelectPickup={onSelectPickup}
-          compact={compactMode}
-          hideStoreSelection={hideStoreSelection}
+          loading={isLoading}
         />
-      </div>
+      )}
+
+      {selectedZipCode && showPickupButton && (
+        <ShippingOptionButton
+          onClick={() => setisPickupModalOpen(true)}
+          loading={isLoading}
+          value={selectedPickup?.pickupPoint.friendlyName}
+          placeholder={intl.formatMessage(messages.storeButtonPlaceHolder)}
+          label={intl.formatMessage(messages.storeButtonLabel)}
+          compact={compactMode}
+        />
+      )}
 
       <LocationModal
         isOpen={isLocationModalOpen}
@@ -136,7 +145,7 @@ function ShippingOptionZipCode({
         isLoading={isLoading}
         inputErrorMessage={inputErrorMessage}
         zipCode={zipCode}
-        nonDismissibleModal={nonDismissibleModal}
+        nonDismissibleModal={!dismissible}
       />
 
       <ShippingSelectionModal
@@ -144,6 +153,7 @@ function ShippingOptionZipCode({
         onClose={() => setIsShippingModalOpen(false)}
         geoCoordinates={geoCoordinates}
         selectedShipping={shippingOption}
+        countryCode={countryCode}
         pickupProps={{
           onChange,
           onSelectPickup,
@@ -153,6 +163,23 @@ function ShippingOptionZipCode({
           selectedPickup,
           selectedZipCode,
           zipCode,
+          isLoading,
+        }}
+      />
+
+      <PickupModal
+        isOpen={isPickupModalOpen}
+        onClose={() => setisPickupModalOpen(false)}
+        pickupProps={{
+          onChange,
+          onSelectPickup,
+          onSubmit: () => onSubmit(false),
+          pickups,
+          inputErrorMessage,
+          selectedPickup,
+          selectedZipCode,
+          zipCode,
+          isLoading,
         }}
       />
     </>

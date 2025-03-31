@@ -14,6 +14,7 @@ interface Props {
   isOpen: boolean
   onClose: () => void
   selectedShipping?: 'delivery' | 'pickup-in-point'
+  countryCode?: string
 }
 
 type Stages = 'shippingSelection' | 'pickupSelection'
@@ -24,6 +25,7 @@ const ShippingSelectionModal = ({
   onClose,
   geoCoordinates,
   selectedShipping,
+  countryCode,
 }: Props) => {
   const intl = useIntl()
   const {
@@ -35,12 +37,23 @@ const ShippingSelectionModal = ({
     selectedPickup,
     selectedZipCode,
     zipCode,
+    isLoading,
   } = pickupProps
 
   const [stage, setStage] = useState<Stages>('shippingSelection')
 
   const onDeliverySelection = async () => {
-    await updateSession(zipCode!, geoCoordinates!, selectedPickup, 'delivery')
+    if (!countryCode || !zipCode || !geoCoordinates) {
+      return
+    }
+
+    await updateSession(
+      countryCode,
+      zipCode,
+      geoCoordinates,
+      selectedPickup,
+      'delivery'
+    )
     onClose()
     location.reload()
   }
@@ -60,6 +73,7 @@ const ShippingSelectionModal = ({
       title: intl.formatMessage(messages.pickupSelectionTitle),
       content: (
         <PickupSelection
+          isLoading={isLoading}
           onChange={onChange}
           onSelectPickup={onSelectPickup}
           onSubmit={onSubmit}

@@ -220,6 +220,7 @@ const useShippingOptions = () => {
     onSelectPickup,
     geoCoordinates,
     shippingOption,
+    countryCode,
   }
 }
 

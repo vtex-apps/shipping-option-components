@@ -91,6 +91,7 @@ const PikcupDrawer = ({
       isLoading={isLoading}
     >
       <PickupSelectionWrapper
+        isLoading={isLoading}
         onChange={onChange}
         onSubmit={onSubmit}
         inputErrorMessage={inputErrorMessage}

@@ -18,6 +18,7 @@ interface Props {
   onClose?: () => void
   shouldPersistFacet?: boolean
   onDeliverySelection?: () => void
+  isLoading: boolean
 }
 
 const PickupSelection = ({
@@ -31,6 +32,7 @@ const PickupSelection = ({
   onClose,
   shouldPersistFacet,
   onDeliverySelection,
+  isLoading,
 }: Props) => {
   const intl = useIntl()
 
@@ -45,7 +47,7 @@ const PickupSelection = ({
           placeholder={intl.formatMessage(messages.postalCodeInputPlaceHolder)}
         />
       </div>
-      {pickups.length === 0 ? (
+      {pickups.length === 0 && !isLoading ? (
         <EmptyState
           onClick={onDeliverySelection}
           buttonLabel={intl.formatMessage(messages.noStoresStateButton)}

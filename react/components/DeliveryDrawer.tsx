@@ -20,7 +20,7 @@ interface Props {
   selectedZipCode?: string | null
   compact: boolean
   city?: string
-  overlayType?: OverlayType
+  callToAction?: CallToAction
 }
 
 const CSS_HANDLES = ['deliveryDrawerValue']
@@ -35,7 +35,7 @@ const DeliveryDrawer = ({
   selectedZipCode,
   zipCode,
   // compact,
-  overlayType,
+  callToAction,
 }: Props) => {
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
@@ -72,7 +72,7 @@ const DeliveryDrawer = ({
           onChange={onChange}
           onSubmit={onSubmit}
           inputErrorMessage={inputErrorMessage}
-          overlayType={overlayType}
+          callToAction={callToAction}
         />
       }
       title={intl.formatMessage(messages.storeDeliverDrawerTitle)}
