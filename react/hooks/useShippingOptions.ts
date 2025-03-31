@@ -17,14 +17,18 @@ declare let window: any
 
 const useShippingOptions = () => {
   const [inputZipCode, setInputZipCode] = useState<string>()
-  const [selectedZipCode, setSelectedZipCode] = useState<string>()
+  const [selectedZipCode, setSelectedZipCode] = useState<string | null>()
   const [isLoading, setIsLoading] = useState(true)
+  const [isPageLoading, setIsPageLoading] = useState(true)
   const [countryCode, setCountryCode] = useState<string>()
   const [inputErrorMessage, setInputErrorMessage] = useState<string>()
   const [city, setCity] = useState<string>()
   const [pickups, setPickups] = useState<Pickup[]>([])
   const [selectedPickup, setSelectecPickup] = useState<Pickup>()
   const [geoCoordinates, setGeoCoordinates] = useState<number[]>()
+  const [shippingOption, setShippingOption] = useState<
+    'delivery' | 'pickup-in-point'
+  >()
 
   const isSSR = useSSR()
   const { account } = useRuntime()
@@ -43,23 +47,26 @@ const useShippingOptions = () => {
         return
       }
 
-      let [pickup] = responsePickups.items
-
       const pickupPointId = getFacetsData('pickupPoint')
 
       if (pickupPointId) {
-        pickup = responsePickups.items.find(
+        const pickup = responsePickups.items.find(
           (p: any) => p.pickupPoint.id === pickupPointId
+        )
+
+        setSelectecPickup(pickup)
+        await updateSession(
+          country,
+          zipCode,
+          coordinates,
+          pickup,
+          shippingOption
         )
       }
 
-      setSelectecPickup(pickup)
-
-      await updateSession(country, zipCode, coordinates, pickup)
-
       setIsLoading(false)
     },
-    [account]
+    [account, shippingOption]
   )
 
   useEffect(() => {
@@ -69,10 +76,12 @@ const useShippingOptions = () => {
 
     const segmentZipCode = getFacetsData('zip-code')
     const segmentCountryCode = getCountryCode()
+    const segmentShippingOption = getFacetsData('shipping')
 
-    setSelectedZipCode(segmentZipCode)
+    setSelectedZipCode(segmentZipCode ?? null)
     setInputZipCode(segmentZipCode)
     setCountryCode(segmentCountryCode)
+    setShippingOption(segmentShippingOption as 'delivery' | 'pickup-in-point')
 
     if (segmentZipCode) {
       getAddress(segmentCountryCode, segmentZipCode, account).then((res) => {
@@ -94,16 +103,27 @@ const useShippingOptions = () => {
     }, 3000)
   }
 
-  const onSelectPickup = async (pickup: Pickup) => {
+  const onSelectPickup = async (pickup: Pickup, shouldPersistFacet = true) => {
     setSelectecPickup(pickup)
 
     if (!countryCode || !selectedZipCode || !geoCoordinates) {
       return
     }
 
-    await updateSession(countryCode, selectedZipCode, geoCoordinates, pickup)
+    await updateSession(
+      countryCode,
+      selectedZipCode,
+      geoCoordinates,
+      pickup,
+      shouldPersistFacet ? 'pickup-in-point' : shippingOption
+    )
 
     location.reload()
+  }
+
+  const handleIsLoading = () => {
+    setIsLoading(true)
+    setIsPageLoading(false)
   }
 
   const onSubmit = async (reload = true) => {
@@ -120,7 +140,7 @@ const useShippingOptions = () => {
     setPickups([])
     setCity(undefined)
 
-    setIsLoading(true)
+    handleIsLoading()
 
     const orderFormId = getOrderFormId()
 
@@ -139,6 +159,8 @@ const useShippingOptions = () => {
 
       return
     }
+
+    setGeoCoordinates(coordinates)
 
     setSelectedZipCode(inputZipCode)
 
@@ -181,17 +203,24 @@ const useShippingOptions = () => {
     })
   }, [pickupPointLabel, push])
 
+  const isFirstLoading = isPageLoading && isLoading
+
   return {
     zipCode: inputZipCode,
     selectedZipCode,
     isLoading,
+    isFirstLoading,
     inputErrorMessage,
     onSubmit,
     onChange,
     addressLabel,
+    city,
     pickups,
     selectedPickup,
     onSelectPickup,
+    geoCoordinates,
+    shippingOption,
+    countryCode,
   }
 }
 

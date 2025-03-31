@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { usePixel } from 'vtex.pixel-manager'
+import { useDrawer } from 'vtex.store-drawer/DrawerContext'
 import { useCssHandles } from 'vtex.css-handles'
 
 import ShippingOptionDrawer from './ShippingOptionDrawer'
@@ -13,12 +14,11 @@ const CSS_HANDLES = ['drawerHiddenIcon'] as const
 
 interface Props {
   isLoading: boolean
-  addressLabel?: string
   onSubmit: () => void
   inputErrorMessage?: string
   onChange: (zipCode?: string) => void
   zipCode?: string
-  selectedZipCode?: string
+  selectedZipCode?: string | null
   selectedPickup?: Pickup
   pickups: Pickup[]
   onSelectPickup: (pickup: Pickup) => void
@@ -27,7 +27,6 @@ interface Props {
 }
 
 const PikcupDrawer = ({
-  addressLabel,
   isLoading,
   onChange,
   onSubmit,
@@ -59,6 +58,16 @@ const PikcupDrawer = ({
     ? selectedPickup.pickupPoint.friendlyName
     : undefined
 
+  const PickupSelectionWrapper = (
+    props: React.ComponentProps<typeof PickupSelection>
+  ) => {
+    const close = useDrawer()
+
+    return (
+      <PickupSelection {...props} onClose={close} shouldPersistFacet={false} />
+    )
+  }
+
   return (
     <ShippingOptionDrawer
       icon={
@@ -81,11 +90,10 @@ const PikcupDrawer = ({
       inputErrorMessage={inputErrorMessage}
       isLoading={isLoading}
     >
-      <PickupSelection
+      <PickupSelectionWrapper
         isLoading={isLoading}
         onChange={onChange}
         onSubmit={onSubmit}
-        addressLabel={addressLabel}
         inputErrorMessage={inputErrorMessage}
         selectedZipCode={selectedZipCode}
         zipCode={zipCode}

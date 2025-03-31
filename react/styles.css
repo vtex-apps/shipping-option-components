@@ -51,6 +51,7 @@
 }
 
 .shippingButtonContainer {
+  margin: auto;
   position: relative;
 }
 
@@ -104,8 +105,76 @@
   width: 100%;
 }
 
+.shippingMethodModalTitle {
+  color: #000;
+}
+
 .openIconContainer:has(.drawerHiddenIcon) {
   display: none;
+}
+
+.noPickupsStateContent {
+  margin: auto 0;
+}
+
+.shippingOptionButton,
+.modalCloseButton,
+.modalBackButton,
+.deliveryModalButton {
+  cursor: pointer;
+  background-color: unset;
+  border: 0;
+  text-align: left;
+}
+
+.modalCloseButton {
+  text-align: right;
+}
+
+.shippingOptionButton {
+  border: 1px solid var(--border-2, #e2e4e6);
+  border-radius: 8px;
+  padding: 28px 40px;
+}
+
+.shippingOptionButtonSelected {
+  border: 1px solid var(--border-1, #7e7e7e);
+}
+
+.shippingOptionButton:hover {
+  border: 1px solid var(--border-1, #7e7e7e);
+}
+
+.shippingMethodModalOptions {
+  gap: 20px;
+}
+
+.deliveryModalButtonLabel,
+.deliveryDrawerValue {
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+  max-width: 122px;
+  margin-left: 6px;
+}
+
+.deliveryModalButtonLabel {
+  max-width: 68px;
+}
+
+.deliveryModalButtonLabelLimited {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.buttonValue {
+  max-width: 110px;
+  align-self: end;
+}
+
+.updateButtonContainer {
+  bottom: -30px;
 }
 
 @keyframes fadein {

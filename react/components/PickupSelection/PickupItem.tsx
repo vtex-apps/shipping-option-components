@@ -1,7 +1,7 @@
 import React from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 
-import '../styles.css'
+import '../../styles.css'
 
 interface Props {
   pickup: Pickup
@@ -29,7 +29,9 @@ const PickupItem = ({ pickup, onClick, selected }: Props) => {
       } relative`}
       onClick={onClick}
     >
-      <p className="f4 tl ma0 fw6 mb2">{friendlyName}</p>
+      <p className="f4 tl ma0 fw6 mb2" style={{ maxWidth: '80%' }}>
+        {friendlyName}
+      </p>
       <p className="mid-gray f6 ma0 tl">{`${number} ${street}`}</p>
       <p className="mid-gray f6 ma0 tl">{`${neighborhood}, ${city}, ${postalCode}`}</p>
       <span className="mid-gray absolute top-1 right-1">

@@ -11,10 +11,17 @@ declare interface Pickup {
       number: string
       state: string
     }
+    isActive: boolean
   }
 }
 
-declare type OverlayType = 'popover-button' | 'popover-input'
+declare type CallToAction = 'popover-button' | 'popover-input' | 'modal'
+
+declare type ShippingSelection = 'only-pickup' | 'delivery-and-pickup'
+
+interface StageContent {
+  [key: string]: { title: string; content: React.JSX.Element }
+}
 
 declare global {
   interface Window {

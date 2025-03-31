@@ -10,8 +10,7 @@ interface Props {
   inputErrorMessage?: string
   zipCode?: string
   onChange: (zipCode?: string) => void
-  addressLabel?: string
-  selectedZipCode?: string
+  selectedZipCode?: string | null
   isLoading: boolean
 }
 
@@ -20,7 +19,6 @@ const DeliverySelection = ({
   inputErrorMessage,
   zipCode,
   onChange,
-  addressLabel,
   selectedZipCode,
   isLoading,
 }: Props) => {
@@ -35,9 +33,7 @@ const DeliverySelection = ({
         onSubmit={onSubmit}
         errorMessage={inputErrorMessage}
         onChange={onChange}
-        addressLabel={addressLabel}
         placeholder={intl.formatMessage(messages.postalCodeInputPlaceHolder)}
-        newZipCodeTyped={newZipCodeTyped}
       />
       <div className="fixed left-0 bottom-0 w-100 flex justify-center mb7">
         <SubmitButton
