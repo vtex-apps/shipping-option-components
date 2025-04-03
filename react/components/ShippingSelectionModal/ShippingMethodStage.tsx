@@ -23,7 +23,7 @@ const ShippingMethodStage = ({
   return (
     <>
       <p className="mid-gray ma0">
-        La disponibilidad de dos productos varía según el método
+        La disponibilidad de los productos varía según el método:
       </p>
       <div
         className={`flex w-100 mt8 justify-around ${handles.shippingMethodModalOptions}`}
