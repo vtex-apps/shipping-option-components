@@ -11,6 +11,17 @@ interface Props {
 
 const CSS_HANDLES = ['pickupItem', 'pickupItemSelected'] as const
 
+const pickupItem = {
+  padding: '20px',
+  backgroundColor: 'unset',
+  marginBottom: '20px',
+}
+
+const pickupItemSelected = {
+  borderWidth: '2px',
+  borderColor: '#134cd8',
+}
+
 const PickupItem = ({ pickup, onClick, selected }: Props) => {
   const {
     distance,
@@ -24,9 +35,13 @@ const PickupItem = ({ pickup, onClick, selected }: Props) => {
 
   return (
     <button
-      className={`${handle.pickupItem} ${
-        selected ? handle.pickupItemSelected : ''
-      } relative`}
+      style={{
+        ...pickupItem,
+        ...(selected ? pickupItemSelected : null),
+      }}
+      className={`pointer relative hover-b--gray b--black-10 ba br2 ${
+        handle.pickupItem
+      } ${selected ? handle.pickupItemSelected : ''} `}
       onClick={onClick}
     >
       <p className="f4 tl ma0 fw6 mb2" style={{ maxWidth: '80%' }}>

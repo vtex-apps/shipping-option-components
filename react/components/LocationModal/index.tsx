@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 
 import AddLocation from './AddLocation'
@@ -11,38 +11,38 @@ type Stages = 'locationSelection' | 'noPickupState'
 interface Props {
   isOpen: boolean
   onClose: () => void
-  onChange: (zipCode?: string) => void
-  onSubmit: (reload?: boolean, validateAndReload?: boolean) => Promise<any>
+  onSubmit: (zipCode: string) => void
   isLoading?: boolean
   inputErrorMessage?: string
-  zipCode?: string
+  selectedZipcode?: string
   nonDismissibleModal?: boolean
 }
 
-export const LocationModal = ({
+const LocationModal = ({
   isOpen,
   onClose,
-  onChange,
   onSubmit,
   isLoading,
   inputErrorMessage,
-  zipCode,
+  selectedZipcode,
   nonDismissibleModal,
 }: Props) => {
+  const [zipcode, setZipcode] = useState<string>('')
+  const [stage, setStage] = useState<Stages>('locationSelection')
   const intl = useIntl()
 
-  const [stage, setStage] = useState<Stages>('locationSelection')
+  useEffect(() => setZipcode(selectedZipcode ?? ''), [selectedZipcode])
 
   const stageContent: StageContent = {
     locationSelection: {
       title: intl.formatMessage(messages.locationModalTitle),
       content: (
         <AddLocation
-          onChange={onChange}
           onSubmit={onSubmit}
           isLoading={isLoading}
           inputErrorMessage={inputErrorMessage}
-          zipCode={zipCode}
+          onChange={(value: string) => setZipcode(value)}
+          zipcode={zipcode}
         />
       ),
     },
@@ -52,7 +52,7 @@ export const LocationModal = ({
         <EmptyState
           title={intl.formatMessage(messages.noPickupsStateTitle)}
           description={intl.formatMessage(messages.noPickupsStateDescription, {
-            postalCode: ` ${zipCode}`,
+            postalCode: ` ${zipcode}`,
           })}
           buttonLabel={intl.formatMessage(messages.noPickupsStateButtonLabel)}
           onClick={() => setStage('locationSelection')}
@@ -76,3 +76,5 @@ export const LocationModal = ({
     </Modal>
   )
 }
+
+export default LocationModal
