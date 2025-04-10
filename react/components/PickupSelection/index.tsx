@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 
 import PostalCodeInput from '../PostalCodeInput'
@@ -7,11 +7,9 @@ import EmptyState from '../EmptyState'
 import PickupList from './PickupList'
 
 interface Props {
-  onSubmit: (zipCode?: string) => void
+  onSubmit: (zipCode: string) => void
   inputErrorMessage?: string
-  zipCode?: string
-  onChange: (zipCode?: string) => void
-  selectedZipCode?: string | null
+  selectedZipcode?: string
   pickups: Pickup[]
   selectedPickup?: Pickup
   onSelectPickup: (pickup: Pickup, shouldPersistFacet?: boolean) => void
@@ -24,8 +22,7 @@ interface Props {
 const PickupSelection = ({
   onSubmit,
   inputErrorMessage,
-  zipCode,
-  onChange,
+  selectedZipcode,
   pickups,
   selectedPickup,
   onSelectPickup,
@@ -34,16 +31,19 @@ const PickupSelection = ({
   onDeliverySelection,
   isLoading,
 }: Props) => {
+  const [zipcode, setZipcode] = useState<string>('')
   const intl = useIntl()
+
+  useEffect(() => setZipcode(selectedZipcode ?? ''), [selectedZipcode])
 
   return (
     <div className="flex flex-column justify-between mt5 vh-100">
       <div className="mb7">
         <PostalCodeInput
-          zipCode={zipCode}
+          onChange={(value: string) => setZipcode(value)}
+          zipcode={zipcode}
           onSubmit={onSubmit}
           errorMessage={inputErrorMessage}
-          onChange={onChange}
           placeholder={intl.formatMessage(messages.postalCodeInputPlaceHolder)}
         />
       </div>
@@ -53,7 +53,7 @@ const PickupSelection = ({
           buttonLabel={intl.formatMessage(messages.noStoresStateButton)}
           title={intl.formatMessage(messages.noStoresStateTitle)}
           description={intl.formatMessage(messages.noStoresStateDescription, {
-            postalCode: ` ${zipCode}`,
+            postalCode: ` ${zipcode}`,
           })}
         />
       ) : (

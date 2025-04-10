@@ -10,16 +10,22 @@ const CSS_HANDLES = [
 ] as const
 
 interface Props {
-  onSubmit: () => void
-  onChange: (zipCode?: string) => void
-  zipCode?: string
+  onSubmit: (zipcode: string) => void
+  onChange: (zipcode: string) => void
+  zipcode: string
   errorMessage?: string
   showClearButton?: boolean
   placeholder?: string
 }
 
+const postalCodeInputClearButton = {
+  backgroundColor: 'unset',
+  width: '32px',
+  height: '32px',
+}
+
 const PostalCodeInput = ({
-  zipCode,
+  zipcode,
   errorMessage,
   onSubmit,
   onChange,
@@ -29,7 +35,7 @@ const PostalCodeInput = ({
   const handles = useCssHandles(CSS_HANDLES)
 
   return (
-    <div className={handles.postalCodeInputContainer}>
+    <div className={`w-100 ${handles.postalCodeInputContainer}`}>
       <Input
         autFocus
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -37,16 +43,17 @@ const PostalCodeInput = ({
         }
         onKeyDown={(e: { key: string }) => {
           if (e.key === 'Enter') {
-            onSubmit()
+            onSubmit(zipcode ?? '')
           }
         }}
-        value={zipCode}
+        value={zipcode}
         errorMessage={errorMessage}
         placeholder={placeholder}
         suffix={
           showClearButton ? (
             <button
-              className={handles.postalCodeInputClearButton}
+              style={postalCodeInputClearButton}
+              className={`bn pointer flex justify-center items-center pa3 ${handles.postalCodeInputClearButton}`}
               onClick={() => {
                 onChange('')
               }}
