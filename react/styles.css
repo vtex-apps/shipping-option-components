@@ -7,47 +7,14 @@
   background-color: #eef3f7 !important;
 }
 
-.postalCodeInputClearButton {
-  border: 0;
-  cursor: pointer;
-  padding: 8px;
-  background-color: unset;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .zipCodeValue {
   border: 0;
   cursor: pointer;
   padding: 8px;
   background-color: unset;
   width: 100%;
-  display: flex;
-  justify-content: center;
   align-items: center;
   color: #2e2e2e;
-}
-
-.pickupItem {
-  border: 1px solid;
-  border-color: #e2e4e6;
-  cursor: pointer;
-  padding: 20px;
-  background-color: unset;
-  margin-bottom: 20px;
-}
-
-.pickupItem:hover {
-  border-color: #979899;
-}
-
-.pickupItemSelected,
-.pickupItemSelected:hover {
-  border: 2px solid;
-  border-color: #134cd8;
 }
 
 .shippingButtonContainer {
@@ -101,20 +68,8 @@
   align-items: start;
 }
 
-.postalCodeInputContainer {
-  width: 100%;
-}
-
-.shippingMethodModalTitle {
-  color: #000;
-}
-
 .openIconContainer:has(.drawerHiddenIcon) {
   display: none;
-}
-
-.noPickupsStateContent {
-  margin: auto 0;
 }
 
 .shippingOptionButton,
@@ -171,10 +126,6 @@
 .buttonValue {
   max-width: 110px;
   align-self: end;
-}
-
-.updateButtonContainer {
-  bottom: -30px;
 }
 
 @keyframes fadein {

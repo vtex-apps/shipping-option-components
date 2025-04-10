@@ -7,19 +7,19 @@ import messages from '../../messages'
 import PostalCodeHelpLink from '../PostalCodeHelpLink'
 
 interface Props {
-  onChange: (zipCode?: string) => void
-  onSubmit: () => void
+  onSubmit: (zipcode: string) => void
+  onChange: (zipCode: string) => void
+  zipcode: string
   isLoading?: boolean
   inputErrorMessage?: string
-  zipCode?: string
 }
 
 const AddLocation = ({
-  onChange,
   onSubmit,
+  onChange,
+  zipcode,
   isLoading,
   inputErrorMessage,
-  zipCode,
 }: Props) => {
   const intl = useIntl()
 
@@ -31,10 +31,10 @@ const AddLocation = ({
 
       <div>
         <PostalCodeInput
-          zipCode={zipCode}
+          onChange={(value: string) => onChange(value)}
+          zipcode={zipcode}
           onSubmit={onSubmit}
           errorMessage={inputErrorMessage}
-          onChange={onChange}
           showClearButton={false}
           placeholder={intl.formatMessage(
             messages.popoverPostalCodeInputPlaceHolder
@@ -45,7 +45,7 @@ const AddLocation = ({
         </div>
       </div>
 
-      <Button isLoading={isLoading} onClick={onSubmit}>
+      <Button isLoading={isLoading} onClick={() => onSubmit(zipcode)}>
         {intl.formatMessage(messages.popoverSubmitButtonLabel)}
       </Button>
     </div>

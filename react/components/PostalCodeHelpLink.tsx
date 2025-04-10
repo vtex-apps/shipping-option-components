@@ -4,8 +4,8 @@ import { AddressRules, helpers } from 'vtex.address-form'
 import { Link } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 
+import { useShippingOptionState } from '../context'
 import messages from '../messages'
-import { getCountryCode } from '../utils/cookie'
 
 const POSTAL_CODE_FIELD = 'postalCode'
 
@@ -45,8 +45,10 @@ const HelpLink = helpers.injectRules(({ rules }: Props) => {
 })
 
 const PostalCodeHelpLink = () => {
+  const { countryCode } = useShippingOptionState()
+
   return (
-    <AddressRules country={getCountryCode()} shouldUseIOFetching>
+    <AddressRules country={countryCode} shouldUseIOFetching>
       <HelpLink />
     </AddressRules>
   )
