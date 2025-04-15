@@ -22,7 +22,6 @@ interface Props {
   callToAction?: CallToAction
   dismissible?: boolean
   shippingSelection?: ShippingSelection
-  countryCode: string
 }
 
 function ShippingOptionZipCode({
@@ -30,7 +29,6 @@ function ShippingOptionZipCode({
   callToAction = 'popover-input',
   dismissible = false,
   shippingSelection,
-  countryCode,
 }: Props) {
   const intl = useIntl()
   const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
@@ -54,6 +52,7 @@ function ShippingOptionZipCode({
     onSelectPickup,
     geoCoordinates,
     shippingOption,
+    countryCode,
   } = useShippingOptions()
 
   usePixelEventCallback({
