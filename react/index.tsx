@@ -24,8 +24,8 @@ interface Props {
 function ShippingOptionZipcode({
   compactMode = false,
   callToAction = 'popover-input',
-  dismissible = true,
-  shippingSelection = 'delivery-and-pickup',
+  dismissible = false,
+  shippingSelection,
 }: Props) {
   const intl = useIntl()
   const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
@@ -81,10 +81,13 @@ function ShippingOptionZipcode({
   })
 
   useEffect(() => {
-    if (selectedZipcode === null && callToAction === 'modal') {
+    const isModalOpen =
+      !isLoading && !selectedZipcode && callToAction === 'modal'
+
+    if (isModalOpen) {
       setIsLocationModalOpen(true)
     }
-  }, [callToAction, selectedZipcode])
+  }, [callToAction, selectedZipcode, isLoading])
 
   const showDeliveryModalButton = shippingSelection === 'delivery-and-pickup'
   const showPickupButton = shippingSelection === 'only-pickup'
@@ -143,7 +146,7 @@ function ShippingOptionZipcode({
         isLoading={isLoading}
         inputErrorMessage={submitErrorMessage}
         selectedZipcode={selectedZipcode}
-        nonDismissibleModal={!dismissible}
+        nonDismissibleModal={!dismissible && !selectedZipcode}
       />
 
       <ShippingSelectionModal
