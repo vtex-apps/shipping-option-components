@@ -80,10 +80,13 @@ function ShippingOptionZipcode({
   })
 
   useEffect(() => {
-    if (selectedZipcode === null && callToAction === 'modal') {
+    const isModalOpen =
+      !isLoading && !selectedZipcode && callToAction === 'modal'
+
+    if (isModalOpen) {
       setIsLocationModalOpen(true)
     }
-  }, [callToAction, selectedZipcode])
+  }, [callToAction, selectedZipcode, isLoading])
 
   const showDeliveryModalButton = shippingSelection === 'delivery-and-pickup'
   const showPickupButton = shippingSelection === 'only-pickup'
@@ -142,7 +145,7 @@ function ShippingOptionZipcode({
         isLoading={isLoading}
         inputErrorMessage={submitErrorMessage}
         selectedZipcode={selectedZipcode}
-        nonDismissibleModal={!dismissible}
+        nonDismissibleModal={!dismissible && !selectedZipcode}
       />
 
       <ShippingSelectionModal
