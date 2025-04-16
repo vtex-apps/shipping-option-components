@@ -1,9 +1,8 @@
 /* eslint-disable no-restricted-globals */
 import { useRuntime, useSSR } from 'vtex.render-runtime'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 
-import { State } from './ShippingOptionContext'
 import {
   getAddress,
   getPickups,
@@ -12,22 +11,23 @@ import {
 } from '../client'
 import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
 import messages from '../messages'
+import { ShippingMethod, ShippingOptionActions } from './ShippingOptionContext'
 
-export const useShippingOption = (
-  state: State,
-  dispatch: React.Dispatch<ContextActions>
-) => {
+export const useShippingOption = () => {
+  const [zipcode, setZipCode] = useState<string>()
+  const [isLoading, setIsLoading] = useState(true)
+  const [countryCode, setCountryCode] = useState<string>()
+  const [submitErrorMessage, setSubmitErrorMessage] = useState<string>()
+  const [city, setCity] = useState<string>()
+  const [pickups, setPickups] = useState<Pickup[]>([])
+  const [selectedPickup, setSelectecPickup] = useState<Pickup>()
+  const [geoCoordinates, setGeoCoordinates] = useState<number[]>()
+  const [addressLabel, setAddressLabel] = useState<string>()
+  const [shippingOption, setShippingOption] = useState<ShippingMethod>()
+
   const { account } = useRuntime()
   const isSSR = useSSR()
   const intl = useIntl()
-  const {
-    zipcode,
-    geoCoordinates,
-    countryCode,
-    shippingOption,
-    selectedPickup,
-    city,
-  } = state
 
   const fetchPickups = useCallback(
     async (
@@ -42,13 +42,10 @@ export const useShippingOption = (
         account
       )
 
-      dispatch({
-        type: 'SET_PICKUPS',
-        args: { pickups: responsePickups?.items ?? [] },
-      })
+      setPickups(responsePickups?.items ?? [])
 
       if (responsePickups?.items.length === 0) {
-        dispatch({ type: 'SET_IS_LOADING', args: { isLoading: false } })
+        setIsLoading(false)
 
         return
       }
@@ -60,10 +57,7 @@ export const useShippingOption = (
           (p: Pickup) => p.pickupPoint.id === pickupPointId
         )
 
-        dispatch({
-          type: 'SET_PICKUP',
-          args: { pickup },
-        })
+        setSelectecPickup(pickup)
 
         await updateSession(
           country,
@@ -74,9 +68,9 @@ export const useShippingOption = (
         )
       }
 
-      dispatch({ type: 'SET_IS_LOADING', args: { isLoading: false } })
+      setIsLoading(false)
     },
-    [account, dispatch]
+    [account]
   )
 
   useEffect(() => {
@@ -88,31 +82,14 @@ export const useShippingOption = (
     const segmentCountryCode = getCountryCode()
     const segmentShippingOption = getFacetsData('shipping') as ShippingMethod
 
-    dispatch({
-      type: 'SET_ZIPCODE',
-      args: { zipcode: segmentZipCode },
-    })
-
-    dispatch({
-      type: 'SET_SHIPPING_OPTION',
-      args: { shippingOption: segmentShippingOption },
-    })
-
-    dispatch({
-      type: 'SET_COUNTRY_CODE',
-      args: { countryCode: segmentCountryCode },
-    })
+    setZipCode(segmentZipCode)
+    setShippingOption(segmentShippingOption)
+    setCountryCode(segmentCountryCode)
 
     if (segmentZipCode) {
       getAddress(segmentCountryCode, segmentZipCode, account).then((res) => {
-        dispatch({
-          type: 'SET_CITY',
-          args: { city: res.city },
-        })
-        dispatch({
-          type: 'SET_GEO_COORDINATES',
-          args: { geoCoordinates: res.geoCoordinates },
-        })
+        setCity(res.city)
+        setGeoCoordinates(res.geoCoordinates)
         fetchPickups(
           segmentCountryCode,
           segmentZipCode,
@@ -121,22 +98,16 @@ export const useShippingOption = (
         )
       })
     } else {
-      dispatch({ type: 'SET_IS_LOADING', args: { isLoading: false } })
+      setIsLoading(false)
     }
-  }, [account, isSSR, fetchPickups, dispatch])
+  }, [account, isSSR, fetchPickups])
 
   const onError = (message: string) => {
-    dispatch({
-      type: 'SET_SUBMIT_ERROR_MESSAGE',
-      args: { submitErrorMessage: message },
-    })
-    dispatch({ type: 'SET_IS_LOADING', args: { isLoading: false } })
+    setSubmitErrorMessage(message)
+    setIsLoading(false)
 
     setTimeout(() => {
-      dispatch({
-        type: 'SET_SUBMIT_ERROR_MESSAGE',
-        args: { submitErrorMessage: undefined },
-      })
+      setSubmitErrorMessage(undefined)
     }, 3000)
   }
 
@@ -151,7 +122,7 @@ export const useShippingOption = (
       return
     }
 
-    dispatch({ type: 'SET_IS_LOADING', args: { isLoading: true } })
+    setIsLoading(true)
 
     const { geoCoordinates: coordinates, city: cityName } = await getAddress(
       countryCode,
@@ -171,17 +142,9 @@ export const useShippingOption = (
       await updateOrderForm(countryCode, selectedZipcode, orderFormId)
     }
 
-    dispatch({ type: 'SET_CITY', args: { city: cityName } })
-
-    dispatch({
-      type: 'SET_GEO_COORDINATES',
-      args: { geoCoordinates: coordinates },
-    })
-
-    dispatch({
-      type: 'SET_ZIPCODE',
-      args: { zipcode: selectedZipcode },
-    })
+    setCity(cityName)
+    setGeoCoordinates(coordinates)
+    setZipCode(selectedZipcode)
 
     await updateSession(countryCode, selectedZipcode, coordinates)
 
@@ -193,7 +156,7 @@ export const useShippingOption = (
     )
 
     if (!reload) {
-      dispatch({ type: 'SET_IS_LOADING', args: { isLoading: false } })
+      setIsLoading(false)
     }
 
     if (reload) {
@@ -206,10 +169,7 @@ export const useShippingOption = (
       return
     }
 
-    dispatch({
-      type: 'SET_PICKUP',
-      args: { pickup },
-    })
+    setSelectecPickup(pickup)
 
     await updateSession(
       countryCode,
@@ -239,15 +199,10 @@ export const useShippingOption = (
   }
 
   useEffect(() => {
-    dispatch({
-      type: 'SET_ADDRESS_LABEL',
-      args: {
-        addressLabel: city ? `${city}, ${zipcode}` : zipcode,
-      },
-    })
-  }, [dispatch, zipcode, city])
+    setAddressLabel(city ? `${city}, ${zipcode}` : zipcode)
+  }, [zipcode, city])
 
-  return async (action: ShippingOptionActions) => {
+  const dispatch = (action: ShippingOptionActions) => {
     switch (action.type) {
       case 'UPDATE_ZIPCODE': {
         const { zipcode: zipcodeSelected, reload } = action.args
@@ -271,5 +226,21 @@ export const useShippingOption = (
       default:
         break
     }
+  }
+
+  return {
+    dispatch,
+    state: {
+      zipcode,
+      isLoading,
+      countryCode,
+      submitErrorMessage,
+      city,
+      pickups,
+      selectedPickup,
+      geoCoordinates,
+      addressLabel,
+      shippingOption,
+    },
   }
 }
