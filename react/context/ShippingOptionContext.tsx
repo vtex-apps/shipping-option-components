@@ -1,6 +1,8 @@
-import React, { createContext, ReactNode, useContext, useReducer } from 'react'
+import React, { createContext, ReactNode, useContext } from 'react'
 
 import { useShippingOption } from './useShippingOption'
+
+export type ShippingMethod = 'delivery' | 'pickup-in-point'
 
 export interface State {
   zipcode?: string
@@ -15,6 +17,25 @@ export interface State {
   submitErrorMessage?: string
 }
 
+interface UpdateZipCode {
+  type: 'UPDATE_ZIPCODE'
+  args: { zipcode: string; reload?: boolean }
+}
+
+interface UpdatePickup {
+  type: 'UPDATE_PICKUP'
+  args: { pickup: Pickup; shouldPersistFacet?: boolean }
+}
+
+interface SelectDeliveryShippingOption {
+  type: 'SELECT_DELIVERY_SHIPPING_OPTION'
+}
+
+export type ShippingOptionActions =
+  | UpdateZipCode
+  | UpdatePickup
+  | SelectDeliveryShippingOption
+
 const DEFAULT_STATE: State = {
   pickups: [],
   isLoading: true,
@@ -25,84 +46,16 @@ const ShippingOptionDispatchContext = createContext(
   (_: ShippingOptionActions) => {}
 )
 
-function reducer(state: State, action: ContextActions): State {
-  switch (action.type) {
-    case 'SET_ZIPCODE': {
-      const { zipcode } = action.args
-
-      return { ...state, zipcode }
-    }
-
-    case 'SET_PICKUP': {
-      const { pickup } = action.args
-
-      return { ...state, selectedPickup: pickup }
-    }
-
-    case 'SET_GEO_COORDINATES': {
-      const { geoCoordinates } = action.args
-
-      return { ...state, geoCoordinates }
-    }
-
-    case 'SET_IS_LOADING': {
-      const { isLoading } = action.args
-
-      return { ...state, isLoading }
-    }
-
-    case 'SET_PICKUPS': {
-      const { pickups } = action.args
-
-      return { ...state, pickups }
-    }
-
-    case 'SET_COUNTRY_CODE': {
-      const { countryCode } = action.args
-
-      return { ...state, countryCode }
-    }
-
-    case 'SET_CITY': {
-      const { city } = action.args
-
-      return { ...state, city }
-    }
-
-    case 'SET_SHIPPING_OPTION': {
-      const { shippingOption } = action.args
-
-      return { ...state, shippingOption }
-    }
-
-    case 'SET_ADDRESS_LABEL': {
-      const { addressLabel } = action.args
-
-      return { ...state, addressLabel }
-    }
-
-    case 'SET_SUBMIT_ERROR_MESSAGE': {
-      const { submitErrorMessage } = action.args
-
-      return { ...state, submitErrorMessage }
-    }
-
-    default:
-      return state
-  }
-}
-
 interface Props {
   children?: ReactNode
 }
 
 const ShippingOptionProvider = ({ children }: Props) => {
-  const [state, dispatch] = useReducer(reducer, DEFAULT_STATE)
-  const ShippingOptionDispatch = useShippingOption(state, dispatch)
+  const { dispatch, state } = useShippingOption()
 
   return (
     <ShippingOptionStateContext.Provider value={state}>
-      <ShippingOptionDispatchContext.Provider value={ShippingOptionDispatch}>
+      <ShippingOptionDispatchContext.Provider value={dispatch}>
         {children}
       </ShippingOptionDispatchContext.Provider>
     </ShippingOptionStateContext.Provider>
