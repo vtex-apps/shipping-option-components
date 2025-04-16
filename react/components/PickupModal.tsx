@@ -15,35 +15,30 @@ const PickupModal = ({ isOpen, onClose, pickupProps }: Props) => {
   const intl = useIntl()
 
   const {
-    onChange,
     onSelectPickup,
     onSubmit,
     pickups,
     inputErrorMessage,
     selectedPickup,
-    selectedZipCode,
-    zipCode,
+    selectedZipcode,
     isLoading,
   } = pickupProps
 
   return (
     <Modal
       showArrowBack={false}
-      isTopCloseButton
+      isTopCloseButton={false}
       title={intl.formatMessage(messages.deliverToButtonPlaceholder)}
       isOpen={isOpen}
       onClose={onClose}
     >
       <PickupSelection
-        onChange={onChange}
         onSelectPickup={onSelectPickup}
         onSubmit={onSubmit}
         pickups={pickups}
         inputErrorMessage={inputErrorMessage}
         selectedPickup={selectedPickup}
-        selectedZipCode={selectedZipCode}
-        zipCode={zipCode}
-        onDeliverySelection={() => null}
+        selectedZipcode={selectedZipcode}
         shouldPersistFacet={false}
         isLoading={isLoading}
       />

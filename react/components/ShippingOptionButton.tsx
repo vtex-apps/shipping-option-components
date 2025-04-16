@@ -19,9 +19,8 @@ interface Props {
   placeholder: string
   value?: React.ReactNode
   compact: boolean
-  zipCode?: string
-  onChange?: (zipCode?: string) => void
-  onSubmit?: () => void
+  selectedZipcode?: string
+  onSubmit?: (zipCode: string) => void
   inputErrorMessage?: string
   callToAction?: CallToAction
 }
@@ -33,8 +32,7 @@ const ShippingOptionButton = ({
   value,
   placeholder,
   compact,
-  zipCode,
-  onChange,
+  selectedZipcode,
   onSubmit,
   inputErrorMessage,
   callToAction,
@@ -56,7 +54,7 @@ const ShippingOptionButton = ({
       ? callToAction
       : undefined
 
-  const isFirstLoading = !zipCode && loading
+  const isFirstLoading = !selectedZipcode && loading
 
   const openPopover =
     !isFirstLoading && !value && !!popoverOverlay && isPopoverOpen
@@ -88,11 +86,10 @@ const ShippingOptionButton = ({
         <DeliveryPopover
           onClick={handlePopoverClick}
           handleOutSideClick={handleOutSideClick}
-          onChange={onChange ?? (() => {})}
           onSubmit={onSubmit ?? (() => {})}
           isLoading={loading}
           inputErrorMessage={inputErrorMessage}
-          zipCode={zipCode}
+          selectedZipcode={selectedZipcode}
           variant={popoverOverlay}
         />
       )}
