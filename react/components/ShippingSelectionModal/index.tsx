@@ -15,6 +15,7 @@ interface Props {
   onClose: () => void
   selectedShipping?: 'delivery' | 'pickup-in-point'
   countryCode?: string
+  nonDismissibleModal: boolean
 }
 
 type Stages = 'shippingSelection' | 'pickupSelection'
@@ -26,6 +27,7 @@ const ShippingSelectionModal = ({
   geoCoordinates,
   selectedShipping,
   countryCode,
+  nonDismissibleModal,
 }: Props) => {
   const intl = useIntl()
   const {
@@ -96,6 +98,7 @@ const ShippingSelectionModal = ({
       title={stageContent[stage].title}
       isOpen={isOpen}
       onClose={onClose}
+      nonDismissible={nonDismissibleModal}
     >
       {stageContent[stage].content}
     </Modal>

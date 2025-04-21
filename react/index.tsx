@@ -144,7 +144,9 @@ function ShippingOptionZipCode({
         isLoading={isLoading}
         inputErrorMessage={inputErrorMessage}
         zipCode={zipCode}
-        nonDismissibleModal={!dismissible}
+        nonDismissibleModal={
+          !dismissible && !selectedZipCode && wasLocationModalOpenedByEvent
+        }
       />
 
       <ShippingSelectionModal
@@ -164,6 +166,9 @@ function ShippingOptionZipCode({
           zipCode,
           isLoading,
         }}
+        nonDismissibleModal={
+          !dismissible && !shippingOption && wasLocationModalOpenedByEvent
+        }
       />
 
       <PickupModal
