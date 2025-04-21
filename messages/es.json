@@ -30,7 +30,7 @@
   "store/shipping-option-zipcode.locationModal.noPickupsState.description": "No hay productos disponibles para o código postal",
   "store/shipping-option-zipcode.locationModal.noPickupsState.button.label": "Introduce otra ubicación",
   "store/shipping-option-zipcode.shippingSelectionModal.title": "Seleccione un método de envío",
-  "store/shipping-option-zipcode.shippingSelectionModal.description": "La disponibilidad de dos productos varía según el método.",
+  "store/shipping-option-zipcode.shippingSelectionModal.description": "La disponibilidad de los productos varía según el método:",
   "store/shipping-option-zipcode.shippingSelectionModal.deliveryButton.label": "Entregar a domicilio",
   "store/shipping-option-zipcode.shippingSelectionModal.pickupButton.label": "Recoger en una tienda",
   "store/shipping-option-zipcode.pickupSelection.title": "Elige una tienda",
