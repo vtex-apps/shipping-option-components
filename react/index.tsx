@@ -134,9 +134,9 @@ function ShippingOptionZipCode({
         onSubmit={async () => {
           const shouldReload = !wasLocationModalOpenedByEvent
 
-          await onSubmit(shouldReload)
+          const success = await onSubmit(shouldReload)
 
-          if (!shouldReload) {
+          if (!shouldReload && success) {
             setIsLocationModalOpen(false)
             setIsShippingModalOpen(true)
           }
