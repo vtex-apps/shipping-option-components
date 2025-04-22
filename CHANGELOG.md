@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Dismissible behavior on shipping vs pickup modal
+- Spanish description on shipping vs pickup modal
+- Situation where user get stuck after providing a invalid zipcode.
+
 ## [1.0.0] - 2025-03-31
 
 ### Added
