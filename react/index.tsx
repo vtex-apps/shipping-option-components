@@ -22,7 +22,6 @@ interface Props {
   callToAction?: CallToAction
   dismissible?: boolean
   shippingSelection?: ShippingSelection
-  countryCode: string
 }
 
 function ShippingOptionZipCode({
@@ -30,7 +29,6 @@ function ShippingOptionZipCode({
   callToAction = 'popover-input',
   dismissible = false,
   shippingSelection,
-  countryCode,
 }: Props) {
   const intl = useIntl()
   const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
@@ -54,6 +52,7 @@ function ShippingOptionZipCode({
     onSelectPickup,
     geoCoordinates,
     shippingOption,
+    countryCode,
   } = useShippingOptions()
 
   usePixelEventCallback({
@@ -135,9 +134,9 @@ function ShippingOptionZipCode({
         onSubmit={async () => {
           const shouldReload = !wasLocationModalOpenedByEvent
 
-          await onSubmit(shouldReload)
+          const success = await onSubmit(shouldReload)
 
-          if (!shouldReload) {
+          if (!shouldReload && success) {
             setIsLocationModalOpen(false)
             setIsShippingModalOpen(true)
           }
@@ -145,7 +144,9 @@ function ShippingOptionZipCode({
         isLoading={isLoading}
         inputErrorMessage={inputErrorMessage}
         zipCode={zipCode}
-        nonDismissibleModal={!dismissible}
+        nonDismissibleModal={
+          !dismissible && !selectedZipCode && wasLocationModalOpenedByEvent
+        }
       />
 
       <ShippingSelectionModal
@@ -165,6 +166,9 @@ function ShippingOptionZipCode({
           zipCode,
           isLoading,
         }}
+        nonDismissibleModal={
+          !dismissible && !shippingOption && wasLocationModalOpenedByEvent
+        }
       />
 
       <PickupModal
