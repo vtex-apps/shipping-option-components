@@ -61,6 +61,7 @@ const Modal = ({
   if (isMobile) {
     customStyles.content.width = '100%'
   } else {
+    customStyles.content.width = '522px'
     customStyles.content.minWidth = '522px'
   }
 
