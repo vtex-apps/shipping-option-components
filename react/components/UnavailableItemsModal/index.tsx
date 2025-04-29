@@ -5,8 +5,6 @@ import { useIntl } from 'react-intl'
 
 import Modal from '../Modal'
 import ProductItem from './ProductItem'
-import { removeCartProductsById } from '../../client'
-import { getOrderFormId } from '../../utils/cookie'
 import messages from '../../messages'
 
 export type CartProduct = { id: string; name: string; imageUrl: string }
@@ -20,6 +18,7 @@ interface Props {
   isOpen: boolean
   onClose: () => void
   onTryAgain: () => void
+  onRemoveItems: () => void
   addressLabel: string
   unavailableCartItems: CartItem[]
 }
@@ -28,6 +27,7 @@ const UnavailableItemsModal = ({
   isOpen,
   onClose,
   onTryAgain,
+  onRemoveItems,
   addressLabel,
   unavailableCartItems,
 }: Props) => {
@@ -35,17 +35,11 @@ const UnavailableItemsModal = ({
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleRemoveItemsClick = () => {
-    const orderFormId = getOrderFormId()
-
+  const handleRemoveItemsClick = async () => {
     setIsLoading(true)
-    removeCartProductsById(
-      orderFormId,
-      unavailableCartItems.map((item) => item.cartItemIndex)
-    ).then(() => setIsLoading(false))
+    await onRemoveItems()
 
     onClose()
-    location.reload()
   }
 
   return (

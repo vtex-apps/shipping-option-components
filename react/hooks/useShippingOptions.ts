@@ -10,6 +10,7 @@ import {
   getAddress,
   getCartProducts,
   getPickups,
+  removeCartProductsById,
   updateOrderForm,
   updateSession,
 } from '../client'
@@ -211,6 +212,17 @@ const useShippingOptions = () => {
     return true
   }
 
+  const removeUnavailableItems = async () => {
+    const orderFormId = getOrderFormId()
+
+    await removeCartProductsById(
+      orderFormId,
+      unavailableCartItems.map((item) => item.cartItemIndex)
+    )
+
+    onSubmit()
+  }
+
   const onChange = (zipCode?: string) => {
     setInputZipCode(zipCode)
   }
@@ -256,6 +268,7 @@ const useShippingOptions = () => {
     shippingOption,
     countryCode,
     unavailableCartItems,
+    removeUnavailableItems,
   }
 }
 

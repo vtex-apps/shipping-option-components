@@ -61,6 +61,7 @@ function ShippingOptionZipCode({
     shippingOption,
     countryCode,
     unavailableCartItems,
+    removeUnavailableItems,
   } = useShippingOptions()
 
   usePixelEventCallback({
@@ -199,6 +200,7 @@ function ShippingOptionZipCode({
         isOpen={openModal === 'unavailable-items'}
         onClose={() => setOpenModal(null)}
         onTryAgain={() => setOpenModal('location')}
+        onRemoveItems={removeUnavailableItems}
         unavailableCartItems={unavailableCartItems}
       />
     </>
