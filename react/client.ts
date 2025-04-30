@@ -65,3 +65,36 @@ export const updateOrderForm = (
       'Content-Type': 'application/json',
     },
   }).then((res) => res.json())
+
+export const getCartProducts = async (orderFormId: string) => {
+  const orderForm = await fetch(
+    `/api/checkout/pub/orderForm/${orderFormId}`
+  ).then((res) => res.json())
+
+  return orderForm.items
+}
+
+export const removeCartProductsById = async (
+  orderFormId: string,
+  cartProductsIndex: number[]
+) => {
+  const requestBody = {
+    orderItems: cartProductsIndex.map((productIndex) => ({
+      quantity: 0,
+      index: productIndex,
+    })),
+  }
+
+  const orderForm = await fetch(
+    `/api/checkout/pub/orderForm/${orderFormId}/items/update`,
+    {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  ).then((res) => res.json())
+
+  return orderForm.items
+}

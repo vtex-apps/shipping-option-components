@@ -8,10 +8,13 @@ import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
 import messages from '../messages'
 import {
   getAddress,
+  getCartProducts,
   getPickups,
+  removeCartProductsById,
   updateOrderForm,
   updateSession,
 } from '../client'
+import { CartItem, CartProduct } from '../components/UnavailableItemsModal'
 
 declare let window: any
 
@@ -29,6 +32,10 @@ const useShippingOptions = () => {
   const [shippingOption, setShippingOption] = useState<
     'delivery' | 'pickup-in-point'
   >()
+
+  const [unavailableCartItems, setUnavailableCartItems] = useState<CartItem[]>(
+    []
+  )
 
   const isSSR = useSSR()
   const { account } = useRuntime()
@@ -126,6 +133,25 @@ const useShippingOptions = () => {
     setIsPageLoading(false)
   }
 
+  const validateCartItems = async () => {
+    const orderFormId = getOrderFormId()
+
+    const products = await getCartProducts(orderFormId)
+
+    // IMPORTANT: validate products here
+    // Task: TIS-189
+    const unavailableItems = products.map(
+      (product: CartProduct, id: number) => ({
+        cartItemIndex: id,
+        product,
+      })
+    )
+
+    setUnavailableCartItems(unavailableItems)
+
+    return unavailableItems
+  }
+
   const onSubmit = async (reload = true) => {
     if (!countryCode) {
       return false
@@ -160,6 +186,14 @@ const useShippingOptions = () => {
       return false
     }
 
+    const unavailableItems = await validateCartItems()
+
+    if (unavailableItems.length > 0) {
+      setIsLoading(false)
+
+      return false
+    }
+
     setGeoCoordinates(coordinates)
 
     setSelectedZipCode(inputZipCode)
@@ -177,6 +211,17 @@ const useShippingOptions = () => {
     }
 
     return true
+  }
+
+  const removeUnavailableItems = async () => {
+    const orderFormId = getOrderFormId()
+
+    await removeCartProductsById(
+      orderFormId,
+      unavailableCartItems.map((item) => item.cartItemIndex)
+    )
+
+    onSubmit()
   }
 
   const onChange = (zipCode?: string) => {
@@ -223,6 +268,8 @@ const useShippingOptions = () => {
     geoCoordinates,
     shippingOption,
     countryCode,
+    unavailableCartItems,
+    removeUnavailableItems,
   }
 }
 
