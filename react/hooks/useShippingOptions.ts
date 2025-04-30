@@ -139,6 +139,7 @@ const useShippingOptions = () => {
     const products = await getCartProducts(orderFormId)
 
     // IMPORTANT: validate products here
+    // Task: TIS-189
     const unavailableItems = products.map(
       (product: CartProduct, id: number) => ({
         cartItemIndex: id,
