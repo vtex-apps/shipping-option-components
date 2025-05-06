@@ -87,16 +87,20 @@ export const useShippingOption = () => {
     setCountryCode(segmentCountryCode)
 
     if (segmentZipCode) {
-      getAddress(segmentCountryCode, segmentZipCode, account).then((res) => {
-        setCity(res.city)
-        setGeoCoordinates(res.geoCoordinates)
-        fetchPickups(
-          segmentCountryCode,
-          segmentZipCode,
-          res.geoCoordinates,
-          segmentShippingOption
-        )
-      })
+      try {
+        getAddress(segmentCountryCode, segmentZipCode, account).then((res) => {
+          setCity(res.city)
+          setGeoCoordinates(res.geoCoordinates)
+          fetchPickups(
+            segmentCountryCode,
+            segmentZipCode,
+            res.geoCoordinates,
+            segmentShippingOption
+          )
+        })
+      } catch {
+        setIsLoading(false)
+      }
     } else {
       setIsLoading(false)
     }
@@ -124,36 +128,42 @@ export const useShippingOption = () => {
 
     setIsLoading(true)
 
-    const { geoCoordinates: coordinates, city: cityName } = await getAddress(
-      countryCode,
-      selectedZipcode,
-      account
-    )
+    try {
+      const { geoCoordinates: coordinates, city: cityName } = await getAddress(
+        countryCode,
+        selectedZipcode,
+        account
+      )
 
-    if (coordinates.length === 0) {
+      if (coordinates.length === 0) {
+        onError(intl.formatMessage(messages.postalCodeInputError))
+
+        return
+      }
+
+      const orderFormId = getOrderFormId()
+
+      if (orderFormId) {
+        await updateOrderForm(countryCode, selectedZipcode, orderFormId)
+      }
+
+      setCity(cityName)
+      setGeoCoordinates(coordinates)
+      setZipCode(selectedZipcode)
+
+      await updateSession(countryCode, selectedZipcode, coordinates)
+
+      await fetchPickups(
+        countryCode,
+        selectedZipcode,
+        coordinates,
+        shippingOption
+      )
+    } catch {
       onError(intl.formatMessage(messages.postalCodeInputError))
 
       return
     }
-
-    const orderFormId = getOrderFormId()
-
-    if (orderFormId) {
-      await updateOrderForm(countryCode, selectedZipcode, orderFormId)
-    }
-
-    setCity(cityName)
-    setGeoCoordinates(coordinates)
-    setZipCode(selectedZipcode)
-
-    await updateSession(countryCode, selectedZipcode, coordinates)
-
-    await fetchPickups(
-      countryCode,
-      selectedZipcode,
-      coordinates,
-      shippingOption
-    )
 
     if (!reload) {
       setIsLoading(false)
