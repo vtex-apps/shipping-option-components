@@ -36,5 +36,9 @@
   "store/shipping-option-zipcode.pickupSelection.title": "Choose a store",
   "store/shipping-option-zipcode.pickupSelection.noStoresState.title": "No stores available",
   "store/shipping-option-zipcode.pickupSelection.noStoresState.description": "There are no stores available for the postal code {postalCode}",
-  "store/shipping-option-zipcode.pickupSelection.noStoresState.button.label": "Continue with delivery"
+  "store/shipping-option-zipcode.pickupSelection.noStoresState.button.label": "Continue with delivery",
+  "store/shipping-option-zipcode.availabilityBadge.deliveryAvailable": "Delivery available",
+  "store/shipping-option-zipcode.availabilityBadge.deliveryUnavailable": "Delivery unavailable",
+  "store/shipping-option-zipcode.availabilityBadge.pickupUnavailable": "Pickup unavailable",
+  "store/shipping-option-zipcode.availabilityBadge.pickupAt": "Pickup at"
 }

@@ -18,7 +18,8 @@
     "vtex.pixel-manager": "1.x",
     "vtex.device-detector": "0.x",
     "vtex.address-form": "4.x",
-    "vtex.react-portal": "0.x"
+    "vtex.react-portal": "0.x",
+    "vtex.product-summary-context": "0.x"
   },
   "registries": ["smartcheckout"],
   "policies": [],
