@@ -91,6 +91,13 @@ function ShippingOptionZipcode({
     }
   }, [callToAction, selectedZipcode, isLoading])
 
+  useEffect(() => {
+    if (wasLocationModalOpenedByEvent && selectedZipcode) {
+      setIsLocationModalOpen(false)
+      setIsShippingModalOpen(true)
+    }
+  }, [selectedZipcode, wasLocationModalOpenedByEvent])
+
   const showDeliveryModalButton = shippingSelection === 'delivery-and-pickup'
   const showPickupButton = shippingSelection === 'only-pickup'
 
@@ -140,17 +147,15 @@ function ShippingOptionZipcode({
         onSubmit={async (zipcode: string) => {
           const shouldReload = !wasLocationModalOpenedByEvent
 
-          const success = await onSubmit(zipcode, shouldReload)
-
-          if (!shouldReload && success) {
-            setIsLocationModalOpen(false)
-            setIsShippingModalOpen(true)
-          }
+          onSubmit(zipcode, shouldReload)
         }}
         isLoading={isLoading}
         inputErrorMessage={submitErrorMessage}
         selectedZipcode={selectedZipcode}
-        nonDismissibleModal={!dismissible && !selectedZipcode}
+        nonDismissibleModal={
+          (!dismissible && !selectedZipcode) ||
+          (wasLocationModalOpenedByEvent && !selectedZipcode)
+        }
       />
 
       <ShippingSelectionModal
@@ -171,7 +176,8 @@ function ShippingOptionZipcode({
           isLoading,
         }}
         nonDismissibleModal={
-          !dismissible && !shippingOption && wasLocationModalOpenedByEvent
+          (!dismissible && !shippingOption) ||
+          (wasLocationModalOpenedByEvent && !shippingOption)
         }
       />
 
