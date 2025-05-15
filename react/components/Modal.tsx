@@ -40,10 +40,16 @@ const customStyles = {
 }
 
 const CSS_HANDLES = [
-  'modalCloseButton',
   'modalBackButton',
+  'modalCloseButton',
   'shippingMethodModalTitle',
 ]
+
+const headerActionButtonStyle: React.CSSProperties = {
+  cursor: 'pointer',
+  backgroundColor: 'unset',
+  border: 0,
+}
 
 const Modal = ({
   children,
@@ -97,7 +103,11 @@ const Modal = ({
 
         {!nonDismissible && (
           <div className="flex justify-end self-end">
-            <button onClick={onClose} className={handles.modalCloseButton}>
+            <button
+              onClick={onClose}
+              className={handles.modalCloseButton}
+              style={headerActionButtonStyle}
+            >
               <IconClose size={24} />
             </button>
           </div>

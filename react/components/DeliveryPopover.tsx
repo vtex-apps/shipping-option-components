@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import { Button } from 'vtex.styleguide'
 import OutsideClickHandler from 'react-outside-click-handler'
@@ -23,26 +23,26 @@ interface Props {
   onClick: () => void
   handleOutSideClick: () => void
   variant?: 'popover-button' | 'popover-input'
-  onChange: (zipCode?: string) => void
-  onSubmit: () => void
+  onSubmit: (zipcode: string) => void
   isLoading?: boolean
   inputErrorMessage?: string
-  zipCode?: string
-  rules?: any
+  selectedZipcode?: string
 }
 
 const DeliveryPopover = ({
   onClick,
   handleOutSideClick,
   variant = 'popover-input',
-  onChange,
   onSubmit,
   isLoading,
   inputErrorMessage,
-  zipCode,
+  selectedZipcode,
 }: Props) => {
+  const [zipcode, setZipcode] = useState<string>('')
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
+
+  useEffect(() => setZipcode(selectedZipcode ?? ''), [selectedZipcode])
 
   return (
     <OutsideClickHandler onOutsideClick={handleOutSideClick}>
@@ -64,16 +64,16 @@ const DeliveryPopover = ({
         ) : (
           <div className={`${handles.popoverInputContainer} flex`}>
             <PostalCodeInput
-              zipCode={zipCode}
+              onChange={(value: string) => setZipcode(value)}
+              zipcode={zipcode}
               onSubmit={onSubmit}
               errorMessage={inputErrorMessage}
-              onChange={onChange}
               showClearButton={false}
               placeholder={intl.formatMessage(
                 messages.popoverPostalCodeInputPlaceHolder
               )}
             />
-            <Button isLoading={isLoading} onClick={onSubmit}>
+            <Button isLoading={isLoading} onClick={() => onSubmit(zipcode)}>
               {intl.formatMessage(messages.popoverSubmitButtonLabel)}
             </Button>
           </div>
