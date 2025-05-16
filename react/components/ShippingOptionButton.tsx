@@ -15,29 +15,29 @@ const CSS_HANDLES = [
 interface Props {
   onClick: () => void
   loading: boolean
-  label: React.ReactNode
   placeholder: string
   value?: React.ReactNode
-  compact: boolean
   zipCode?: string
   onChange?: (zipCode?: string) => void
   onSubmit?: () => void
   inputErrorMessage?: string
   callToAction?: CallToAction
+  mode: Mode
+  icon: React.ReactNode
 }
 
 const ShippingOptionButton = ({
   onClick,
   loading,
-  label,
   value,
   placeholder,
-  compact,
   zipCode,
   onChange,
   onSubmit,
   inputErrorMessage,
   callToAction,
+  mode,
+  icon,
 }: Props) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(true)
   const handles = useCssHandles(CSS_HANDLES)
@@ -69,19 +69,16 @@ const ShippingOptionButton = ({
         onClick={onClick}
         className={`${handles.buttonWrapper} flex items-center br3 pt4 pr4 pb4 pl0 b--none`}
       >
-        {!compact && (
-          <p className={`${handles.buttonLabel} ma0 c-on-base f6 mr2`}>
-            {label}
-          </p>
-        )}
         {loading ? (
           <div className="ml4">
             <Spinner size={14} />
           </div>
-        ) : (
+        ) : mode === 'default' ? (
           <p className={`${handles.buttonValue} ma0 f6 fw6 c-action-primary`}>
             {value ?? placeholder}
           </p>
+        ) : (
+          icon
         )}
       </button>
       {openPopover && (
