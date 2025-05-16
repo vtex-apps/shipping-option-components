@@ -13,6 +13,7 @@ import PostalCodeHelpLink from './PostalCodeHelpLink'
 
 const CSS_HANDLES = [
   'deliveryPopover',
+  'deliveryPopoverText',
   'popoverPolygonContainer',
   'popoverPolygonSvg',
   'popoverPolygon',
@@ -52,7 +53,7 @@ const DeliveryPopover = ({
           e.stopPropagation()
         }}
       >
-        <p className="ma0">
+        <p className={`${handles.deliveryPopoverText} ma0`}>
           {`${intl.formatMessage(messages.popoverDescription)} `}
           <PostalCodeHelpLink />
         </p>

@@ -15,20 +15,22 @@ import { LocationModal } from './components/LocationModal'
 import ShippingOptionButton from './components/ShippingOptionButton'
 import messages from './messages'
 import PickupModal from './components/PickupModal'
+import PinIcon from './components/PinIcon'
+import PickupIcon from './components/ShippingSelectionModal/PickupIcon'
 
 interface Props {
   hideStoreSelection?: boolean
-  compactMode?: boolean
   callToAction?: CallToAction
   dismissible?: boolean
   shippingSelection?: ShippingSelection
+  mode?: Mode
 }
 
 function ShippingOptionZipCode({
-  compactMode = false,
   callToAction = 'popover-input',
   dismissible = false,
   shippingSelection,
+  mode = 'default',
 }: Props) {
   const intl = useIntl()
   const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
@@ -98,13 +100,13 @@ function ShippingOptionZipCode({
         loading={isLoading}
         value={addressLabel}
         placeholder={intl.formatMessage(messages.deliverToButtonPlaceholder)}
-        label={intl.formatMessage(messages.deliverToButtonLabel)}
-        compact={compactMode}
         zipCode={zipCode}
         onChange={onChange}
         onSubmit={onSubmit}
         inputErrorMessage={inputErrorMessage}
         callToAction={callToAction}
+        mode={mode}
+        icon={<PinIcon filled={false} width={20} height={20} />}
       />
 
       {selectedZipCode && showDeliveryModalButton && (
@@ -122,8 +124,8 @@ function ShippingOptionZipCode({
           loading={isLoading}
           value={selectedPickup?.pickupPoint.friendlyName}
           placeholder={intl.formatMessage(messages.storeButtonPlaceHolder)}
-          label={intl.formatMessage(messages.storeButtonLabel)}
-          compact={compactMode}
+          mode={mode}
+          icon={<PickupIcon width={20} height={20} />}
         />
       )}
 
