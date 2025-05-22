@@ -10,8 +10,9 @@ import '../styles.css'
 import PostalCodeInput from './PostalCodeInput'
 import messages from '../messages'
 import PostalCodeHelpLink from './PostalCodeHelpLink'
+import { debounce } from '../utils/debounce'
 
-const RIGHT_MARGIN = 20
+const RIGHT_MARGIN = 30
 
 const CSS_HANDLES = [
   'deliveryPopover',
@@ -61,6 +62,8 @@ const DeliveryPopover = ({
 
       if (popoverRect.right > viewportWidth) {
         size = popoverRect.right - viewportWidth + RIGHT_MARGIN
+      } else if (popoverRect.left < 0) {
+        size = popoverRect.left
       }
 
       setReadjustSize(size)
@@ -68,10 +71,12 @@ const DeliveryPopover = ({
 
     adjustPopover()
 
-    window.addEventListener('resize', adjustPopover)
+    const onresizeDebounce = debounce(adjustPopover, 250)
+
+    window.addEventListener('resize', onresizeDebounce)
 
     return () => {
-      window.removeEventListener('resize', adjustPopover)
+      window.removeEventListener('resize', onresizeDebounce)
     }
   }, [popoverRef])
 
