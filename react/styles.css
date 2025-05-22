@@ -78,6 +78,12 @@
   animation: fadein 2s;
 }
 
+@media screen and (max-width: 375px) {
+  .deliveryPopover {
+    width: 320px;
+  }
+}
+
 .popoverPolygonContainer {
   position: absolute;
   top: 8px;

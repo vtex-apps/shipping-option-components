@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import { Button } from 'vtex.styleguide'
 import OutsideClickHandler from 'react-outside-click-handler'
@@ -10,6 +10,8 @@ import '../styles.css'
 import PostalCodeInput from './PostalCodeInput'
 import messages from '../messages'
 import PostalCodeHelpLink from './PostalCodeHelpLink'
+
+const RIGHT_MARGIN = 20
 
 const CSS_HANDLES = [
   'deliveryPopover',
@@ -42,12 +44,42 @@ const DeliveryPopover = ({
   inputErrorMessage,
   zipCode,
 }: Props) => {
+  const popoverRef = useRef<HTMLDivElement>(null)
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
+
+  const [readjustSize, setReadjustSize] = useState(0)
+
+  useEffect(() => {
+    const adjustPopover = () => {
+      if (!popoverRef.current) return
+
+      const popoverRect = popoverRef.current.getBoundingClientRect()
+      const viewportWidth = window.innerWidth
+
+      let size = 0
+
+      if (popoverRect.right > viewportWidth) {
+        size = popoverRect.right - viewportWidth + RIGHT_MARGIN
+      }
+
+      setReadjustSize(size)
+    }
+
+    adjustPopover()
+
+    window.addEventListener('resize', adjustPopover)
+
+    return () => {
+      window.removeEventListener('resize', adjustPopover)
+    }
+  }, [popoverRef])
 
   return (
     <OutsideClickHandler onOutsideClick={handleOutSideClick}>
       <div
+        ref={popoverRef}
+        style={{ left: `calc(50% - ${readjustSize}px)` }}
         className={`${handles.deliveryPopover}`}
         onClick={(e) => {
           e.stopPropagation()
@@ -80,7 +112,10 @@ const DeliveryPopover = ({
           </div>
         )}
 
-        <span className={`${handles.popoverPolygonContainer}`}>
+        <span
+          style={{ left: `calc(50% + ${readjustSize}px)` }}
+          className={`${handles.popoverPolygonContainer}`}
+        >
           <svg
             className={`${handles.popoverPolygonSvg}`}
             width="25"
