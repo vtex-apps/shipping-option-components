@@ -65,8 +65,7 @@ Declare the `shipping-option-location-selector` block as a child block of your [
 | `callToAction` | `enum` | Defines the type of overlay that opens when the page loads. Possible values: `modal` (modal that requires a postal code input), `popover-input` (popover for postal code input), `popover-button` (popover that opens with a button). | `popover-input`|
 | `compactMode` | `boolean` | Determines whether the button displays its label. When true, the label is hidden, showing only its value. | `false` |
 | `dismissible` | `boolean` | Controls whether the modal can be dismissed without entering a postal code. When set to `false`, the modal cannot be closed until a postal code is entered.	 Must be used along with `callToAction` to correctly set a blocking modal. | `true` |
-| `hideStoreSelection` | `enum` | Hides the store selection option from the user interface when set to `true`. | `false` |
-| `shippingSelection` | `enum` | Defines the type of shipping option selector to be shown. Possible values: `delivery-and-pickup` (shows both options), `only-pickup` (shows only the pickup store selector).  | `delivery-and-pickup` |
+| `shippingSelection` | `enum` | Defines the type of shipping option selector to be shown. Possible values: `delivery-and-pickup` (shows both options), `only-pickup` (shows only the pickup store selector).  | `undefined` |
 
 ## Customization
 
