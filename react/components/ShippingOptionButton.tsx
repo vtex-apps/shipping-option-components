@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import { Spinner } from 'vtex.styleguide'
-import '../styles.css'
+import { usePopoverStore } from '@ariakit/react'
 
 import DeliveryPopover from './DeliveryPopover'
 
@@ -41,15 +41,8 @@ const ShippingOptionButton = ({
 }: Props) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(true)
   const handles = useCssHandles(CSS_HANDLES)
-
-  const handleOutSideClick = () => {
-    setIsPopoverOpen(false)
-  }
-
-  const handlePopoverClick = () => {
-    onClick()
-    setIsPopoverOpen(false)
-  }
+  const popoverStore = usePopoverStore({ defaultOpen: false })
+  const anchorRef = useRef(null)
 
   const popoverOverlay =
     callToAction === 'popover-button' || callToAction === 'popover-input'
@@ -61,11 +54,24 @@ const ShippingOptionButton = ({
   const openPopover =
     !isFirstLoading && !value && !!popoverOverlay && isPopoverOpen
 
+  useEffect(() => {
+    if (anchorRef.current) {
+      popoverStore.setAnchorElement(anchorRef.current)
+      popoverStore.setOpen(openPopover)
+    }
+  }, [openPopover, popoverStore])
+
+  const handlePopoverClick = () => {
+    onClick()
+    setIsPopoverOpen(false)
+  }
+
   return (
     <div
       className={`${handles.shippingButtonContainer} flex items-center h-100`}
     >
       <button
+        ref={anchorRef}
         onClick={onClick}
         className={`${handles.buttonWrapper} flex items-center br3 pt4 pr4 pb4 pl0 b--none`}
       >
@@ -81,18 +87,16 @@ const ShippingOptionButton = ({
           icon
         )}
       </button>
-      {openPopover && (
-        <DeliveryPopover
-          onClick={handlePopoverClick}
-          handleOutSideClick={handleOutSideClick}
-          onChange={onChange ?? (() => {})}
-          onSubmit={onSubmit ?? (() => {})}
-          isLoading={loading}
-          inputErrorMessage={inputErrorMessage}
-          zipCode={zipCode}
-          variant={popoverOverlay}
-        />
-      )}
+      <DeliveryPopover
+        onClick={handlePopoverClick}
+        onChange={onChange ?? (() => {})}
+        onSubmit={onSubmit ?? (() => {})}
+        isLoading={loading}
+        inputErrorMessage={inputErrorMessage}
+        zipCode={zipCode}
+        variant={popoverOverlay}
+        popoverStore={popoverStore}
+      />
     </div>
   )
 }
