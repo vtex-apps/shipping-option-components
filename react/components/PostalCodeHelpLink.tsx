@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { AddressRules, helpers } from 'vtex.address-form'
 import { Link } from 'vtex.styleguide'
@@ -45,8 +45,14 @@ const HelpLink = helpers.injectRules(({ rules }: Props) => {
 })
 
 const PostalCodeHelpLink = () => {
+  const [countryCode, setCountryCode] = useState('')
+
+  useEffect(() => {
+    setCountryCode(getCountryCode())
+  }, [])
+
   return (
-    <AddressRules country={getCountryCode()} shouldUseIOFetching>
+    <AddressRules country={countryCode} shouldUseIOFetching>
       <HelpLink />
     </AddressRules>
   )
