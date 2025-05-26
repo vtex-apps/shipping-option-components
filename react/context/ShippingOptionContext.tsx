@@ -1,6 +1,7 @@
 import React, { createContext, ReactNode, useContext } from 'react'
 
-import { useShippingOption } from './useShippingOption'
+import ErrorBoundary from './ErrorBoundary'
+import { ShippingOptionProviderCore } from './ShippingOptionProviderCore'
 
 export type ShippingMethod = 'delivery' | 'pickup-in-point'
 
@@ -51,14 +52,10 @@ interface Props {
 }
 
 const ShippingOptionProvider = ({ children }: Props) => {
-  const { dispatch, state } = useShippingOption()
-
   return (
-    <ShippingOptionStateContext.Provider value={state}>
-      <ShippingOptionDispatchContext.Provider value={dispatch}>
-        {children}
-      </ShippingOptionDispatchContext.Provider>
-    </ShippingOptionStateContext.Provider>
+    <ErrorBoundary fallback={children}>
+      <ShippingOptionProviderCore>{children}</ShippingOptionProviderCore>
+    </ErrorBoundary>
   )
 }
 
@@ -71,4 +68,6 @@ export {
   ShippingOptionProvider,
   useShippingOptionState,
   useShippingOptionDispatch,
+  ShippingOptionStateContext,
+  ShippingOptionDispatchContext,
 }
