@@ -5,6 +5,7 @@
     "test": "vtex-test-tools test"
   },
   "dependencies": {
+    "@ariakit/react": "^0.4.17",
     "@types/react-modal": "^3.16.3",
     "apollo-client": "^2.6.8",
     "react": "^18.3.1",

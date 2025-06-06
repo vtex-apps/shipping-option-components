@@ -1,11 +1,8 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react'
-import { useCssHandles } from 'vtex.css-handles'
-import { Button } from 'vtex.styleguide'
-import OutsideClickHandler from 'react-outside-click-handler'
+import { Popover, PopoverArrow, PopoverStore } from '@ariakit/react'
 import { useIntl } from 'react-intl'
-import '../styles.css'
+import { Button } from 'vtex.styleguide'
+import { useCssHandles } from 'vtex.css-handles'
 
 import PostalCodeInput from './PostalCodeInput'
 import messages from '../messages'
@@ -14,88 +11,70 @@ import PostalCodeHelpLink from './PostalCodeHelpLink'
 const CSS_HANDLES = [
   'deliveryPopover',
   'deliveryPopoverText',
-  'popoverPolygonContainer',
-  'popoverPolygonSvg',
-  'popoverPolygon',
+  'deliveryPopoverArrow',
   'popoverInputContainer',
 ] as const
 
 interface Props {
   onClick: () => void
-  handleOutSideClick: () => void
   variant?: 'popover-button' | 'popover-input'
   onChange: (zipCode?: string) => void
   onSubmit: () => void
   isLoading?: boolean
   inputErrorMessage?: string
   zipCode?: string
-  rules?: any
+  popoverStore: PopoverStore
 }
 
 const DeliveryPopover = ({
   onClick,
-  handleOutSideClick,
   variant = 'popover-input',
   onChange,
   onSubmit,
   isLoading,
   inputErrorMessage,
   zipCode,
+  popoverStore,
 }: Props) => {
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
 
   return (
-    <OutsideClickHandler onOutsideClick={handleOutSideClick}>
-      <div
-        className={`${handles.deliveryPopover}`}
-        onClick={(e) => {
-          e.stopPropagation()
-        }}
-      >
-        <p className={`${handles.deliveryPopoverText} ma0`}>
-          {`${intl.formatMessage(messages.popoverDescription)} `}
-          <PostalCodeHelpLink />
-        </p>
+    <Popover
+      className={handles.deliveryPopover}
+      hideOnInteractOutside
+      autoFocusOnShow={false}
+      store={popoverStore}
+    >
+      <p className={`${handles.deliveryPopoverText} ma0`}>
+        {`${intl.formatMessage(messages.popoverDescription)} `}
+        <PostalCodeHelpLink />
+      </p>
 
-        {variant === 'popover-button' ? (
-          <Button onClick={onClick}>
-            {intl.formatMessage(messages.popoverButtonLabel)}
+      {variant === 'popover-button' ? (
+        <Button onClick={onClick}>
+          {intl.formatMessage(messages.popoverButtonLabel)}
+        </Button>
+      ) : (
+        <div className={`${handles.popoverInputContainer} flex`}>
+          <PostalCodeInput
+            zipCode={zipCode}
+            onSubmit={onSubmit}
+            errorMessage={inputErrorMessage}
+            onChange={onChange}
+            showClearButton={false}
+            placeholder={intl.formatMessage(
+              messages.popoverPostalCodeInputPlaceHolder
+            )}
+          />
+          <Button isLoading={isLoading} onClick={onSubmit}>
+            {intl.formatMessage(messages.popoverSubmitButtonLabel)}
           </Button>
-        ) : (
-          <div className={`${handles.popoverInputContainer} flex`}>
-            <PostalCodeInput
-              zipCode={zipCode}
-              onSubmit={onSubmit}
-              errorMessage={inputErrorMessage}
-              onChange={onChange}
-              showClearButton={false}
-              placeholder={intl.formatMessage(
-                messages.popoverPostalCodeInputPlaceHolder
-              )}
-            />
-            <Button isLoading={isLoading} onClick={onSubmit}>
-              {intl.formatMessage(messages.popoverSubmitButtonLabel)}
-            </Button>
-          </div>
-        )}
+        </div>
+      )}
 
-        <span className={`${handles.popoverPolygonContainer}`}>
-          <svg
-            className={`${handles.popoverPolygonSvg}`}
-            width="25"
-            height="12"
-            viewBox="0 0 30 10"
-            preserveAspectRatio="none"
-          >
-            <polygon
-              className={`${handles.popoverPolygon}`}
-              points="0,0 30,0 15,10"
-            />
-          </svg>
-        </span>
-      </div>
-    </OutsideClickHandler>
+      <PopoverArrow className="deliveryPopoverArrow" />
+    </Popover>
   )
 }
 
