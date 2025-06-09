@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import { Spinner } from 'vtex.styleguide'
 import { usePopoverStore } from '@ariakit/react'
@@ -37,7 +37,6 @@ const ShippingOptionButton = ({
   mode,
   icon,
 }: Props) => {
-  const [isPopoverOpen, setIsPopoverOpen] = useState(true)
   const handles = useCssHandles(CSS_HANDLES)
   const popoverStore = usePopoverStore({ defaultOpen: false })
   const anchorRef = useRef(null)
@@ -47,22 +46,11 @@ const ShippingOptionButton = ({
       ? callToAction
       : undefined
 
-  const isFirstLoading = !selectedZipcode && loading
-
-  const openPopover =
-    !isFirstLoading && !value && !!popoverOverlay && isPopoverOpen
-
   useEffect(() => {
     if (anchorRef.current) {
       popoverStore.setAnchorElement(anchorRef.current)
-      popoverStore.setOpen(openPopover)
     }
-  }, [openPopover, popoverStore])
-
-  const handlePopoverClick = () => {
-    onClick()
-    setIsPopoverOpen(false)
-  }
+  }, [popoverStore])
 
   return (
     <div
@@ -85,15 +73,17 @@ const ShippingOptionButton = ({
           icon
         )}
       </button>
-      <DeliveryPopover
-        onClick={handlePopoverClick}
-        onSubmit={onSubmit ?? (() => {})}
-        isLoading={loading}
-        inputErrorMessage={inputErrorMessage}
-        selectedZipcode={selectedZipcode}
-        variant={popoverOverlay}
-        popoverStore={popoverStore}
-      />
+      {popoverOverlay && (
+        <DeliveryPopover
+          onClick={onClick}
+          onSubmit={onSubmit ?? (() => {})}
+          isLoading={loading}
+          inputErrorMessage={inputErrorMessage}
+          selectedZipcode={selectedZipcode}
+          variant={popoverOverlay}
+          popoverStore={popoverStore}
+        />
+      )}
     </div>
   )
 }

@@ -38,7 +38,18 @@ const DeliveryPopover = ({
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
 
-  useEffect(() => setZipcode(selectedZipcode ?? ''), [selectedZipcode])
+  useEffect(() => {
+    const isFirstLoading = !zipcode && isLoading
+
+    const openPopover = !isFirstLoading && !selectedZipcode
+
+    popoverStore.setOpen(openPopover)
+  }, [isLoading, popoverStore, selectedZipcode, zipcode])
+
+  const handlePopoverClick = () => {
+    onClick()
+    popoverStore.setOpen(false)
+  }
 
   return (
     <Popover
@@ -53,7 +64,7 @@ const DeliveryPopover = ({
       </p>
 
       {variant === 'popover-button' ? (
-        <Button onClick={onClick}>
+        <Button onClick={handlePopoverClick}>
           {intl.formatMessage(messages.popoverButtonLabel)}
         </Button>
       ) : (
