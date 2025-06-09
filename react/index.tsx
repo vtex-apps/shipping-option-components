@@ -23,7 +23,6 @@ interface Props {
 }
 
 function ShippingOptionZipcode({
-  compactMode = false,
   callToAction = 'popover-input',
   dismissible = false,
   shippingSelection,
@@ -111,8 +110,6 @@ function ShippingOptionZipcode({
         loading={isLoading}
         value={addressLabel}
         placeholder={intl.formatMessage(messages.deliverToButtonPlaceholder)}
-        label={intl.formatMessage(messages.deliverToButtonLabel)}
-        compact={compactMode}
         selectedZipcode={selectedZipcode}
         onSubmit={onSubmit}
         inputErrorMessage={submitErrorMessage}
