@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useCssHandles } from 'vtex.css-handles'
 import { Spinner } from 'vtex.styleguide'
 import { usePopoverStore } from '@ariakit/react'
@@ -17,9 +17,8 @@ interface Props {
   loading: boolean
   placeholder: string
   value?: React.ReactNode
-  zipCode?: string
-  onChange?: (zipCode?: string) => void
-  onSubmit?: () => void
+  selectedZipcode?: string
+  onSubmit?: (zipCode: string) => void
   inputErrorMessage?: string
   callToAction?: CallToAction
   mode: Mode
@@ -31,15 +30,13 @@ const ShippingOptionButton = ({
   loading,
   value,
   placeholder,
-  zipCode,
-  onChange,
+  selectedZipcode,
   onSubmit,
   inputErrorMessage,
   callToAction,
   mode,
   icon,
 }: Props) => {
-  const [isPopoverOpen, setIsPopoverOpen] = useState(true)
   const handles = useCssHandles(CSS_HANDLES)
   const popoverStore = usePopoverStore({ defaultOpen: false })
   const anchorRef = useRef(null)
@@ -49,22 +46,11 @@ const ShippingOptionButton = ({
       ? callToAction
       : undefined
 
-  const isFirstLoading = !zipCode && loading
-
-  const openPopover =
-    !isFirstLoading && !value && !!popoverOverlay && isPopoverOpen
-
   useEffect(() => {
     if (anchorRef.current) {
       popoverStore.setAnchorElement(anchorRef.current)
-      popoverStore.setOpen(openPopover)
     }
-  }, [openPopover, popoverStore])
-
-  const handlePopoverClick = () => {
-    onClick()
-    setIsPopoverOpen(false)
-  }
+  }, [popoverStore])
 
   return (
     <div
@@ -87,16 +73,17 @@ const ShippingOptionButton = ({
           icon
         )}
       </button>
-      <DeliveryPopover
-        onClick={handlePopoverClick}
-        onChange={onChange ?? (() => {})}
-        onSubmit={onSubmit ?? (() => {})}
-        isLoading={loading}
-        inputErrorMessage={inputErrorMessage}
-        zipCode={zipCode}
-        variant={popoverOverlay}
-        popoverStore={popoverStore}
-      />
+      {popoverOverlay && (
+        <DeliveryPopover
+          onClick={onClick}
+          onSubmit={onSubmit ?? (() => {})}
+          isLoading={loading}
+          inputErrorMessage={inputErrorMessage}
+          selectedZipcode={selectedZipcode}
+          variant={popoverOverlay}
+          popoverStore={popoverStore}
+        />
+      )}
     </div>
   )
 }

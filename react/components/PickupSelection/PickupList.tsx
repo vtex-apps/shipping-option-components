@@ -66,6 +66,7 @@ const PickupList = ({
       </div>
       {showUpdateButton && (
         <div
+          style={{ bottom: '-30px' }}
           className={`sticky left-0 bottom-0 w-100 flex justify-center ${handle.updateButtonContainer}`}
         >
           <Button

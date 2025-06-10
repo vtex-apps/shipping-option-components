@@ -24,9 +24,14 @@ const PickupItem = ({ pickup, onClick, selected }: Props) => {
 
   return (
     <button
+      style={{
+        padding: '1.25rem',
+        backgroundColor: 'unset',
+        marginBottom: '1.25rem',
+      }}
       className={`${handle.pickupItem} ${
-        selected ? handle.pickupItemSelected : ''
-      } relative`}
+        selected ? `${handle.pickupItemSelected} bw1 b--action-primary` : ''
+      } pointer relative hover-b--gray b--black-10 ba br2`}
       onClick={onClick}
     >
       <p className="f4 tl ma0 fw6 mb2" style={{ maxWidth: '80%' }}>

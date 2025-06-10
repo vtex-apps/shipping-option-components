@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Popover, PopoverArrow, PopoverStore } from '@ariakit/react'
 import { useIntl } from 'react-intl'
 import { Button } from 'vtex.styleguide'
@@ -18,26 +18,38 @@ const CSS_HANDLES = [
 interface Props {
   onClick: () => void
   variant?: 'popover-button' | 'popover-input'
-  onChange: (zipCode?: string) => void
-  onSubmit: () => void
+  onSubmit: (zipcode: string) => void
   isLoading?: boolean
   inputErrorMessage?: string
-  zipCode?: string
   popoverStore: PopoverStore
+  selectedZipcode?: string
 }
 
 const DeliveryPopover = ({
   onClick,
   variant = 'popover-input',
-  onChange,
   onSubmit,
   isLoading,
   inputErrorMessage,
-  zipCode,
   popoverStore,
+  selectedZipcode,
 }: Props) => {
+  const [zipcode, setZipcode] = useState<string>('')
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
+
+  useEffect(() => {
+    const isFirstLoading = !zipcode && isLoading
+
+    const openPopover = !isFirstLoading && !selectedZipcode
+
+    popoverStore.setOpen(openPopover)
+  }, [isLoading, popoverStore, selectedZipcode, zipcode])
+
+  const handlePopoverClick = () => {
+    onClick()
+    popoverStore.setOpen(false)
+  }
 
   return (
     <Popover
@@ -52,22 +64,22 @@ const DeliveryPopover = ({
       </p>
 
       {variant === 'popover-button' ? (
-        <Button onClick={onClick}>
+        <Button onClick={handlePopoverClick}>
           {intl.formatMessage(messages.popoverButtonLabel)}
         </Button>
       ) : (
         <div className={`${handles.popoverInputContainer} flex`}>
           <PostalCodeInput
-            zipCode={zipCode}
+            onChange={(value: string) => setZipcode(value)}
+            zipcode={zipcode}
             onSubmit={onSubmit}
             errorMessage={inputErrorMessage}
-            onChange={onChange}
             showClearButton={false}
             placeholder={intl.formatMessage(
               messages.popoverPostalCodeInputPlaceHolder
             )}
           />
-          <Button isLoading={isLoading} onClick={onSubmit}>
+          <Button isLoading={isLoading} onClick={() => onSubmit(zipcode)}>
             {intl.formatMessage(messages.popoverSubmitButtonLabel)}
           </Button>
         </div>

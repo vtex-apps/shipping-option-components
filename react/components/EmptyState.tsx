@@ -26,6 +26,7 @@ const EmptyState = ({
   return (
     <div className="flex-auto flex flex-column">
       <div
+        style={{ margin: 'auto 0' }}
         className={`flex flex-column ${
           variant === 'primary' ? 'items-center' : 'items-start'
         } ${handle.noPickupsStateContent}`}
