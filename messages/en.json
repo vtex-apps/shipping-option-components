@@ -36,5 +36,9 @@
   "store/shipping-option-zipcode.pickupSelection.title": "Choose a store",
   "store/shipping-option-zipcode.pickupSelection.noStoresState.title": "No stores available",
   "store/shipping-option-zipcode.pickupSelection.noStoresState.description": "There are no stores available for the postal code {postalCode}",
-  "store/shipping-option-zipcode.pickupSelection.noStoresState.button.label": "Continue with delivery"
+  "store/shipping-option-zipcode.pickupSelection.noStoresState.button.label": "Continue with delivery",
+  "store/shipping-option-zipcode.unavailableItems.title": "Items unavailable",
+  "store/shipping-option-zipcode.unavailableItems.description": "These item can't be delivered to {addressLabel} and they are not available in any pickup point",
+  "store/shipping-option-zipcode.unavailableItems.removeItemsButton.label": "Remove items",
+  "store/shipping-option-zipcode.unavailableItems.retryButton.label": "Enter another location"
 }
