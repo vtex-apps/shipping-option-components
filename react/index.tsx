@@ -15,6 +15,14 @@ import { LocationModal } from './components/LocationModal'
 import ShippingOptionButton from './components/ShippingOptionButton'
 import messages from './messages'
 import PickupModal from './components/PickupModal'
+import UnavailableItemsModal from './components/UnavailableItemsModal'
+
+type OpenModal =
+  | 'location'
+  | 'shipping-selection'
+  | 'unavailable-items'
+  | 'pickup'
+  | null
 
 interface Props {
   hideStoreSelection?: boolean
@@ -28,12 +36,11 @@ function ShippingOptionZipCode({
   compactMode = false,
   callToAction = 'popover-input',
   dismissible = false,
-  shippingSelection,
+  shippingSelection = 'only-pickup',
 }: Props) {
   const intl = useIntl()
-  const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
-  const [isLocationModalOpen, setIsLocationModalOpen] = useState<boolean>(false)
-  const [isPickupModalOpen, setisPickupModalOpen] = useState<boolean>(false)
+  const [openModal, setOpenModal] = useState<OpenModal>(null)
+
   const [
     wasLocationModalOpenedByEvent,
     setWasLocationModalOpenedByEvent,
@@ -53,16 +60,18 @@ function ShippingOptionZipCode({
     geoCoordinates,
     shippingOption,
     countryCode,
+    unavailableCartItems,
+    removeUnavailableItems,
   } = useShippingOptions()
 
   usePixelEventCallback({
     eventId: SHIPPING_MODAL_PIXEL_EVENT_ID,
     handler: () => {
       if (selectedZipCode) {
-        setIsShippingModalOpen(true)
+        setOpenModal('shipping-selection')
       } else {
         setWasLocationModalOpenedByEvent(true)
-        setIsLocationModalOpen(true)
+        setOpenModal('location')
       }
     },
   })
@@ -70,20 +79,26 @@ function ShippingOptionZipCode({
   usePixelEventCallback({
     eventId: STORE_DRAWER_PIXEL_EVENT_ID,
     handler: () => {
-      setisPickupModalOpen(true)
+      setOpenModal('pickup')
     },
   })
 
   usePixelEventCallback({
     eventId: DELIVER_DRAWER_PIXEL_EVENT_ID,
-    handler: () => setIsLocationModalOpen(true),
+    handler: () => setOpenModal('location'),
   })
 
   useEffect(() => {
     if (selectedZipCode === null && callToAction === 'modal') {
-      setIsLocationModalOpen(true)
+      setOpenModal('location')
     }
   }, [callToAction, selectedZipCode])
+
+  useEffect(() => {
+    if (unavailableCartItems.length > 0) {
+      setOpenModal('unavailable-items')
+    }
+  }, [unavailableCartItems])
 
   const showDeliveryModalButton = shippingSelection === 'delivery-and-pickup'
   const showPickupButton = shippingSelection === 'only-pickup'
@@ -93,7 +108,7 @@ function ShippingOptionZipCode({
       <ShippingOptionButton
         onClick={() => {
           setWasLocationModalOpenedByEvent(false)
-          setIsLocationModalOpen(true)
+          setOpenModal('location')
         }}
         loading={isLoading}
         value={addressLabel}
@@ -106,19 +121,17 @@ function ShippingOptionZipCode({
         inputErrorMessage={inputErrorMessage}
         callToAction={callToAction}
       />
-
       {selectedZipCode && showDeliveryModalButton && (
         <DeliveryModalButton
-          onClick={() => setIsShippingModalOpen(true)}
+          onClick={() => setOpenModal('shipping-selection')}
           selectedShipping={shippingOption}
           selectedPickup={selectedPickup}
           loading={isLoading}
         />
       )}
-
       {selectedZipCode && showPickupButton && (
         <ShippingOptionButton
-          onClick={() => setisPickupModalOpen(true)}
+          onClick={() => setOpenModal('pickup')}
           loading={isLoading}
           value={selectedPickup?.pickupPoint.friendlyName}
           placeholder={intl.formatMessage(messages.storeButtonPlaceHolder)}
@@ -126,10 +139,9 @@ function ShippingOptionZipCode({
           compact={compactMode}
         />
       )}
-
       <LocationModal
-        isOpen={isLocationModalOpen}
-        onClose={() => setIsLocationModalOpen(false)}
+        isOpen={openModal === 'location'}
+        onClose={() => setOpenModal(null)}
         onChange={onChange}
         onSubmit={async () => {
           const shouldReload = !wasLocationModalOpenedByEvent
@@ -137,8 +149,7 @@ function ShippingOptionZipCode({
           const success = await onSubmit(shouldReload)
 
           if (!shouldReload && success) {
-            setIsLocationModalOpen(false)
-            setIsShippingModalOpen(true)
+            setOpenModal('shipping-selection')
           }
         }}
         isLoading={isLoading}
@@ -148,10 +159,9 @@ function ShippingOptionZipCode({
           !dismissible && !selectedZipCode && wasLocationModalOpenedByEvent
         }
       />
-
       <ShippingSelectionModal
-        isOpen={isShippingModalOpen}
-        onClose={() => setIsShippingModalOpen(false)}
+        isOpen={openModal === 'shipping-selection'}
+        onClose={() => setOpenModal(null)}
         geoCoordinates={geoCoordinates}
         selectedShipping={shippingOption}
         countryCode={countryCode}
@@ -170,10 +180,9 @@ function ShippingOptionZipCode({
           !dismissible && !shippingOption && wasLocationModalOpenedByEvent
         }
       />
-
       <PickupModal
-        isOpen={isPickupModalOpen}
-        onClose={() => setisPickupModalOpen(false)}
+        isOpen={openModal === 'pickup'}
+        onClose={() => setOpenModal(null)}
         pickupProps={{
           onChange,
           onSelectPickup,
@@ -185,6 +194,14 @@ function ShippingOptionZipCode({
           zipCode,
           isLoading,
         }}
+      />
+      <UnavailableItemsModal
+        addressLabel={addressLabel ?? ''}
+        isOpen={openModal === 'unavailable-items'}
+        onClose={() => setOpenModal(null)}
+        onTryAgain={() => setOpenModal('location')}
+        onRemoveItems={removeUnavailableItems}
+        unavailableCartItems={unavailableCartItems}
       />
     </>
   )
