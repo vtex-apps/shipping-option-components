@@ -216,6 +216,8 @@ export const useShippingOption = () => {
       return
     }
 
+    setShippingOption(undefined)
+
     if (!reload) {
       setIsLoading(false)
     }
