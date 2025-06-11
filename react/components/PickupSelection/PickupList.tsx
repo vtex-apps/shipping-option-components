@@ -36,6 +36,7 @@ const PickupList = ({
   }, [selectedPickup])
 
   const showUpdateButton =
+    selectedPickup &&
     highlightedPickup &&
     highlightedPickup.pickupPoint.id !== selectedPickup?.pickupPoint.id
 
