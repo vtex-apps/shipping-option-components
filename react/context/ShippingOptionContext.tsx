@@ -19,6 +19,7 @@ export interface State {
   submitErrorMessage?: string
   areThereUnavailableCartItems: boolean
   unavailableCartItems: CartItem[]
+  unavailabilityMessage?: string
 }
 
 interface UpdateZipCode {

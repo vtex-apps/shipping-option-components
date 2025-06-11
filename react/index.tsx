@@ -48,6 +48,7 @@ function ShippingOptionZipcode({
     submitErrorMessage,
     areThereUnavailableCartItems,
     unavailableCartItems,
+    unavailabilityMessage,
   } = useShippingOptionState()
 
   const isShippingOptionRequired = shippingSelection === 'delivery-and-pickup'
@@ -208,12 +209,12 @@ function ShippingOptionZipcode({
       />
 
       <UnavailableItemsModal
-        addressLabel={addressLabel ?? ''}
         isOpen={areThereUnavailableCartItems}
         onClose={onAbortUnavailableItemsAction}
         onTryAgain={onAbortUnavailableItemsAction}
         onRemoveItems={onContinueUnavailableItemsAction}
         unavailableCartItems={unavailableCartItems}
+        unavailabilityMessage={unavailabilityMessage}
       />
     </>
   )

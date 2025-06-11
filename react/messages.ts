@@ -137,6 +137,15 @@ const messages = defineMessages({
     id: 'store/shipping-option-zipcode.unavailableItems.description',
     defaultMessaage: '',
   },
+  unavailableItemsModalForPickupDescription: {
+    id: 'store/shipping-option-zipcode.unavailableItems.forPickup.description',
+    defaultMessaage: '',
+  },
+  unavailableItemsModalForDeliveryDescription: {
+    id:
+      'store/shipping-option-zipcode.unavailableItems.forDelivery.description',
+    defaultMessaage: '',
+  },
 })
 
 export default messages

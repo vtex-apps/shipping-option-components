@@ -36,5 +36,11 @@
   "store/shipping-option-zipcode.pickupSelection.title": "Elige una tienda",
   "store/shipping-option-zipcode.pickupSelection.noStoresState.title": "No hay tiendas disponibles",
   "store/shipping-option-zipcode.pickupSelection.noStoresState.description": "No hay tiendas que atiendan el código postal {postalCode}",
-  "store/shipping-option-zipcode.pickupSelection.noStoresState.button.label": "Continuar con la entrega"
+  "store/shipping-option-zipcode.pickupSelection.noStoresState.button.label": "Continuar con la entrega",
+  "store/shipping-option-zipcode.unavailableItems.title": "Artículos no disponibles",
+  "store/shipping-option-zipcode.unavailableItems.description": "Estos artículos no se pueden entregar en {addressLabel} y no están disponibles en ningún punto de recogida",
+  "store/shipping-option-zipcode.unavailableItems.forPickup.description": "Estos artículos no están disponibles para el punto de recogida {pickupLabel}",
+  "store/shipping-option-zipcode.unavailableItems.forDelivery.description": "Estos artículos no se pueden entregar en {addressLabel}",
+  "store/shipping-option-zipcode.unavailableItems.removeItemsButton.label": "Eliminar artículos",
+  "store/shipping-option-zipcode.unavailableItems.retryButton.label": "Ingresar otra ubicación"
 }

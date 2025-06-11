@@ -19,8 +19,8 @@ interface Props {
   onClose: () => void
   onTryAgain: () => void
   onRemoveItems: () => void
-  addressLabel: string
   unavailableCartItems: CartItem[]
+  unavailabilityMessage?: string
 }
 
 const UnavailableItemsModal = ({
@@ -28,8 +28,8 @@ const UnavailableItemsModal = ({
   onClose,
   onTryAgain,
   onRemoveItems,
-  addressLabel,
   unavailableCartItems,
+  unavailabilityMessage,
 }: Props) => {
   const intl = useIntl()
 
@@ -52,11 +52,7 @@ const UnavailableItemsModal = ({
       nonDismissible
     >
       <div className="flex-auto flex flex-column justify-between mt0">
-        <p className="mid-gray ma0">
-          {intl.formatMessage(messages.unavailableItemsModalDescription, {
-            addressLabel: ` ${addressLabel}`,
-          })}
-        </p>
+        <p className="mid-gray ma0">{unavailabilityMessage}</p>
         <div className="mv7 overflow-auto">
           {unavailableCartItems.map(({ product }) => (
             <ProductItem

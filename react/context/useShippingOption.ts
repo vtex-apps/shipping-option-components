@@ -31,6 +31,8 @@ export const useShippingOption = () => {
     []
   )
 
+  const [unavailabilityMessage, setUnavailabilityMessage] = useState<string>()
+
   const [
     actionInterruptedByCartValidation,
     setActionInterruptedByCartValidation,
@@ -289,6 +291,12 @@ export const useShippingOption = () => {
           break
         }
 
+        setUnavailabilityMessage(
+          intl.formatMessage(messages.unavailableItemsModalDescription, {
+            addressLabel,
+          })
+        )
+
         setActionInterruptedByCartValidation(() => () =>
           submitZipcode(zipcodeSelected, reload)
         )
@@ -299,12 +307,23 @@ export const useShippingOption = () => {
       case 'UPDATE_PICKUP': {
         const { pickup, shouldPersistFacet } = action.args
 
+        setUnavailabilityMessage('pickup')
+
         const unavailableItems = await validateCartItems()
 
         if (unavailableItems.length === 0) {
           selectPickup(pickup, shouldPersistFacet)
           break
         }
+
+        setUnavailabilityMessage(
+          intl.formatMessage(
+            messages.unavailableItemsModalForPickupDescription,
+            {
+              pickupLabel: selectedPickup?.pickupPoint.friendlyName,
+            }
+          )
+        )
 
         setActionInterruptedByCartValidation(() => () =>
           selectPickup(pickup, shouldPersistFacet)
@@ -314,12 +333,23 @@ export const useShippingOption = () => {
       }
 
       case 'SELECT_DELIVERY_SHIPPING_OPTION': {
+        setUnavailabilityMessage('delivery')
+
         const unavailableItems = await validateCartItems()
 
         if (unavailableItems.length === 0) {
           selectDeliveryShippingOption()
           break
         }
+
+        setUnavailabilityMessage(
+          intl.formatMessage(
+            messages.unavailableItemsModalForDeliveryDescription,
+            {
+              addressLabel,
+            }
+          )
+        )
 
         setActionInterruptedByCartValidation(() => () =>
           selectDeliveryShippingOption()
@@ -360,6 +390,7 @@ export const useShippingOption = () => {
       shippingOption,
       areThereUnavailableCartItems,
       unavailableCartItems,
+      unavailabilityMessage,
     },
   }
 }
