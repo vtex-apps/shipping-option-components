@@ -13,6 +13,7 @@ import messages from './messages'
 import PickupModal from './components/PickupModal'
 import PinIcon from './components/PinIcon'
 import PickupIcon from './components/ShippingSelectionModal/PickupIcon'
+import UnavailableItemsModal from './components/UnavailableItemsModal'
 
 interface Props {
   hideStoreSelection?: boolean
@@ -25,7 +26,7 @@ interface Props {
 function ShippingOptionZipcode({
   callToAction = 'popover-input',
   dismissible = false,
-  shippingSelection,
+  shippingSelection = 'only-pickup',
   mode = 'default',
 }: Props) {
   const intl = useIntl()
@@ -45,6 +46,8 @@ function ShippingOptionZipcode({
     shippingOption,
     addressLabel,
     submitErrorMessage,
+    areThereUnavailableCartItems,
+    unavailableCartItems,
   } = useShippingOptionState()
 
   const dispatch = useShippingOptionDispatch()
@@ -66,6 +69,18 @@ function ShippingOptionZipcode({
   const onDeliverySelection = () => {
     dispatch({
       type: 'SELECT_DELIVERY_SHIPPING_OPTION',
+    })
+  }
+
+  const onAbortUnavailableItemsAction = () => {
+    dispatch({
+      type: 'ABORT_UNAVAILABLE_ITEMS_ACTION',
+    })
+  }
+
+  const onContinueUnavailableItemsAction = () => {
+    dispatch({
+      type: 'CONTINUE_UNAVAILABLE_ITEMS_ACTION',
     })
   }
 
@@ -161,7 +176,6 @@ function ShippingOptionZipcode({
         selectedShipping={shippingOption}
         onDeliverySelection={() => {
           onDeliverySelection()
-          setIsShippingModalOpen(false)
         }}
         pickupProps={{
           onSelectPickup,
@@ -190,6 +204,15 @@ function ShippingOptionZipcode({
           selectedZipcode,
           isLoading,
         }}
+      />
+
+      <UnavailableItemsModal
+        addressLabel={addressLabel ?? ''}
+        isOpen={areThereUnavailableCartItems}
+        onClose={onAbortUnavailableItemsAction}
+        onTryAgain={onAbortUnavailableItemsAction}
+        onRemoveItems={onContinueUnavailableItemsAction}
+        unavailableCartItems={unavailableCartItems}
       />
     </>
   )

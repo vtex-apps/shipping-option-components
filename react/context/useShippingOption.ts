@@ -8,7 +8,10 @@ import {
   getPickups,
   updateOrderForm,
   updateSession,
+  getCartProducts,
+  removeCartProductsById,
 } from '../client'
+import { CartItem, CartProduct } from '../components/UnavailableItemsModal'
 import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
 import messages from '../messages'
 import { ShippingMethod, ShippingOptionActions } from './ShippingOptionContext'
@@ -24,6 +27,14 @@ export const useShippingOption = () => {
   const [geoCoordinates, setGeoCoordinates] = useState<number[]>()
   const [addressLabel, setAddressLabel] = useState<string>()
   const [shippingOption, setShippingOption] = useState<ShippingMethod>()
+  const [unavailableCartItems, setUnavailableCartItems] = useState<CartItem[]>(
+    []
+  )
+
+  const [
+    actionInterruptedByCartValidation,
+    setActionInterruptedByCartValidation,
+  ] = useState<() => void>()
 
   const { account } = useRuntime()
   const isSSR = useSSR()
@@ -34,7 +45,8 @@ export const useShippingOption = () => {
       country: string,
       selectedZipcode: string,
       coordinates: number[],
-      shippingMethod?: ShippingMethod
+      shippingMethod?: ShippingMethod,
+      keepLoading = false
     ) => {
       const responsePickups = await getPickups(
         country,
@@ -68,7 +80,9 @@ export const useShippingOption = () => {
         )
       }
 
-      setIsLoading(false)
+      if (!keepLoading) {
+        setIsLoading(false)
+      }
     },
     [account]
   )
@@ -115,6 +129,42 @@ export const useShippingOption = () => {
     }, 3000)
   }
 
+  const validateCartItems = async () => {
+    const orderFormId = getOrderFormId()
+
+    const products = await getCartProducts(orderFormId)
+
+    // IMPORTANT: validate products here
+    // Task: TIS-189
+    const unavailableItems = products.map(
+      (product: CartProduct, id: number) => ({
+        cartItemIndex: id,
+        product,
+      })
+    )
+
+    setUnavailableCartItems(unavailableItems)
+
+    return unavailableItems
+  }
+
+  const resetUnavailableCartItems = async () => {
+    setUnavailableCartItems([])
+  }
+
+  const removeUnavailableItems = async () => {
+    const orderFormId = getOrderFormId()
+
+    await removeCartProductsById(
+      orderFormId,
+      unavailableCartItems.map((item) => item.cartItemIndex)
+    )
+
+    if (actionInterruptedByCartValidation) {
+      actionInterruptedByCartValidation()
+    }
+  }
+
   const submitZipcode = async (selectedZipcode: string, reload = true) => {
     if (!selectedZipcode) {
       onError(intl.formatMessage(messages.postalCodeInputPlaceHolder))
@@ -157,7 +207,8 @@ export const useShippingOption = () => {
         countryCode,
         selectedZipcode,
         coordinates,
-        shippingOption
+        shippingOption,
+        true
       )
     } catch {
       onError(intl.formatMessage(messages.postalCodeInputError))
@@ -212,24 +263,64 @@ export const useShippingOption = () => {
     setAddressLabel(city ? `${city}, ${zipcode}` : zipcode)
   }, [zipcode, city])
 
-  const dispatch = (action: ShippingOptionActions) => {
+  const dispatch = async (action: ShippingOptionActions) => {
     switch (action.type) {
       case 'UPDATE_ZIPCODE': {
         const { zipcode: zipcodeSelected, reload } = action.args
 
-        submitZipcode(zipcodeSelected, reload)
+        const unavailableItems = await validateCartItems()
+
+        if (unavailableItems.length === 0) {
+          submitZipcode(zipcodeSelected, reload)
+          break
+        }
+
+        setActionInterruptedByCartValidation(() => () =>
+          submitZipcode(zipcodeSelected, reload)
+        )
+
         break
       }
 
       case 'UPDATE_PICKUP': {
         const { pickup, shouldPersistFacet } = action.args
 
-        selectPickup(pickup, shouldPersistFacet)
+        const unavailableItems = await validateCartItems()
+
+        if (unavailableItems.length === 0) {
+          selectPickup(pickup, shouldPersistFacet)
+          break
+        }
+
+        setActionInterruptedByCartValidation(() => () =>
+          selectPickup(pickup, shouldPersistFacet)
+        )
+
         break
       }
 
       case 'SELECT_DELIVERY_SHIPPING_OPTION': {
-        selectDeliveryShippingOption()
+        const unavailableItems = await validateCartItems()
+
+        if (unavailableItems.length === 0) {
+          selectDeliveryShippingOption()
+          break
+        }
+
+        setActionInterruptedByCartValidation(() => () =>
+          selectDeliveryShippingOption()
+        )
+
+        break
+      }
+
+      case 'ABORT_UNAVAILABLE_ITEMS_ACTION': {
+        resetUnavailableCartItems()
+        break
+      }
+
+      case 'CONTINUE_UNAVAILABLE_ITEMS_ACTION': {
+        removeUnavailableItems()
         break
       }
 
@@ -237,6 +328,8 @@ export const useShippingOption = () => {
         break
     }
   }
+
+  const areThereUnavailableCartItems = unavailableCartItems.length > 0
 
   return {
     dispatch,
@@ -251,6 +344,8 @@ export const useShippingOption = () => {
       geoCoordinates,
       addressLabel,
       shippingOption,
+      areThereUnavailableCartItems,
+      unavailableCartItems,
     },
   }
 }
