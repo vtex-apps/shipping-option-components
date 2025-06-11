@@ -156,7 +156,7 @@ function ShippingOptionZipcode({
       )}
 
       <LocationModal
-        isOpen={isLocationModalOpen}
+        isOpen={isLocationModalOpen && !areThereUnavailableCartItems}
         onClose={() => setIsLocationModalOpen(false)}
         onSubmit={async (zipcode: string) => {
           const shouldReload = !isShippingOptionRequired
@@ -173,7 +173,7 @@ function ShippingOptionZipcode({
       />
 
       <ShippingSelectionModal
-        isOpen={isShippingModalOpen}
+        isOpen={isShippingModalOpen && !areThereUnavailableCartItems}
         onClose={() => setIsShippingModalOpen(false)}
         selectedShipping={shippingOption}
         onDeliverySelection={() => {
@@ -194,7 +194,7 @@ function ShippingOptionZipcode({
       />
 
       <PickupModal
-        isOpen={isPickupModalOpen}
+        isOpen={isPickupModalOpen && !areThereUnavailableCartItems}
         onClose={() => setIsPickupModalOpen(false)}
         pickupProps={{
           onSelectPickup,
