@@ -217,6 +217,7 @@ export const useShippingOption = () => {
     }
 
     setShippingOption(undefined)
+    setSelectecPickup(undefined)
 
     if (!reload) {
       setIsLoading(false)
