@@ -37,7 +37,7 @@ const PickupSelection = ({
   useEffect(() => setZipcode(selectedZipcode ?? ''), [selectedZipcode])
 
   return (
-    <div className="flex flex-column justify-between mt5 vh-100">
+    <div className="flex flex-column mt5 vh-100">
       <div className="mb7">
         <PostalCodeInput
           onChange={(value: string) => setZipcode(value)}
