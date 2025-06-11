@@ -132,20 +132,31 @@ export const useShippingOption = () => {
   const validateCartItems = async () => {
     const orderFormId = getOrderFormId()
 
-    const products = await getCartProducts(orderFormId)
+    setIsLoading(true)
 
-    // IMPORTANT: validate products here
-    // Task: TIS-189
-    const unavailableItems = products.map(
-      (product: CartProduct, id: number) => ({
-        cartItemIndex: id,
-        product,
-      })
-    )
+    try {
+      const products = await getCartProducts(orderFormId)
 
-    setUnavailableCartItems(unavailableItems)
+      // IMPORTANT: validate products here
+      // Task: TIS-189
+      const unavailableItems = products.map(
+        (product: CartProduct, id: number) => ({
+          cartItemIndex: id,
+          product,
+        })
+      )
 
-    return unavailableItems
+      setUnavailableCartItems(unavailableItems)
+
+      setIsLoading(false)
+
+      return unavailableItems
+    } catch {
+      setIsLoading(false)
+      setUnavailableCartItems([])
+
+      return []
+    }
   }
 
   const resetUnavailableCartItems = async () => {
