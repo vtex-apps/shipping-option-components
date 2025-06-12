@@ -2,6 +2,8 @@
 import { useRuntime, useSSR } from 'vtex.render-runtime'
 import { useCallback, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
+import { useOrderItems } from 'vtex.order-items/OrderItems'
+import { usePixelEventCallback } from 'vtex.pixel-manager'
 
 import {
   getAddress,
@@ -15,6 +17,7 @@ import { CartItem, CartProduct } from '../components/UnavailableItemsModal'
 import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
 import messages from '../messages'
 import { ShippingMethod, ShippingOptionActions } from './ShippingOptionContext'
+import { SHIPPING_MODAL_PIXEL_EVENT_ID } from '../constants'
 
 export const useShippingOption = () => {
   const [zipcode, setZipCode] = useState<string>()
@@ -31,6 +34,8 @@ export const useShippingOption = () => {
     []
   )
 
+  const [pendingAddToCartItem, setPendingAddToCartItem] = useState<any>()
+
   const [unavailabilityMessage, setUnavailabilityMessage] = useState<string>()
 
   const [
@@ -41,6 +46,14 @@ export const useShippingOption = () => {
   const { account } = useRuntime()
   const isSSR = useSSR()
   const intl = useIntl()
+  const { addItems } = useOrderItems()
+
+  usePixelEventCallback({
+    eventId: SHIPPING_MODAL_PIXEL_EVENT_ID,
+    handler: (event: any) => {
+      setPendingAddToCartItem(event.data.addToCartInfo)
+    },
+  })
 
   const fetchPickups = useCallback(
     async (
@@ -132,11 +145,18 @@ export const useShippingOption = () => {
   }
 
   const validateCartItems = async () => {
-    const orderFormId = getOrderFormId()
-
     setIsLoading(true)
 
     try {
+      if (pendingAddToCartItem) {
+        await addItems(
+          pendingAddToCartItem.skuItems,
+          pendingAddToCartItem.options
+        )
+      }
+
+      const orderFormId = getOrderFormId()
+
       const products = await getCartProducts(orderFormId)
 
       // IMPORTANT: validate products here

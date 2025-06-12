@@ -90,12 +90,8 @@ function ShippingOptionZipcode({
   usePixelEventCallback({
     eventId: SHIPPING_MODAL_PIXEL_EVENT_ID,
     handler: () => {
-      if (selectedZipcode) {
-        setIsShippingModalOpen(true)
-      } else {
-        setWasLocationModalOpenedByEvent(true)
-        setIsLocationModalOpen(true)
-      }
+      setWasLocationModalOpenedByEvent(true)
+      setIsShippingModalOpen(true)
     },
   })
 
@@ -129,7 +125,10 @@ function ShippingOptionZipcode({
         value={addressLabel}
         placeholder={intl.formatMessage(messages.deliverToButtonPlaceholder)}
         selectedZipcode={selectedZipcode}
-        onSubmit={onSubmit}
+        onSubmit={(zipCode: string) => {
+          setWasLocationModalOpenedByEvent(true)
+          onSubmit(zipCode, !isShippingOptionRequired)
+        }}
         inputErrorMessage={submitErrorMessage}
         callToAction={callToAction}
         mode={mode}
@@ -160,9 +159,7 @@ function ShippingOptionZipcode({
         isOpen={isLocationModalOpen && !areThereUnavailableCartItems}
         onClose={() => setIsLocationModalOpen(false)}
         onSubmit={async (zipcode: string) => {
-          const shouldReload = !isShippingOptionRequired
-
-          onSubmit(zipcode, shouldReload)
+          onSubmit(zipcode, !isShippingOptionRequired)
         }}
         isLoading={isLoading}
         inputErrorMessage={submitErrorMessage}
@@ -190,7 +187,8 @@ function ShippingOptionZipcode({
           isLoading,
         }}
         nonDismissibleModal={
-          !dismissible && !shippingOption && wasLocationModalOpenedByEvent
+          (!dismissible && !shippingOption && wasLocationModalOpenedByEvent) ||
+          !shippingOption
         }
       />
 
