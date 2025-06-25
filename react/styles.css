@@ -99,6 +99,13 @@
   align-self: end;
 }
 
+.availabilityBadgeCircle {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  min-height: 10px;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

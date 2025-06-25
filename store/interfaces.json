@@ -1,5 +1,8 @@
 {
   "shipping-option-location-selector": {
     "component": "index"
+  },
+  "availability-badges": {
+    "component": "AvailabilityBadges"
   }
 }
