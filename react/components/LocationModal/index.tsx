@@ -5,6 +5,11 @@ import AddLocation from './AddLocation'
 import Modal from '../Modal'
 import messages from '../../messages'
 import EmptyState from '../EmptyState'
+import { ZipCodeError } from '../../context/ShippingOptionContext'
+import { PRODUCTS_NOT_FOUND_ERROR_CODE } from '../../constants'
+
+const LOCATION_SELECTION = 'locationSelection'
+const NO_PICKUP_STATE = 'noPickupState'
 
 type Stages = 'locationSelection' | 'noPickupState'
 
@@ -13,7 +18,7 @@ interface Props {
   onClose: () => void
   onSubmit: (zipCode: string) => void
   isLoading?: boolean
-  inputErrorMessage?: string
+  inputErrorMessage?: ZipCodeError
   selectedZipcode?: string
   nonDismissibleModal?: boolean
 }
@@ -28,10 +33,16 @@ const LocationModal = ({
   nonDismissibleModal,
 }: Props) => {
   const [zipcode, setZipcode] = useState<string>('')
-  const [stage, setStage] = useState<Stages>('locationSelection')
+  const [stage, setStage] = useState<Stages>(LOCATION_SELECTION)
   const intl = useIntl()
 
   useEffect(() => setZipcode(selectedZipcode ?? ''), [selectedZipcode])
+
+  useEffect(() => {
+    if (inputErrorMessage?.code === PRODUCTS_NOT_FOUND_ERROR_CODE) {
+      setStage(NO_PICKUP_STATE)
+    }
+  }, [inputErrorMessage])
 
   const stageContent: StageContent = {
     locationSelection: {
@@ -40,7 +51,7 @@ const LocationModal = ({
         <AddLocation
           onSubmit={onSubmit}
           isLoading={isLoading}
-          inputErrorMessage={inputErrorMessage}
+          inputErrorMessage={inputErrorMessage?.message}
           onChange={(value: string) => setZipcode(value)}
           zipcode={zipcode}
         />
@@ -55,7 +66,7 @@ const LocationModal = ({
             postalCode: ` ${zipcode}`,
           })}
           buttonLabel={intl.formatMessage(messages.noPickupsStateButtonLabel)}
-          onClick={() => setStage('locationSelection')}
+          onClick={() => setStage(LOCATION_SELECTION)}
           variant="secondary"
         />
       ),

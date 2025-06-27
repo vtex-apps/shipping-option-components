@@ -5,6 +5,11 @@ import { ShippingOptionProviderCore } from './ShippingOptionProviderCore'
 
 export type ShippingMethod = 'delivery' | 'pickup-in-point'
 
+export type ZipCodeError = {
+  code: string
+  message: string
+}
+
 export interface State {
   zipcode?: string
   pickups: Pickup[]
@@ -15,7 +20,7 @@ export interface State {
   isLoading: boolean
   shippingOption?: ShippingMethod
   addressLabel?: string
-  submitErrorMessage?: string
+  submitErrorMessage?: ZipCodeError
 }
 
 interface UpdateZipCode {

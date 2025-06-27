@@ -5,19 +5,26 @@ import { useIntl } from 'react-intl'
 
 import {
   getAddress,
+  getCatalogCount,
   getPickups,
   updateOrderForm,
   updateSession,
 } from '../client'
 import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
 import messages from '../messages'
-import { ShippingMethod, ShippingOptionActions } from './ShippingOptionContext'
+import {
+  ShippingMethod,
+  ShippingOptionActions,
+  ZipCodeError,
+} from './ShippingOptionContext'
+import { PRODUCTS_NOT_FOUND_ERROR_CODE } from '../constants'
 
 export const useShippingOption = () => {
   const [zipcode, setZipCode] = useState<string>()
   const [isLoading, setIsLoading] = useState(true)
   const [countryCode, setCountryCode] = useState<string>()
-  const [submitErrorMessage, setSubmitErrorMessage] = useState<string>()
+  const [submitErrorMessage, setSubmitErrorMessage] = useState<ZipCodeError>()
+
   const [city, setCity] = useState<string>()
   const [pickups, setPickups] = useState<Pickup[]>([])
   const [selectedPickup, setSelectecPickup] = useState<Pickup>()
@@ -106,8 +113,8 @@ export const useShippingOption = () => {
     }
   }, [account, isSSR, fetchPickups])
 
-  const onError = (message: string) => {
-    setSubmitErrorMessage(message)
+  const onError = (code: string, message: string) => {
+    setSubmitErrorMessage({ code, message })
     setIsLoading(false)
 
     setTimeout(() => {
@@ -117,7 +124,10 @@ export const useShippingOption = () => {
 
   const submitZipcode = async (selectedZipcode: string, reload = true) => {
     if (!selectedZipcode) {
-      onError(intl.formatMessage(messages.postalCodeInputPlaceHolder))
+      onError(
+        'POSTAL_CODE_NOT_FOUND',
+        intl.formatMessage(messages.postalCodeInputPlaceHolder)
+      )
 
       return
     }
@@ -136,7 +146,23 @@ export const useShippingOption = () => {
       )
 
       if (coordinates.length === 0) {
-        onError(intl.formatMessage(messages.postalCodeInputError))
+        onError(
+          'INVALID_POSTAL_CODE',
+          intl.formatMessage(messages.postalCodeInputError)
+        )
+
+        return
+      }
+
+      const { total } = await getCatalogCount(selectedZipcode, coordinates)
+
+      if (total === 0) {
+        onError(
+          PRODUCTS_NOT_FOUND_ERROR_CODE,
+          intl.formatMessage(messages.noPickupsStateDescription, {
+            postalCode: ` ${selectedZipcode}`,
+          })
+        )
 
         return
       }
@@ -160,7 +186,10 @@ export const useShippingOption = () => {
         shippingOption
       )
     } catch {
-      onError(intl.formatMessage(messages.postalCodeInputError))
+      onError(
+        'INVALID_POSTAL_CODE',
+        intl.formatMessage(messages.postalCodeInputError)
+      )
 
       return
     }

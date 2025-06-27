@@ -35,16 +35,20 @@ const DeliveryPopover = ({
   selectedZipcode,
 }: Props) => {
   const [zipcode, setZipcode] = useState<string>('')
+  const [alreadyOpen, setAlreadyOpen] = useState<boolean>(false)
   const handles = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
 
+  const isFirstLoading = !zipcode && isLoading
+
+  const openPopover = !isFirstLoading && !selectedZipcode && !alreadyOpen
+
   useEffect(() => {
-    const isFirstLoading = !zipcode && isLoading
-
-    const openPopover = !isFirstLoading && !selectedZipcode
-
-    popoverStore.setOpen(openPopover)
-  }, [isLoading, popoverStore, selectedZipcode, zipcode])
+    if (openPopover) {
+      popoverStore.setOpen(true)
+      setAlreadyOpen(true)
+    }
+  }, [openPopover, popoverStore])
 
   const handlePopoverClick = () => {
     onClick()
