@@ -4,6 +4,7 @@ import { ProductSummaryContext } from 'vtex.product-summary-context'
 import { useCssHandles } from 'vtex.css-handles'
 
 import messages from './messages'
+import { useShippingOptionState } from './context'
 
 const CSS_HANDLES = [
   'availabilityBadgeCircle',
@@ -34,12 +35,12 @@ const Badge = ({ children, isAvailable }: PropsWithChildren<Props>) => {
 
 const AvailabilityBadges = () => {
   const intl = useIntl()
-
+  const { zipcode } = useShippingOptionState()
   const {
     product: { deliveryPromisesBadges },
   } = ProductSummaryContext.useProductSummary()
 
-  if (!deliveryPromisesBadges) {
+  if (!zipcode || !deliveryPromisesBadges) {
     return null
   }
 
