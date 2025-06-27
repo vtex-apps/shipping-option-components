@@ -12,6 +12,9 @@ import {
   updateSession,
   getCartProducts,
   removeCartProductsById,
+  validateProductAvailability,
+  validateProductAvailabilityByPickup,
+  validateProductAvailabilityByDelivery,
 } from '../client'
 import { CartItem, CartProduct } from '../components/UnavailableItemsModal'
 import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
@@ -144,29 +147,28 @@ export const useShippingOption = () => {
     }, 3000)
   }
 
-  const validateCartItems = async () => {
+  const validateCartItems = async (
+    validationHandler: (products: string[]) => Promise<any>
+  ) => {
     setIsLoading(true)
 
     try {
-      if (pendingAddToCartItem) {
-        await addItems(
-          pendingAddToCartItem.skuItems,
-          pendingAddToCartItem.options
-        )
-      }
-
       const orderFormId = getOrderFormId()
 
       const products = await getCartProducts(orderFormId)
 
-      // IMPORTANT: validate products here
-      // Task: TIS-189
-      const unavailableItems = products.map(
-        (product: CartProduct, id: number) => ({
+      const productIds = products.map((product: CartProduct) => product.id)
+
+      const { unavailableProducts } = await validationHandler(productIds)
+
+      const unavailableItems = products
+        .map((product: CartProduct, id: number) => ({
           cartItemIndex: id,
           product,
-        })
-      )
+        }))
+        .filter((item: any) =>
+          unavailableProducts.some((id: string) => id === item.product.id)
+        )
 
       setUnavailableCartItems(unavailableItems)
 
@@ -304,7 +306,15 @@ export const useShippingOption = () => {
       case 'UPDATE_ZIPCODE': {
         const { zipcode: zipcodeSelected, reload } = action.args
 
-        const unavailableItems = await validateCartItems()
+        const unavailableItems = await validateCartItems(
+          async (products: string[]) =>
+            validateProductAvailability(
+              zipcodeSelected,
+              countryCode!,
+              products,
+              account
+            )
+        )
 
         if (unavailableItems.length === 0) {
           submitZipcode(zipcodeSelected, reload)
@@ -329,10 +339,23 @@ export const useShippingOption = () => {
 
         setUnavailabilityMessage('pickup')
 
-        const unavailableItems = await validateCartItems()
+        const unavailableItems = await validateCartItems(
+          async (products: string[]) =>
+            validateProductAvailabilityByPickup(pickup.pickupPoint.id, products)
+        )
 
         if (unavailableItems.length === 0) {
           selectPickup(pickup, shouldPersistFacet)
+
+          if (pendingAddToCartItem) {
+            await addItems(
+              pendingAddToCartItem.skuItems,
+              pendingAddToCartItem.options
+            )
+
+            setPendingAddToCartItem(undefined)
+          }
+
           break
         }
 
@@ -355,10 +378,28 @@ export const useShippingOption = () => {
       case 'SELECT_DELIVERY_SHIPPING_OPTION': {
         setUnavailabilityMessage('delivery')
 
-        const unavailableItems = await validateCartItems()
+        const unavailableItems = await validateCartItems(
+          async (products: string[]) =>
+            validateProductAvailabilityByDelivery(
+              zipcode!,
+              countryCode!,
+              products,
+              account
+            )
+        )
 
         if (unavailableItems.length === 0) {
           selectDeliveryShippingOption()
+
+          if (pendingAddToCartItem) {
+            await addItems(
+              pendingAddToCartItem.skuItems,
+              pendingAddToCartItem.options
+            )
+
+            setPendingAddToCartItem(undefined)
+          }
+
           break
         }
 

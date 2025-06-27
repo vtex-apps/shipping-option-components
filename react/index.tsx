@@ -91,7 +91,7 @@ function ShippingOptionZipcode({
     eventId: SHIPPING_MODAL_PIXEL_EVENT_ID,
     handler: () => {
       setWasLocationModalOpenedByEvent(true)
-      setIsShippingModalOpen(true)
+      setIsLocationModalOpen(true)
     },
   })
 
