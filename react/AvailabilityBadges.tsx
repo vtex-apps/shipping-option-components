@@ -1,10 +1,13 @@
-import React, { PropsWithChildren } from 'react'
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { PropsWithChildren, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { ProductSummaryContext } from 'vtex.product-summary-context'
 import { useCssHandles } from 'vtex.css-handles'
 
 import messages from './messages'
 import { useShippingOptionState } from './context'
+import PickupModal from './PickupModal'
 
 const CSS_HANDLES = [
   'availabilityBadgeCircle',
@@ -28,13 +31,15 @@ const Badge = ({ children, isAvailable }: PropsWithChildren<Props>) => {
       <div
         className={`${handle.availabilityBadgeCircle} br-pill mr3  ${cicleColor}`}
       />
-      <p className="ma0 f6 mid-gray">{children}</p>
+      <p className="ma0 f6 mid-gray truncate">{children}</p>
     </div>
   )
 }
 
 const AvailabilityBadges = () => {
+  const handle = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
+  const [isPickupModalOpen, setIsPickupModalOpen] = useState(false)
   const { zipcode } = useShippingOptionState()
   const {
     product: { deliveryPromisesBadges },
@@ -52,8 +57,13 @@ const AvailabilityBadges = () => {
     (badge) => badge.typeName === PICKUP_BADGE_KEY
   )
 
+  const stopBubblingUp: React.MouseEventHandler = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
   return (
-    <div>
+    <div onClick={stopBubblingUp}>
       {deliveryBadge ? (
         <Badge isAvailable>
           {intl.formatMessage(messages.deliveryAvailableBadge)}
@@ -66,13 +76,23 @@ const AvailabilityBadges = () => {
       {pickupBadge ? (
         <Badge isAvailable>
           {`${intl.formatMessage(messages.pickupAtBadge)} `}
-          <span className="c-action-primary">{pickupBadge.pickupName}</span>
+          <button
+            onClick={() => setIsPickupModalOpen(true)}
+            className={`${handle.availabilityPickupButton}`}
+          >
+            {pickupBadge.pickupName}
+          </button>
         </Badge>
       ) : (
         <Badge isAvailable={false}>
           {intl.formatMessage(messages.pickupUnavailableBadge)}
         </Badge>
       )}
+
+      <PickupModal
+        isOpen={isPickupModalOpen}
+        onClose={() => setIsPickupModalOpen(false)}
+      />
     </div>
   )
 }
