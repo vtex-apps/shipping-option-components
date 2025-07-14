@@ -120,6 +120,22 @@ const messages = defineMessages({
     id: 'store/shipping-option-zipcode.pickupSelection.title',
     defaultMessaage: '',
   },
+  deliveryAvailableBadge: {
+    id: 'store/shipping-option-zipcode.availabilityBadge.deliveryAvailable',
+    defaultMessaage: '',
+  },
+  deliveryUnavailableBadge: {
+    id: 'store/shipping-option-zipcode.availabilityBadge.deliveryUnavailable',
+    defaultMessaage: '',
+  },
+  pickupUnavailableBadge: {
+    id: 'store/shipping-option-zipcode.availabilityBadge.pickupUnavailable',
+    defaultMessaage: '',
+  },
+  pickupAtBadge: {
+    id: 'store/shipping-option-zipcode.availabilityBadge.pickupAt',
+    defaultMessaage: '',
+  },
 })
 
 export default messages

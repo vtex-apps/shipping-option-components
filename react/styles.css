@@ -99,6 +99,24 @@
   align-self: end;
 }
 
+.availabilityBadgeCircle {
+  width: 10px;
+  height: 10px;
+  min-width: 10px;
+  min-height: 10px;
+}
+
+.availabilityPickupButton {
+  border: 0;
+  padding: 0;
+  font-size: 14px;
+  background: unset;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 500;
+  color: #134cd8;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
