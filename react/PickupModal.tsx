@@ -41,7 +41,7 @@ const PickupModalWithContext = ({ isOpen, onClose }: Props) => {
         onSelectPickup,
         onSubmit: (value) => onSubmit(value, false),
         pickups,
-        inputErrorMessage: submitErrorMessage,
+        inputErrorMessage: submitErrorMessage?.message,
         selectedPickup,
         selectedZipcode,
         isLoading,

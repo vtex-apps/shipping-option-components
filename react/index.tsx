@@ -112,7 +112,7 @@ function ShippingOptionZipcode({
         placeholder={intl.formatMessage(messages.deliverToButtonPlaceholder)}
         selectedZipcode={selectedZipcode}
         onSubmit={onSubmit}
-        inputErrorMessage={submitErrorMessage}
+        inputErrorMessage={submitErrorMessage?.message}
         callToAction={callToAction}
         mode={mode}
         icon={<PinIcon filled={false} width={20} height={20} />}
@@ -167,7 +167,7 @@ function ShippingOptionZipcode({
           onSelectPickup,
           onSubmit: (value) => onSubmit(value, false),
           pickups,
-          inputErrorMessage: submitErrorMessage,
+          inputErrorMessage: submitErrorMessage?.message,
           selectedPickup,
           selectedZipcode,
           isLoading,
@@ -185,7 +185,7 @@ function ShippingOptionZipcode({
           onSelectPickup,
           onSubmit: (value) => onSubmit(value, false),
           pickups,
-          inputErrorMessage: submitErrorMessage,
+          inputErrorMessage: submitErrorMessage?.message,
           selectedPickup,
           selectedZipcode,
           isLoading,

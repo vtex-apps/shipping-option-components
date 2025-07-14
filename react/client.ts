@@ -65,3 +65,10 @@ export const updateOrderForm = (
       'Content-Type': 'application/json',
     },
   }).then((res) => res.json())
+
+export const getCatalogCount = (zipCode: string, geoCoordinates: number[]) =>
+  fetch(
+    `/api/io/_v/api/intelligent-search/catalog_count?zip-code=${zipCode}&coordinates=${geoCoordinates.join(
+      ','
+    )}`
+  ).then((res) => res.json())
