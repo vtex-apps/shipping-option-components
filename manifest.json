@@ -1,7 +1,7 @@
 {
   "vendor": "vtex",
   "name": "shipping-option-components",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "title": "Shipping Option Zipcode component",
   "description": "Shipping Option Zipcode component",
   "builders": {
@@ -22,7 +22,9 @@
     "vtex.product-summary-context": "0.x",
     "vtex.order-items": "0.x"
   },
-  "registries": ["smartcheckout"],
+  "registries": [
+    "smartcheckout"
+  ],
   "policies": [],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
