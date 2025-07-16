@@ -72,3 +72,130 @@ export const getCatalogCount = (zipCode: string, geoCoordinates: number[]) =>
       ','
     )}`
   ).then((res) => res.json())
+
+export const getCartProducts = async (orderFormId: string) => {
+  const orderForm = await fetch(
+    `/api/checkout/pub/orderForm/${orderFormId}`
+  ).then((res) => res.json())
+
+  return orderForm.items
+}
+
+export const removeCartProductsById = async (
+  orderFormId: string,
+  cartProductsIndex: number[]
+) => {
+  const requestBody = {
+    orderItems: cartProductsIndex.map((productIndex) => ({
+      quantity: 0,
+      index: productIndex,
+    })),
+  }
+
+  const orderForm = await fetch(
+    `/api/checkout/pub/orderForm/${orderFormId}/items/update`,
+    {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  ).then((res) => res.json())
+
+  return orderForm.items
+}
+
+export const validateProductAvailability = async (
+  zipCode: string,
+  countryCode: string,
+  products: string[],
+  account: string
+) => {
+  const address = await getAddress(countryCode, zipCode, account)
+
+  const coordinatesArray = address.geoCoordinates
+  const coordinate = {
+    longitude: coordinatesArray[0],
+    latitude: coordinatesArray[1],
+  }
+
+  const location = {
+    zipCode,
+    coordinate,
+    country: countryCode,
+  }
+
+  const requestBody = {
+    location,
+    products,
+  }
+
+  const baseUrl = window.location.origin
+
+  return fetch(`${baseUrl}/api/io/_v/availability/deliveryorpickup`, {
+    method: 'POST',
+    body: JSON.stringify(requestBody),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res.json())
+}
+
+export const validateProductAvailabilityByDelivery = async (
+  zipCode: string,
+  countryCode: string,
+  products: string[],
+  account: string
+) => {
+  const address = await getAddress(countryCode, zipCode, account)
+
+  const coordinatesArray = address.geoCoordinates
+  const coordinate = {
+    longitude: coordinatesArray[0],
+    latitude: coordinatesArray[1],
+  }
+
+  const location = {
+    zipCode,
+    coordinate,
+    country: countryCode,
+  }
+
+  const requestBody = {
+    location,
+    products,
+  }
+
+  const baseUrl = window.location.origin
+
+  return fetch(`${baseUrl}/api/io/_v/availability/delivery`, {
+    method: 'POST',
+    body: JSON.stringify(requestBody),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res.json())
+}
+
+export const validateProductAvailabilityByPickup = async (
+  pickupId: string,
+  products: string[]
+) => {
+  const requestBody = {
+    products,
+  }
+
+  const baseUrl = window.location.origin
+
+  return fetch(
+    `${baseUrl}/api/io/_v/availability/pickupid?pickupId=${pickupId}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  ).then((res) => res.json())
+}

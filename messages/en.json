@@ -40,5 +40,11 @@
   "store/shipping-option-zipcode.availabilityBadge.deliveryAvailable": "Delivery available",
   "store/shipping-option-zipcode.availabilityBadge.deliveryUnavailable": "Delivery unavailable",
   "store/shipping-option-zipcode.availabilityBadge.pickupUnavailable": "Pickup unavailable",
-  "store/shipping-option-zipcode.availabilityBadge.pickupAt": "Pickup at"
+  "store/shipping-option-zipcode.availabilityBadge.pickupAt": "Pickup at",
+  "store/shipping-option-zipcode.unavailableItems.title": "Items unavailable",
+  "store/shipping-option-zipcode.unavailableItems.description": "These items can't be delivered to {addressLabel} and they are not available in any pickup point",
+  "store/shipping-option-zipcode.unavailableItems.forPickup.description": "These items are not available for the pickup point",
+  "store/shipping-option-zipcode.unavailableItems.forDelivery.description": "These items can't be delivered to {addressLabel}",
+  "store/shipping-option-zipcode.unavailableItems.removeItemsButton.label": "Remove items",
+  "store/shipping-option-zipcode.unavailableItems.retryButton.label": "Enter another location"
 }

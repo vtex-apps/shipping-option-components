@@ -136,6 +136,32 @@ const messages = defineMessages({
     id: 'store/shipping-option-zipcode.availabilityBadge.pickupAt',
     defaultMessaage: '',
   },
+  unavailableItemsModalRemoveButton: {
+    id:
+      'store/shipping-option-zipcode.unavailableItems.removeItemsButton.label',
+    defaultMessaage: '',
+  },
+  unavailableItemsModalRetryButton: {
+    id: 'store/shipping-option-zipcode.unavailableItems.retryButton.label',
+    defaultMessaage: '',
+  },
+  unavailableItemsModalTitle: {
+    id: 'store/shipping-option-zipcode.unavailableItems.title',
+    defaultMessaage: '',
+  },
+  unavailableItemsModalDescription: {
+    id: 'store/shipping-option-zipcode.unavailableItems.description',
+    defaultMessaage: '',
+  },
+  unavailableItemsModalForPickupDescription: {
+    id: 'store/shipping-option-zipcode.unavailableItems.forPickup.description',
+    defaultMessaage: '',
+  },
+  unavailableItemsModalForDeliveryDescription: {
+    id:
+      'store/shipping-option-zipcode.unavailableItems.forDelivery.description',
+    defaultMessaage: '',
+  },
 })
 
 export default messages

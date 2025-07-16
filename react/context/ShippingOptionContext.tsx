@@ -2,6 +2,7 @@ import React, { createContext, ReactNode, useContext } from 'react'
 
 import ErrorBoundary from './ErrorBoundary'
 import { ShippingOptionProviderCore } from './ShippingOptionProviderCore'
+import { CartItem } from '../components/UnavailableItemsModal'
 
 export type ShippingMethod = 'delivery' | 'pickup-in-point'
 
@@ -21,6 +22,9 @@ export interface State {
   shippingOption?: ShippingMethod
   addressLabel?: string
   submitErrorMessage?: ZipCodeError
+  areThereUnavailableCartItems: boolean
+  unavailableCartItems: CartItem[]
+  unavailabilityMessage?: string
 }
 
 interface UpdateZipCode {
@@ -37,14 +41,26 @@ interface SelectDeliveryShippingOption {
   type: 'SELECT_DELIVERY_SHIPPING_OPTION'
 }
 
+interface AbortUnavailableItemsAction {
+  type: 'ABORT_UNAVAILABLE_ITEMS_ACTION'
+}
+
+interface ContinueUnavailableItemsAction {
+  type: 'CONTINUE_UNAVAILABLE_ITEMS_ACTION'
+}
+
 export type ShippingOptionActions =
   | UpdateZipCode
   | UpdatePickup
   | SelectDeliveryShippingOption
+  | AbortUnavailableItemsAction
+  | ContinueUnavailableItemsAction
 
 const DEFAULT_STATE: State = {
   pickups: [],
   isLoading: true,
+  areThereUnavailableCartItems: false,
+  unavailableCartItems: [],
 }
 
 const ShippingOptionStateContext = createContext<State>(DEFAULT_STATE)
