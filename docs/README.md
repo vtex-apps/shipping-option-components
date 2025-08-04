@@ -22,7 +22,7 @@ Add the `shipping-option-components` app to your theme dependencies in the `mani
 
 ```json
   "dependencies": {
-    "vtex.shipping-option-components": "0.x"
+    "vtex.shipping-option-components": "1.x"
   }
 ```
 
