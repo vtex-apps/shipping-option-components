@@ -39,7 +39,6 @@ const PickupModal = ({ isOpen, onClose, pickupProps }: Props) => {
         inputErrorMessage={inputErrorMessage}
         selectedPickup={selectedPickup}
         selectedZipcode={selectedZipcode}
-        shouldPersistFacet={false}
         isLoading={isLoading}
       />
     </Modal>
