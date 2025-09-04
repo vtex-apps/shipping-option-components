@@ -264,7 +264,13 @@ export const useShippingOption = () => {
       setGeoCoordinates(coordinates)
       setZipCode(selectedZipcode)
 
-      await updateSession(countryCode, selectedZipcode, coordinates)
+      await updateSession(
+        countryCode,
+        selectedZipcode,
+        coordinates,
+        selectedPickup,
+        'delivery'
+      )
 
       await fetchPickups(
         countryCode,
