@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { PropsWithChildren, useState } from 'react'
+import type { PropsWithChildren } from 'react'
+import React, { useState } from 'react'
 import { useIntl } from 'react-intl'
 import { ProductSummaryContext } from 'vtex.product-summary-context'
 import { useCssHandles } from 'vtex.css-handles'
@@ -38,7 +39,9 @@ const Badge = ({ children, isAvailable }: PropsWithChildren<Props>) => {
 
 const AvailabilityBadges = () => {
   const handle = useCssHandles(CSS_HANDLES)
+
   const intl = useIntl()
+
   const [isPickupModalOpen, setIsPickupModalOpen] = useState(false)
   const { zipcode } = useShippingOptionState()
   const {
