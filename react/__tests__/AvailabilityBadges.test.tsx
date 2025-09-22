@@ -15,7 +15,7 @@ const messages = {
     'Pickup unavailable',
 } as const
 
-const COMMON_BADGE_STYLE = 'br-pill'
+const COMMON_BADGE_STYLE = 'br-pill mr3'
 const AVAILABLE_BADGE_STYLE = 'bg-green'
 const UNAVAILABLE_BADGE_STYLE = ['bg-white', 'ba']
 

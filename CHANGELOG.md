@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- `vtex.react-portal` and `vtex.store-drawer` dependencies
+
+### Changed
+
+- React to @16
+- ReactModal compatibility with React 16
+
 ### Added
 
 - Docs file for availabilityBadges
