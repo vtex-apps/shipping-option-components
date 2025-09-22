@@ -85,29 +85,32 @@ describe('AvailabilityBadges', () => {
     })
 
     it('renders unavailable badges if deliveryPromisesBadges is empty', () => {
+      // Setup mock data
       mockUseProductSummary.mockReturnValue({
         product: { deliveryPromisesBadges: [] },
       })
 
+      // Render component and get text elements
       const { getByText } = render(<AvailabilityBadges />)
-
       const deliveryText = getByText('Delivery unavailable')
       const pickupText = getByText('Pickup unavailable')
 
+      // Check if text elements are rendered
       expect(deliveryText).toBeInTheDocument()
       expect(pickupText).toBeInTheDocument()
 
-      // Get badge elements and check their styles
+      // Get badge elements
       const deliveryBadge = deliveryText.closest('div')?.querySelector('div')
       const pickupBadge = pickupText.closest('div')?.querySelector('div')
 
-      // Both badges should be styled as unavailable
+      // Check delivery badge styles (should be unavailable)
       expect(deliveryBadge).toHaveClass(
         COMMON_BADGE_STYLE,
         ...UNAVAILABLE_BADGE_STYLE
       )
       expect(deliveryBadge).not.toHaveClass(AVAILABLE_BADGE_STYLE)
 
+      // Check pickup badge styles (should be unavailable)
       expect(pickupBadge).toHaveClass(
         COMMON_BADGE_STYLE,
         ...UNAVAILABLE_BADGE_STYLE
@@ -199,11 +202,14 @@ describe('AvailabilityBadges', () => {
         },
       })
 
+      // Render component and get elements
       const { getByText, getByTestId } = render(<AvailabilityBadges />)
       const pickupButton = getByText('Store 1')
 
+      // Trigger click event
       pickupButton.click()
 
+      // Check if modal is open
       expect(getByTestId('pickup-modal')).toHaveTextContent('Modal Open')
     })
 
@@ -216,15 +222,18 @@ describe('AvailabilityBadges', () => {
         },
       })
 
+      // Render component and get elements
       const { getByText, getByTestId } = render(<AvailabilityBadges />)
       const pickupButton = getByText('Store 1')
 
+      // Open modal
       pickupButton.click()
-
       const modal = getByTestId('pickup-modal')
 
+      // Close modal
       modal.click()
 
+      // Check if modal is closed
       expect(modal).toHaveTextContent('Modal Closed')
     })
   })
@@ -239,20 +248,23 @@ describe('AvailabilityBadges', () => {
         product: { deliveryPromisesBadges: [] },
       })
 
+      // Render component and get container element
       const { container } = render(<AvailabilityBadges />)
-
-      const onClick = jest.fn()
-
-      document.body.addEventListener('click', onClick)
-
       const divElement = container.firstChild as HTMLElement
 
-      divElement.click()
+      // Create click event and spy on stopPropagation
+      const clickEvent = new MouseEvent('click', { bubbles: true })
+      const stopPropagation = jest.spyOn(clickEvent, 'stopPropagation')
 
-      expect(onClick).not.toHaveBeenCalled()
+      // Trigger click event
+      divElement.dispatchEvent(clickEvent)
+
+      // Check if event propagation was stopped
+      expect(stopPropagation).toHaveBeenCalled()
     })
 
     it('allows clicking on pickup button without event propagation', () => {
+      // Setup mock data
       mockUseProductSummary.mockReturnValue({
         product: {
           deliveryPromisesBadges: [
@@ -261,11 +273,14 @@ describe('AvailabilityBadges', () => {
         },
       })
 
+      // Render component and get elements
       const { getByText, getByTestId } = render(<AvailabilityBadges />)
       const pickupButton = getByText('Store 1')
 
+      // Trigger click event
       pickupButton.click()
 
+      // Check if modal was opened
       expect(getByTestId('pickup-modal')).toBeInTheDocument()
     })
   })
