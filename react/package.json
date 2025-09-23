@@ -1,26 +1,25 @@
 {
-  "name": "CHANGE_ME",
   "version": "1.6.1",
   "scripts": {
     "test": "vtex-test-tools test"
   },
   "dependencies": {
     "@ariakit/react": "^0.4.17",
-    "@types/react-modal": "^3.16.3",
+    "@types/react-modal": "3.13.1",
     "apollo-client": "^2.6.8",
-    "react": "^18.3.1",
+    "react": "^16.14.0",
     "react-apollo": "^3.1.3",
-    "react-dom": "^18.3.1",
+    "react-dom": "^16.14.0",
     "react-intl": "^3.12.0",
-    "react-modal": "^3.16.3",
+    "react-modal": "3.14.4",
     "react-outside-click-handler": "^1.3.0",
     "react-responsive-modal": "^6.4.2"
   },
   "devDependencies": {
     "@apollo/react-testing": "^3.1.3",
     "@types/node": "^13.9.8",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^16.14.0",
+    "@types/react-dom": "^16.9.25",
     "@types/react-modal": "^3.16.3",
     "@types/react-outside-click-handler": "^1.3.4",
     "@vtex/test-tools": "^3.3.2",

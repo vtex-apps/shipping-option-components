@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "name": "CHANGE_ME",
+  "name": "shipping-option-components",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -31,6 +31,7 @@
     ]
   },
   "devDependencies": {
+    "@vtex/danger": "^0.2.7",
     "@vtex/intl-equalizer": "^2.5.0",
     "@vtex/prettier-config": "^0.3.5",
     "eslint": "^7.14.0",
@@ -39,7 +40,6 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.5.1",
     "prettier": "^2.2.0",
-    "typescript": "^3.9.6",
-    "@vtex/danger": "^0.2.7"
+    "typescript": "^3.9.6"
   }
 }

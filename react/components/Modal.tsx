@@ -1,8 +1,12 @@
-import React, { PropsWithChildren } from 'react'
-import ReactModal from 'react-modal'
+import type { PropsWithChildren } from 'react'
+import React from 'react'
+import ReactModalComponent from 'react-modal'
 import { useCssHandles } from 'vtex.css-handles'
 import { useDevice } from 'vtex.device-detector'
 import { IconClose, IconArrowBack } from 'vtex.styleguide'
+
+// Work around type issues with react-modal in React 16
+const ReactModal = ReactModalComponent as any
 
 interface Props {
   onClose: () => void
@@ -82,39 +86,42 @@ const Modal = ({
       style={customStyles}
       isOpen={isOpen}
       onRequestClose={nonDismissible ? undefined : onClose}
+      ariaHideApp={false}
     >
-      <div
-        className={`flex justify-between items-center mb3 ${
-          isTopCloseButton ? 'flex-column-reverse' : 'flex-row'
-        }`}
-      >
-        <div className="flex items-center self-start flex-row">
-          {showArrowBack && onArrowBack && (
-            <button
-              className={`pa0 mr4 ${handles.modalBackButton}`}
-              onClick={onArrowBack}
-            >
-              <IconArrowBack />
-            </button>
-          )}
-          <p className={`f3 fw6 ma0 ${handles.shippingMethodModalTitle}`}>
-            {title}
-          </p>
-        </div>
-
-        {!nonDismissible && (
-          <div className="flex justify-end self-end">
-            <button
-              onClick={onClose}
-              className={handles.modalCloseButton}
-              style={headerActionButtonStyle}
-            >
-              <IconClose size={24} />
-            </button>
+      <>
+        <div
+          className={`flex justify-between items-center mb3 ${
+            isTopCloseButton ? 'flex-column-reverse' : 'flex-row'
+          }`}
+        >
+          <div className="flex items-center self-start flex-row">
+            {showArrowBack && onArrowBack && (
+              <button
+                className={`pa0 mr4 ${handles.modalBackButton}`}
+                onClick={onArrowBack}
+              >
+                <IconArrowBack />
+              </button>
+            )}
+            <p className={`f3 fw6 ma0 ${handles.shippingMethodModalTitle}`}>
+              {title}
+            </p>
           </div>
-        )}
-      </div>
-      {children}
+
+          {!nonDismissible && (
+            <div className="flex justify-end self-end">
+              <button
+                onClick={onClose}
+                className={handles.modalCloseButton}
+                style={headerActionButtonStyle}
+              >
+                <IconClose size={24} />
+              </button>
+            </div>
+          )}
+        </div>
+        {children}
+      </>
     </ReactModal>
   )
 }
