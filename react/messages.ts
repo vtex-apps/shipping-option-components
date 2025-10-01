@@ -153,6 +153,14 @@ const messages = defineMessages({
     id: 'store/shipping-option-zipcode.unavailableItems.forDelivery.description',
     defaultMessaage: '',
   },
+  LocationDetectorButtonTitle: {
+    id: 'store/shipping-option-zipcode.LocationDetectorButton.title',
+    defaultMessaage: '',
+  },
+  LocationDetectorButtonLoadingDescription: {
+    id: 'store/shipping-option-zipcode.LocationDetectorButtonLoading.description',
+    defaultMessage: '',
+  },
 })
 
 export default messages

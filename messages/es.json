@@ -42,5 +42,7 @@
   "store/shipping-option-zipcode.unavailableItems.forPickup.description": "Estos artículos no están disponibles para el punto de recogida",
   "store/shipping-option-zipcode.unavailableItems.forDelivery.description": "Estos artículos no se pueden entregar en {addressLabel}",
   "store/shipping-option-zipcode.unavailableItems.removeItemsButton.label": "Eliminar artículos",
-  "store/shipping-option-zipcode.unavailableItems.retryButton.label": "Ingresar otra ubicación"
+  "store/shipping-option-zipcode.unavailableItems.retryButton.label": "Ingresar otra ubicación",
+  "store/shipping-option-zipcode.LocationDetectorButton.title": "Usar mi ubicación actual",
+  "store/shipping-option-zipcode.LocationDetectorButtonLoading.description": "Configurando tu ubicación..."
 }

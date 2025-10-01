@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'vtex.styleguide'
 import { useRuntime } from 'vtex.render-runtime'
+import { useIntl } from 'react-intl'
 
 import EmptyState from './EmptyState'
 import PinIcon from './PinIcon'
+import messages from '../messages'
 
 interface LocationDetectorButton {
   className?: string
@@ -30,6 +32,8 @@ const LocationDetectorButton: React.FC<LocationDetectorButton> = ({
     culture: { country },
     route: { path, queryString },
   } = useRuntime()
+
+  const intl = useIntl()
 
   useEffect(() => {
     const getCurrentPosition = async (): Promise<void> => {
@@ -72,7 +76,9 @@ const LocationDetectorButton: React.FC<LocationDetectorButton> = ({
     return (
       <div className={className}>
         <EmptyState
-          description="Configurando sua localização..."
+          description={intl.formatMessage(
+            messages.LocationDetectorButtonLoadingDescription
+          )}
           variant="secondary"
           useIcon={false}
         />
@@ -84,7 +90,6 @@ const LocationDetectorButton: React.FC<LocationDetectorButton> = ({
   const href = `${path}${separator}region_id=${regionId}`
 
   // TO-DO:
-  // intl labels
   // css handles and formatting
   // reenable logic to false on show
   // map new prop in documentation
@@ -93,7 +98,7 @@ const LocationDetectorButton: React.FC<LocationDetectorButton> = ({
   return (
     <Link variation={variation} href={href} className={className}>
       <PinIcon filled={false} />
-      Usar minha localização atual
+      {intl.formatMessage(messages.LocationDetectorButtonTitle)}
     </Link>
   )
 }
