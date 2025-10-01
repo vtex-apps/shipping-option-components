@@ -54,8 +54,7 @@ const messages = defineMessages({
     defaultMessaage: '',
   },
   popoverPostalCodeInputPlaceHolder: {
-    id:
-      'store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder',
+    id: 'store/shipping-option-zipcode.deliveryPopover.postalCodeInput.placeholder',
     defaultMessaage: '',
   },
   popoverPostalCodeLink: {
@@ -75,13 +74,11 @@ const messages = defineMessages({
     defaultMessaage: '',
   },
   noPickupsStateDescription: {
-    id:
-      'store/shipping-option-zipcode.locationModal.noPickupsState.description',
+    id: 'store/shipping-option-zipcode.locationModal.noPickupsState.description',
     defaultMessaage: '',
   },
   noPickupsStateButtonLabel: {
-    id:
-      'store/shipping-option-zipcode.locationModal.noPickupsState.button.label',
+    id: 'store/shipping-option-zipcode.locationModal.noPickupsState.button.label',
     defaultMessaage: '',
   },
   noStoresStateTitle: {
@@ -89,13 +86,11 @@ const messages = defineMessages({
     defaultMessaage: '',
   },
   noStoresStateDescription: {
-    id:
-      'store/shipping-option-zipcode.pickupSelection.noStoresState.description',
+    id: 'store/shipping-option-zipcode.pickupSelection.noStoresState.description',
     defaultMessaage: '',
   },
   noStoresStateButton: {
-    id:
-      'store/shipping-option-zipcode.pickupSelection.noStoresState.button.label',
+    id: 'store/shipping-option-zipcode.pickupSelection.noStoresState.button.label',
     defaultMessaage: '',
   },
   shippingSelectionModalTitle: {
@@ -107,13 +102,11 @@ const messages = defineMessages({
     defaultMessaage: '',
   },
   shippingSelectionModalDeliveryButton: {
-    id:
-      'store/shipping-option-zipcode.shippingSelectionModal.deliveryButton.label',
+    id: 'store/shipping-option-zipcode.shippingSelectionModal.deliveryButton.label',
     defaultMessaage: '',
   },
   shippingSelectionModalPickupButton: {
-    id:
-      'store/shipping-option-zipcode.shippingSelectionModal.pickupButton.label',
+    id: 'store/shipping-option-zipcode.shippingSelectionModal.pickupButton.label',
     defaultMessaage: '',
   },
   pickupSelectionTitle: {
@@ -137,8 +130,7 @@ const messages = defineMessages({
     defaultMessaage: '',
   },
   unavailableItemsModalRemoveButton: {
-    id:
-      'store/shipping-option-zipcode.unavailableItems.removeItemsButton.label',
+    id: 'store/shipping-option-zipcode.unavailableItems.removeItemsButton.label',
     defaultMessaage: '',
   },
   unavailableItemsModalRetryButton: {
@@ -158,8 +150,7 @@ const messages = defineMessages({
     defaultMessaage: '',
   },
   unavailableItemsModalForDeliveryDescription: {
-    id:
-      'store/shipping-option-zipcode.unavailableItems.forDelivery.description',
+    id: 'store/shipping-option-zipcode.unavailableItems.forDelivery.description',
     defaultMessaage: '',
   },
 })

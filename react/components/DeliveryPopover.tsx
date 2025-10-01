@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Popover, PopoverArrow, PopoverStore } from '@ariakit/react'
+import type { PopoverStore } from '@ariakit/react'
+import { Popover, PopoverArrow } from '@ariakit/react'
 import { useIntl } from 'react-intl'
 import { Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
@@ -7,6 +8,7 @@ import { useCssHandles } from 'vtex.css-handles'
 import PostalCodeInput from './PostalCodeInput'
 import messages from '../messages'
 import PostalCodeHelpLink from './PostalCodeHelpLink'
+import LocationDetectorButton from './LocationDetectorButton'
 
 const CSS_HANDLES = [
   'deliveryPopover',
@@ -15,7 +17,7 @@ const CSS_HANDLES = [
   'popoverInputContainer',
 ] as const
 
-interface Props {
+interface DeliveryPopoverProps {
   onClick: () => void
   variant?: 'popover-button' | 'popover-input'
   onSubmit: (zipcode: string) => void
@@ -23,6 +25,7 @@ interface Props {
   inputErrorMessage?: string
   popoverStore: PopoverStore
   selectedZipcode?: string
+  showLocationDetectorButton?: boolean
 }
 
 const DeliveryPopover = ({
@@ -33,7 +36,8 @@ const DeliveryPopover = ({
   inputErrorMessage,
   popoverStore,
   selectedZipcode,
-}: Props) => {
+  showLocationDetectorButton = false,
+}: DeliveryPopoverProps) => {
   const [zipcode, setZipcode] = useState<string>('')
   const [alreadyOpen, setAlreadyOpen] = useState<boolean>(false)
   const handles = useCssHandles(CSS_HANDLES)
@@ -88,6 +92,8 @@ const DeliveryPopover = ({
           </Button>
         </div>
       )}
+
+      {!showLocationDetectorButton && <LocationDetectorButton />}
 
       <PopoverArrow className="deliveryPopoverArrow" />
     </Popover>

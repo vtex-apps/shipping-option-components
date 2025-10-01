@@ -8,10 +8,11 @@ const CSS_HANDLES = ['noPickupsStateContent'] as const
 
 interface Props {
   onClick?: () => void
-  title: string
-  description: string
-  buttonLabel: string
+  title?: string
+  description?: string
+  buttonLabel?: string
   variant?: 'primary' | 'secondary'
+  useIcon?: boolean
 }
 
 const EmptyState = ({
@@ -20,6 +21,7 @@ const EmptyState = ({
   description,
   buttonLabel,
   variant = 'primary',
+  useIcon = true,
 }: Props) => {
   const handle = useCssHandles(CSS_HANDLES)
 
@@ -31,9 +33,13 @@ const EmptyState = ({
           variant === 'primary' ? 'items-center' : 'items-start'
         } ${handle.noPickupsStateContent}`}
       >
-        <PinSlashIcon color={variant === 'primary' ? '#979899' : '#000000'} />
-        <p className="f3 fw6 mb0 mt5">{title}</p>
-        <p className="t-small mt3 mb0 c-muted-1">{description}</p>
+        {useIcon && (
+          <PinSlashIcon color={variant === 'primary' ? '#979899' : '#000000'} />
+        )}
+        {title && <p className="f3 fw6 mb0 mt5">{title}</p>}
+        {description && (
+          <p className="t-small mt3 mb0 c-muted-1">{description}</p>
+        )}
       </div>
       {onClick && (
         <div className="mt8">

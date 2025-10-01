@@ -21,6 +21,7 @@ interface Props {
   dismissible?: boolean
   shippingSelection?: ShippingSelection
   mode?: Mode
+  showLocationDetectorButton?: boolean
 }
 
 function ShippingOptionZipcode({
@@ -28,15 +29,14 @@ function ShippingOptionZipcode({
   dismissible = false,
   shippingSelection = 'only-pickup',
   mode = 'default',
+  showLocationDetectorButton = false,
 }: Props) {
   const intl = useIntl()
   const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
   const [isLocationModalOpen, setIsLocationModalOpen] = useState<boolean>(false)
   const [isPickupModalOpen, setIsPickupModalOpen] = useState<boolean>(false)
-  const [
-    wasLocationModalOpenedByEvent,
-    setWasLocationModalOpenedByEvent,
-  ] = useState<boolean>(false)
+  const [wasLocationModalOpenedByEvent, setWasLocationModalOpenedByEvent] =
+    useState<boolean>(false)
 
   const {
     zipcode: selectedZipcode,
@@ -121,6 +121,7 @@ function ShippingOptionZipcode({
           setWasLocationModalOpenedByEvent(false)
           setIsLocationModalOpen(true)
         }}
+        showLocationDetectorButton={showLocationDetectorButton}
         loading={isLoading}
         value={addressLabel}
         placeholder={intl.formatMessage(messages.deliverToButtonPlaceholder)}
@@ -158,6 +159,7 @@ function ShippingOptionZipcode({
       <LocationModal
         isOpen={isLocationModalOpen && !areThereUnavailableCartItems}
         onClose={() => setIsLocationModalOpen(false)}
+        showLocationDetectorButton={showLocationDetectorButton}
         onSubmit={async (zipcode: string) => {
           onSubmit(zipcode, !isShippingOptionRequired)
         }}
