@@ -25,6 +25,7 @@ const getGeolocation = async (): Promise<any> => {
 
 const LocationDetectorButton: React.FC = () => {
   const [regionId, setRegionId] = useState<string>('')
+  const [error, setError] = useState<boolean>(false)
   const handles = useCssHandles(CSS_HANDLES)
 
   const {
@@ -57,8 +58,8 @@ const LocationDetectorButton: React.FC = () => {
 
           setRegionId(newRegionId)
         }
-      } catch (error) {
-        throw new Error(`Regionalization error! ${error.message}`)
+      } catch (err) {
+        setError(true)
       }
     }
 
@@ -71,15 +72,17 @@ const LocationDetectorButton: React.FC = () => {
     return null
   }
 
-  if (!regionId) {
+  if (!regionId || error) {
     return (
       <div className={`${handles.locationDetectorButtonContainer}`}>
         <EmptyState
           description={intl.formatMessage(
-            messages.LocationDetectorButtonLoadingDescription
+            error
+              ? messages.LocationDetectorButtonErrorDescription
+              : messages.LocationDetectorButtonLoadingDescription
           )}
           variant="secondary"
-          useIcon={false}
+          useIcon={!!error}
         />
       </div>
     )
@@ -87,10 +90,6 @@ const LocationDetectorButton: React.FC = () => {
 
   const separator = Object.keys(queryString).length === 0 ? '?' : '&'
   const href = `${path}${separator}region_id=${regionId}`
-
-  // TO-DO:
-  // map new prop in documentation
-  // tests
 
   return (
     <a

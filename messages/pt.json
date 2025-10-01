@@ -44,5 +44,6 @@
   "store/shipping-option-zipcode.unavailableItems.removeItemsButton.label": "Remover itens",
   "store/shipping-option-zipcode.unavailableItems.retryButton.label": "Inserir outro local",
   "store/shipping-option-zipcode.LocationDetectorButton.title": "Usar minha localização atual",
-  "store/shipping-option-zipcode.LocationDetectorButtonLoading.description": "Configurando sua localização..."
+  "store/shipping-option-zipcode.LocationDetectorButtonLoading.description": "Configurando sua localização...",
+  "store/shipping-option-zipcode.LocationDetectorButtonError.description": "Não foi possível detectar a localização"
 }

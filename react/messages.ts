@@ -161,6 +161,10 @@ const messages = defineMessages({
     id: 'store/shipping-option-zipcode.LocationDetectorButtonLoading.description',
     defaultMessage: '',
   },
+  LocationDetectorButtonErrorDescription: {
+    id: 'store/shipping-option-zipcode.LocationDetectorButtonError.description',
+    defaultMessage: '',
+  },
 })
 
 export default messages

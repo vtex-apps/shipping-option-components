@@ -21,5 +21,6 @@
   "store/shipping-option-zipcode.popoverButton.label": "Seleziona una posizione",
   "store/shipping-option-zipcode.popover.description": "Le opzioni e la celerità della spedizione possono variare a seconda dell'indirizzo di consegna e del negozio",
   "store/shipping-option-zipcode.LocationDetectorButton.title": "Usa la mia posizione attuale",
-  "store/shipping-option-zipcode.LocationDetectorButtonLoading.description": "Configurazione della tua posizione..."
+  "store/shipping-option-zipcode.LocationDetectorButtonLoading.description": "Configurazione della tua posizione...",
+  "store/shipping-option-zipcode.LocationDetectorButtonError.description": "Impossibile rilevare la posizione"
 }
