@@ -37,7 +37,7 @@ const ShippingOptionButton = ({
   callToAction,
   mode,
   icon,
-  showLocationDetectorButton = false,
+  showLocationDetectorButton,
 }: ShippingOptionButtonProps) => {
   const handles = useCssHandles(CSS_HANDLES)
   const popoverStore = usePopoverStore({ defaultOpen: false })

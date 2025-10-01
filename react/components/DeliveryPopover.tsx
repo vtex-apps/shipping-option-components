@@ -36,7 +36,7 @@ const DeliveryPopover = ({
   inputErrorMessage,
   popoverStore,
   selectedZipcode,
-  showLocationDetectorButton = false,
+  showLocationDetectorButton,
 }: DeliveryPopoverProps) => {
   const [zipcode, setZipcode] = useState<string>('')
   const [alreadyOpen, setAlreadyOpen] = useState<boolean>(false)
@@ -93,7 +93,7 @@ const DeliveryPopover = ({
         </div>
       )}
 
-      {!showLocationDetectorButton && <LocationDetectorButton />}
+      {showLocationDetectorButton && <LocationDetectorButton />}
 
       <PopoverArrow className="deliveryPopoverArrow" />
     </Popover>

@@ -22,7 +22,7 @@ const AddLocation = ({
   zipcode,
   isLoading,
   inputErrorMessage,
-  showLocationDetectorButton = false,
+  showLocationDetectorButton,
 }: AddLocationProps) => {
   const intl = useIntl()
 
@@ -51,7 +51,7 @@ const AddLocation = ({
       <Button isLoading={isLoading} onClick={() => onSubmit(zipcode)}>
         {intl.formatMessage(messages.popoverSubmitButtonLabel)}
       </Button>
-      {!showLocationDetectorButton && <LocationDetectorButton />}
+      {showLocationDetectorButton && <LocationDetectorButton />}
     </div>
   )
 }

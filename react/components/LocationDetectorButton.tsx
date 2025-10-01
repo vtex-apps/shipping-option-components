@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'vtex.styleguide'
 import { useRuntime } from 'vtex.render-runtime'
 import { useIntl } from 'react-intl'
+import { useCssHandles } from 'vtex.css-handles'
 
 import EmptyState from './EmptyState'
 import PinIcon from './PinIcon'
 import messages from '../messages'
 
-interface LocationDetectorButton {
-  className?: string
-  variation?: 'primary' | 'secondary' | 'tertiary'
-}
+const CSS_HANDLES = [
+  'locationDetectorButton',
+  'locationDetectorButtonContainer',
+  'locationDetectorButtonIcon',
+] as const
 
 const getGeolocation = async (): Promise<any> => {
   if (!navigator?.geolocation) {
@@ -22,11 +23,9 @@ const getGeolocation = async (): Promise<any> => {
   })
 }
 
-const LocationDetectorButton: React.FC<LocationDetectorButton> = ({
-  className,
-  variation = 'tertiary',
-}) => {
+const LocationDetectorButton: React.FC = () => {
   const [regionId, setRegionId] = useState<string>('')
+  const handles = useCssHandles(CSS_HANDLES)
 
   const {
     culture: { country },
@@ -74,7 +73,7 @@ const LocationDetectorButton: React.FC<LocationDetectorButton> = ({
 
   if (!regionId) {
     return (
-      <div className={className}>
+      <div className={`${handles.locationDetectorButtonContainer}`}>
         <EmptyState
           description={intl.formatMessage(
             messages.LocationDetectorButtonLoadingDescription
@@ -90,16 +89,19 @@ const LocationDetectorButton: React.FC<LocationDetectorButton> = ({
   const href = `${path}${separator}region_id=${regionId}`
 
   // TO-DO:
-  // css handles and formatting
-  // reenable logic to false on show
   // map new prop in documentation
   // tests
 
   return (
-    <Link variation={variation} href={href} className={className}>
-      <PinIcon filled={false} />
+    <a
+      href={href}
+      className={`${handles.locationDetectorButton} no-underline flex items-center c-link hover-c-link`}
+    >
+      <span className={handles.locationDetectorButtonIcon}>
+        <PinIcon filled={false} />
+      </span>
       {intl.formatMessage(messages.LocationDetectorButtonTitle)}
-    </Link>
+    </a>
   )
 }
 
