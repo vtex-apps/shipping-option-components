@@ -54,18 +54,20 @@ Declare the `shipping-option-location-selector` block as a child block of your [
 "shipping-option-location-selector": {
   "props": {
     "compactMode": true,
+    "showLocationDetectorButton": true
   }
 },
 ```
 
 #### `shipping-option-location-selector` props
 
-| Prop name | Type | Description | Default value |
-| - | - | - | - |
-| `callToAction` | `enum` | Defines the type of overlay that opens when the page loads. Possible values: `modal` (modal that requires a postal code input), `popover-input` (popover for postal code input), `popover-button` (popover that opens with a button). | `popover-input`|
-| `compactMode` | `boolean` | Determines whether the button displays its label. When true, the label is hidden, showing only its value. | `false` |
-| `dismissible` | `boolean` | Controls whether the modal can be dismissed without entering a postal code. When set to `false`, the modal cannot be closed until a postal code is entered.	 Must be used along with `callToAction` to correctly set a blocking modal. | `true` |
-| `shippingSelection` | `enum` | Defines the type of shipping option selector to be shown. Possible values: `delivery-and-pickup` (shows both options), `only-pickup` (shows only the pickup store selector).  | `undefined` |
+| Prop name                    | Type      | Description                                                                                                                                                                                                                                                 | Default value   |
+| ---------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `callToAction`               | `enum`    | Defines the type of overlay that opens when the page loads. Possible values: `modal` (modal that requires a postal code input), `popover-input` (popover for postal code input), `popover-button` (popover that opens with a button).                       | `popover-input` |
+| `compactMode`                | `boolean` | Determines whether the button displays its label. When true, the label is hidden, showing only its value.                                                                                                                                                   | `false`         |
+| `dismissible`                | `boolean` | Controls whether the modal can be dismissed without entering a postal code. When set to `false`, the modal cannot be closed until a postal code is entered. Must be used along with `callToAction` to correctly set a blocking modal.                       | `true`          |
+| `shippingSelection`          | `enum`    | Defines the type of shipping option selector to be shown. Possible values: `delivery-and-pickup` (shows both options), `only-pickup` (shows only the pickup store selector).                                                                                | `undefined`     |
+| `showLocationDetectorButton` | `boolean` | When set to `true`, displays a location detector button that automatically detects the user's current location using geolocation API and sets the postal code based on their coordinates. The button appears in both the main component and location modal. | `false`         |
 
 ## Customization
 
@@ -80,6 +82,9 @@ In order to apply CSS customizations in this and other blocks, follow the instru
 | `deliveryModalButtonLabelLimited` |
 | `deliveryModalButton`             |
 | `deliveryPopover`                 |
+| `locationDetectorButton`          |
+| `locationDetectorButtonContainer` |
+| `locationDetectorButtonIcon`      |
 | `noPickupsStateContent`           |
 | `pickupItem`                      |
 | `pickupItemSelected`              |

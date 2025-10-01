@@ -5,7 +5,7 @@ import AddLocation from './AddLocation'
 import Modal from '../Modal'
 import messages from '../../messages'
 import EmptyState from '../EmptyState'
-import { ZipCodeError } from '../../context/ShippingOptionContext'
+import type { ZipCodeError } from '../../context/ShippingOptionContext'
 import { PRODUCTS_NOT_FOUND_ERROR_CODE } from '../../constants'
 
 const LOCATION_SELECTION = 'locationSelection'
@@ -21,6 +21,7 @@ interface Props {
   inputErrorMessage?: ZipCodeError
   selectedZipcode?: string
   nonDismissibleModal?: boolean
+  showLocationDetectorButton?: boolean
 }
 
 const LocationModal = ({
@@ -31,6 +32,7 @@ const LocationModal = ({
   inputErrorMessage,
   selectedZipcode,
   nonDismissibleModal,
+  showLocationDetectorButton = false,
 }: Props) => {
   const [zipcode, setZipcode] = useState<string>('')
   const [stage, setStage] = useState<Stages>(LOCATION_SELECTION)
@@ -50,6 +52,7 @@ const LocationModal = ({
       content: (
         <AddLocation
           onSubmit={onSubmit}
+          showLocationDetectorButton={showLocationDetectorButton}
           isLoading={isLoading}
           inputErrorMessage={inputErrorMessage?.message}
           onChange={(value: string) => setZipcode(value)}

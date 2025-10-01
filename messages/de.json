@@ -19,5 +19,7 @@
   "store/shipping-option-zipcode.shippinFilter.pickupnearBy": "Abholung in der Nähe",
   "store/shipping-option-zipcode.shippinFilter.pickpu": "Abholung",
   "store/shipping-option-zipcode.popoverButton.label": "Wähle einen Ort",
-  "store/shipping-option-zipcode.popover.description": "Versandoptionen und Versandgeschwindigkeit können je nach Lieferadresse und Lager variieren"
+  "store/shipping-option-zipcode.popover.description": "Versandoptionen und Versandgeschwindigkeit können je nach Lieferadresse und Lager variieren",
+  "store/shipping-option-zipcode.LocationDetectorButton.title": "Meinen aktuellen Standort verwenden",
+  "store/shipping-option-zipcode.LocationDetectorButtonLoading.description": "Standort wird konfiguriert..."
 }
