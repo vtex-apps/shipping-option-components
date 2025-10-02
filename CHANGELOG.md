@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Send zipCode as a string in update orderForm request
+
 ## [1.6.2] - 2025-09-23
 
 ### Removed
