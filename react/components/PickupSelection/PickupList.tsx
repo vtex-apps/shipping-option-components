@@ -38,20 +38,19 @@ const PickupList = ({
   const showUpdateButton =
     selectedPickup &&
     highlightedPickup &&
-    highlightedPickup.pickupPoint.id !== selectedPickup?.pickupPoint.id
+    highlightedPickup.pickupId !== selectedPickup?.pickupId
 
   return (
     <>
       <div className="m-100 flex flex-column justify-center">
         {pickups
-          .filter((pickup) => pickup.pickupPoint.isActive)
+          .filter((pickup) => pickup.isActive)
           .map((currentPickup) => (
             <PickupItem
-              key={currentPickup.pickupPoint.id}
+              key={currentPickup.pickupId}
               selected={
                 !!highlightedPickup &&
-                highlightedPickup.pickupPoint.id ===
-                  currentPickup.pickupPoint.id
+                highlightedPickup.pickupId === currentPickup.pickupId
               }
               onClick={() => {
                 setHighlightedPickup(currentPickup)
