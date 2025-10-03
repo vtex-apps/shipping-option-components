@@ -14,10 +14,8 @@ const CSS_HANDLES = ['pickupItem', 'pickupItemSelected'] as const
 const PickupItem = ({ pickup, onClick, selected }: Props) => {
   const {
     distance,
-    pickupPoint: {
-      friendlyName,
-      address: { city, neighborhood, number, postalCode, street },
-    },
+    pickupName,
+    address: { city, neighborhood, number, postalCode, street },
   } = pickup
 
   const handle = useCssHandles(CSS_HANDLES)
@@ -35,7 +33,7 @@ const PickupItem = ({ pickup, onClick, selected }: Props) => {
       onClick={onClick}
     >
       <p className="f4 tl ma0 fw6 mb2" style={{ maxWidth: '80%' }}>
-        {friendlyName}
+        {pickupName}
       </p>
       <p className="mid-gray f6 ma0 tl">{`${number} ${street}`}</p>
       <p className="mid-gray f6 ma0 tl">{`${neighborhood}, ${city}, ${postalCode}`}</p>

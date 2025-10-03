@@ -8,7 +8,6 @@ import { usePixelEventCallback } from 'vtex.pixel-manager'
 import {
   getAddress,
   getCatalogCount,
-  getPickups,
   updateOrderForm,
   updateSession,
   getCartProducts,
@@ -16,6 +15,7 @@ import {
   validateProductAvailability,
   validateProductAvailabilityByPickup,
   validateProductAvailabilityByDelivery,
+  getPickupPoints,
 } from '../client'
 import { CartItem, CartProduct } from '../components/UnavailableItemsModal'
 import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
@@ -75,15 +75,15 @@ export const useShippingOption = () => {
       shippingMethod?: ShippingMethod,
       keepLoading = false
     ) => {
-      const responsePickups = await getPickups(
+      const responsePickups = await getPickupPoints(
         country,
         selectedZipcode,
         account
       )
 
-      setPickups(responsePickups?.items ?? [])
+      setPickups(responsePickups?.pickupPointDistances ?? [])
 
-      if (responsePickups?.items.length === 0) {
+      if (responsePickups?.pickupPointDistances.length === 0) {
         setIsLoading(false)
 
         return
@@ -92,8 +92,8 @@ export const useShippingOption = () => {
       const pickupPointId = getFacetsData('pickupPoint')
 
       if (pickupPointId) {
-        const pickup = responsePickups.items.find(
-          (p: Pickup) => p.pickupPoint.id === pickupPointId
+        const pickup = responsePickups.pickupPointDistances.find(
+          (p: Pickup) => p.pickupId === pickupPointId
         )
 
         setSelectecPickup(pickup)
@@ -372,7 +372,7 @@ export const useShippingOption = () => {
 
         const unavailableItems = await validateCartItems(
           async (products: string[]) =>
-            validateProductAvailabilityByPickup(pickup.pickupPoint.id, products)
+            validateProductAvailabilityByPickup(pickup.pickupId, products)
         )
 
         if (unavailableItems.length === 0) {
@@ -394,7 +394,7 @@ export const useShippingOption = () => {
           intl.formatMessage(
             messages.unavailableItemsModalForPickupDescription,
             {
-              pickupLabel: selectedPickup?.pickupPoint.friendlyName,
+              pickupLabel: selectedPickup?.pickupName,
             }
           )
         )

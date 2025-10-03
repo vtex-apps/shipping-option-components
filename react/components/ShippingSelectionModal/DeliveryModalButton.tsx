@@ -63,7 +63,7 @@ const DeliveryModalButton = ({
               {selectedShipping
                 ? selectedShipping === 'delivery'
                   ? 'Filtrando por entrega'
-                  : selectedPickup?.pickupPoint.friendlyName
+                  : selectedPickup?.pickupName
                 : 'Filtrar por envío'}
             </span>
           )}
