@@ -22,7 +22,7 @@ export const updateSession = async (
   const facetsValue = `zip-code=${zipCode};country=${countryCode};coordinates=${geoCoordinates.join(
     ','
   )}${shippingOption ? `;shipping=${shippingOption}` : ''}${
-    pickup ? `;pickupPoint=${pickup.pickupPoint.id}` : ''
+    pickup ? `;pickupPoint=${pickup.pickupId}` : ''
   }`
 
   // __RUNTIME__.segmentToken is not reliable for the facets. It might not be updated. For this reason we must try to get the info from our custom cookie first
@@ -42,6 +42,34 @@ export const updateSession = async (
       'Content-Type': 'application/json',
     },
   })
+}
+
+export const getPickupPoints = async (
+  countryCode: string,
+  zipCode: string,
+  account: string
+) => {
+  const address = await getAddress(countryCode, zipCode, account)
+
+  const coordinatesArray = address.geoCoordinates
+  const coordinate = {
+    longitude: coordinatesArray[0],
+    latitude: coordinatesArray[1],
+  }
+
+  const requestBody = {
+    zipCode,
+    country: countryCode,
+    coordinate,
+  }
+
+  return fetch(`/api/logistics-shipping/pickuppoints/_search`, {
+    method: 'POST',
+    body: JSON.stringify(requestBody),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res.json())
 }
 
 export const getPickups = (

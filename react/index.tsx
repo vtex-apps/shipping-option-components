@@ -148,7 +148,7 @@ function ShippingOptionZipcode({
         <ShippingOptionButton
           onClick={() => setIsPickupModalOpen(true)}
           loading={isLoading}
-          value={selectedPickup?.pickupPoint.friendlyName}
+          value={selectedPickup?.pickupName}
           placeholder={intl.formatMessage(messages.storeButtonPlaceHolder)}
           mode={mode}
           icon={<PickupIcon width={20} height={20} />}
