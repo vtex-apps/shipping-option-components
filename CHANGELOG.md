@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added a callout about Delivery Promises in README.md.
 
+## [1.7.0] - 2025-10-02
+
+### Fixed
+
+- Send zipCode as a string in update orderForm request
+
 ## [1.6.2] - 2025-09-23
 
 ### Removed
