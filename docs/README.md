@@ -10,6 +10,10 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- DOCS-IGNORE:end -->
 
+> ⚠️ The Shipping Option Components app is available only for stores using [Delivery Promises](https://help.vtex.com/en/tutorial/delivery-promise-beta--p9EJH9GgxL0JceA6dBswd). This feature is in closed beta, which means that only selected customers can access it. If you are interested in implementing it in the future, please contact our [Support](https://support.vtex.com/hc/en-us) team.
+>
+> For more information on setting up Delivery Promise components on Store Framework, see the [developer documentation](https://developers.vtex.com/docs/guides/setting-up-delivery-promise-components).
+
 The Shipping Option Components app exports a component that aims to allow you to filter store products by location or pickup point.
 
 ![Media Placeholder](https://github.com/user-attachments/assets/6f334e28-fd01-42e9-a536-64eb9742e70c)
