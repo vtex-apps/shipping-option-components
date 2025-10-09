@@ -1,8 +1,9 @@
-import React, { createContext, ReactNode, useContext } from 'react'
+import type { ReactNode } from 'react'
+import React, { createContext, useContext } from 'react'
 
 import ErrorBoundary from './ErrorBoundary'
 import { ShippingOptionProviderCore } from './ShippingOptionProviderCore'
-import { CartItem } from '../components/UnavailableItemsModal'
+import type { CartItem } from '../components/UnavailableItemsModal'
 
 export type ShippingMethod = 'delivery' | 'pickup-in-point'
 

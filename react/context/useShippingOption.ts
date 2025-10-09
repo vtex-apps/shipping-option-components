@@ -17,10 +17,10 @@ import {
   validateProductAvailabilityByPickup,
   validateProductAvailabilityByDelivery,
 } from '../client'
-import { CartItem, CartProduct } from '../components/UnavailableItemsModal'
+import type { CartItem, CartProduct } from '../components/UnavailableItemsModal'
 import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
 import messages from '../messages'
-import {
+import type {
   ShippingMethod,
   ShippingOptionActions,
   ZipCodeError,
@@ -364,8 +364,8 @@ export const useShippingOption = () => {
           })
         )
 
-        setActionInterruptedByCartValidation(() => () =>
-          submitZipcode(zipcodeSelected, reload)
+        setActionInterruptedByCartValidation(
+          () => () => submitZipcode(zipcodeSelected, reload)
         )
 
         break
@@ -405,8 +405,8 @@ export const useShippingOption = () => {
           )
         )
 
-        setActionInterruptedByCartValidation(() => () =>
-          selectPickup(pickup, shouldPersistFacet)
+        setActionInterruptedByCartValidation(
+          () => () => selectPickup(pickup, shouldPersistFacet)
         )
 
         break
@@ -449,8 +449,8 @@ export const useShippingOption = () => {
           )
         )
 
-        setActionInterruptedByCartValidation(() => () =>
-          selectDeliveryShippingOption()
+        setActionInterruptedByCartValidation(
+          () => () => selectDeliveryShippingOption()
         )
 
         break
