@@ -1,5 +1,5 @@
-let query = {}
-const setQuery = jest.fn((val) => {
+let query: Record<string, unknown> = {}
+const setQuery = jest.fn((val: Record<string, unknown>) => {
   query = val
 })
 
