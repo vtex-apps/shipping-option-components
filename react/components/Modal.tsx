@@ -15,6 +15,7 @@ interface Props {
   showArrowBack: boolean
   isTopCloseButton: boolean
   nonDismissible?: boolean
+  nonDismissibleModal?: boolean // Add support for the existing prop name
   onArrowBack?: () => void
 }
 
@@ -64,9 +65,13 @@ const Modal = ({
   showArrowBack,
   isTopCloseButton,
   nonDismissible = false,
+  nonDismissibleModal = false,
 }: PropsWithChildren<Props>) => {
   const handles = useCssHandles(CSS_HANDLES)
   const { isMobile } = useDevice()
+
+  // Support both prop names for backward compatibility
+  const isNonDismissible = nonDismissible || nonDismissibleModal
 
   if (isMobile) {
     customStyles.content.width = '100%'
@@ -75,7 +80,7 @@ const Modal = ({
     customStyles.content.minWidth = '522px'
   }
 
-  if (nonDismissible) {
+  if (isNonDismissible) {
     customStyles.content.padding = '64px 40px'
   } else {
     customStyles.content.padding = '40px 40px 64px 40px'
@@ -85,7 +90,9 @@ const Modal = ({
     <ReactModal
       style={customStyles}
       isOpen={isOpen}
-      onRequestClose={nonDismissible ? undefined : onClose}
+      onRequestClose={isNonDismissible ? undefined : onClose}
+      shouldCloseOnOverlayClick={!isNonDismissible}
+      shouldCloseOnEsc={!isNonDismissible}
       ariaHideApp={false}
     >
       <>
@@ -108,7 +115,7 @@ const Modal = ({
             </p>
           </div>
 
-          {!nonDismissible && (
+          {!isNonDismissible && (
             <div className="flex justify-end self-end">
               <button
                 onClick={onClose}

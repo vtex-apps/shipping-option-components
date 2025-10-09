@@ -29,7 +29,7 @@ const EmptyState = ({
     <div className="flex-auto flex flex-column">
       <div
         style={{ margin: 'auto 0' }}
-        className={`flex flex-column ${
+        className={`flex flex-row ${
           variant === 'primary' ? 'items-center' : 'items-start'
         } ${handle.noPickupsStateContent}`}
       >
@@ -38,7 +38,7 @@ const EmptyState = ({
         )}
         {title && <p className="f3 fw6 mb0 mt5">{title}</p>}
         {description && (
-          <p className="t-small mt3 mb0 c-muted-1">{description}</p>
+          <p className="t-small mt1 ml3 mb0 c-muted-1">{description}</p>
         )}
       </div>
       {onClick && (
