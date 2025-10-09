@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
         with:
-          node-version: 20.x
+          node-version: 12.x
         env:
           RUNNER_TEMP: /tmp
       - name: yarn install
