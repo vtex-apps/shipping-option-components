@@ -57,6 +57,7 @@ const LocationDetectorButton: React.FC = () => {
           const newRegionId = btoa(`vtex:${country}:${cep}`)
 
           setRegionId(newRegionId)
+          setError(false)
         }
       } catch (err) {
         setError(true)
@@ -82,7 +83,7 @@ const LocationDetectorButton: React.FC = () => {
               : messages.LocationDetectorButtonLoadingDescription
           )}
           variant="secondary"
-          useIcon={!!error}
+          iconProps={{ useIcon: !!error, width: '20', height: '20' }}
         />
       </div>
     )

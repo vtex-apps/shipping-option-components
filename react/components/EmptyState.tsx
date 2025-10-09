@@ -12,6 +12,12 @@ interface Props {
   description?: string
   buttonLabel?: string
   variant?: 'primary' | 'secondary'
+  iconProps?: IconProps
+}
+
+interface IconProps {
+  width?: string
+  height?: string
   useIcon?: boolean
 }
 
@@ -21,7 +27,7 @@ const EmptyState = ({
   description,
   buttonLabel,
   variant = 'primary',
-  useIcon = true,
+  iconProps = { useIcon: true },
 }: Props) => {
   const handle = useCssHandles(CSS_HANDLES)
 
@@ -29,12 +35,16 @@ const EmptyState = ({
     <div className="flex-auto flex flex-column">
       <div
         style={{ margin: 'auto 0' }}
-        className={`flex flex-row ${
+        className={`flex ${title ? 'flex-column' : 'flex-row'} ${
           variant === 'primary' ? 'items-center' : 'items-start'
         } ${handle.noPickupsStateContent}`}
       >
-        {useIcon && (
-          <PinSlashIcon color={variant === 'primary' ? '#979899' : '#000000'} />
+        {iconProps.useIcon && (
+          <PinSlashIcon
+            color={variant === 'primary' ? '#979899' : '#000000'}
+            width={iconProps?.width}
+            height={iconProps?.height}
+          />
         )}
         {title && <p className="f3 fw6 mb0 mt5">{title}</p>}
         {description && (
