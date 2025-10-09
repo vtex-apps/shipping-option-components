@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@master
         with:
-          node-version: 12.x
+          node-version: 20.x
         env:
           RUNNER_TEMP: /tmp
       - name: Get yarn cache directory path
@@ -41,7 +41,7 @@ jobs:
         id: yarn-cache
         with:
           path: '${{ steps.yarn-cache-dir-path.outputs.dir }}'
-          key: "${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}"
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-node20
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Lint project
