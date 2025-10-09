@@ -12,7 +12,7 @@ const CSS_HANDLES = [
   'shippingButtonContainer',
 ] as const
 
-interface Props {
+interface ShippingOptionButtonProps {
   onClick: () => void
   loading: boolean
   placeholder: string
@@ -23,6 +23,7 @@ interface Props {
   callToAction?: CallToAction
   mode: Mode
   icon: React.ReactNode
+  showLocationDetectorButton?: boolean
 }
 
 const ShippingOptionButton = ({
@@ -36,7 +37,8 @@ const ShippingOptionButton = ({
   callToAction,
   mode,
   icon,
-}: Props) => {
+  showLocationDetectorButton,
+}: ShippingOptionButtonProps) => {
   const handles = useCssHandles(CSS_HANDLES)
   const popoverStore = usePopoverStore({ defaultOpen: false })
   const anchorRef = useRef(null)
@@ -82,6 +84,7 @@ const ShippingOptionButton = ({
           selectedZipcode={selectedZipcode}
           variant={popoverOverlay}
           popoverStore={popoverStore}
+          showLocationDetectorButton={showLocationDetectorButton}
         />
       )}
     </div>

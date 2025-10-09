@@ -14,7 +14,7 @@ import {
   updateOrderForm,
   updateSession,
 } from '../client'
-import { CartItem, CartProduct } from '../components/UnavailableItemsModal'
+import type { CartItem, CartProduct } from '../components/UnavailableItemsModal'
 
 declare let window: any
 

@@ -5,13 +5,15 @@ import { useIntl } from 'react-intl'
 import PostalCodeInput from '../PostalCodeInput'
 import messages from '../../messages'
 import PostalCodeHelpLink from '../PostalCodeHelpLink'
+import LocationDetectorButton from '../LocationDetectorButton'
 
-interface Props {
+interface AddLocationProps {
   onSubmit: (zipcode: string) => void
   onChange: (zipCode: string) => void
   zipcode: string
   isLoading?: boolean
   inputErrorMessage?: string
+  showLocationDetectorButton?: boolean
 }
 
 const AddLocation = ({
@@ -20,7 +22,8 @@ const AddLocation = ({
   zipcode,
   isLoading,
   inputErrorMessage,
-}: Props) => {
+  showLocationDetectorButton,
+}: AddLocationProps) => {
   const intl = useIntl()
 
   return (
@@ -48,6 +51,7 @@ const AddLocation = ({
       <Button isLoading={isLoading} onClick={() => onSubmit(zipcode)}>
         {intl.formatMessage(messages.popoverSubmitButtonLabel)}
       </Button>
+      {showLocationDetectorButton && <LocationDetectorButton />}
     </div>
   )
 }

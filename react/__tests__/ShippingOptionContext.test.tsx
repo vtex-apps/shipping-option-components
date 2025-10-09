@@ -5,14 +5,17 @@ import * as useShippingOption from '../context/useShippingOption'
 import * as ShippingOptionProviderCore from '../context/ShippingOptionProviderCore'
 import { ShippingOptionProvider } from '../context/ShippingOptionContext'
 
+jest.mock('vtex.order-items')
+jest.mock('vtex.pixel-manager')
+
+// Note: console.errors are expected in these tests because we are testing error boundaries
+// React always logs errors to console even when they are caught by error boundaries
 describe('ShippingOptionContext should render its children even when', () => {
   it('useShippingOption throws an error', () => {
     const mock = jest
       .spyOn(useShippingOption, 'useShippingOption')
       .mockImplementation(() => {
-        throw new Error(
-          'This error is intentional! We cant hide this console.error due to the https://github.com/facebook/react/issues/15069 issue'
-        )
+        throw new Error('Test error in useShippingOption')
       })
 
     render(
@@ -26,13 +29,11 @@ describe('ShippingOptionContext should render its children even when', () => {
     expect(screen.queryByText('Children message')).toBeInTheDocument()
   })
 
-  it('ShipingOptionContextCore throws an error', () => {
+  it('ShippingOptionContextCore throws an error', () => {
     const mock = jest
       .spyOn(ShippingOptionProviderCore, 'ShippingOptionProviderCore')
       .mockImplementation(() => {
-        throw new Error(
-          'This error is intentional! We cant hide this console.error due to the https://github.com/facebook/react/issues/15069 issue'
-        )
+        throw new Error('Test error in ShippingOptionProviderCore')
       })
 
     render(
