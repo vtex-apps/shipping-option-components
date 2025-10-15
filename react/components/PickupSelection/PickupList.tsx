@@ -12,22 +12,12 @@ interface Props {
   pickups: Pickup[]
   selectedPickup?: Pickup
   onSelectPickup: (pickup: Pickup, shouldPersistFacet?: boolean) => void
-  onClose?: () => void
-  shouldPersistFacet?: boolean
 }
 
-const PickupList = ({
-  pickups,
-  selectedPickup,
-  onSelectPickup,
-  onClose,
-  shouldPersistFacet,
-}: Props) => {
+const PickupList = ({ pickups, selectedPickup, onSelectPickup }: Props) => {
   const handle = useCssHandles(CSS_HANDLES)
   const intl = useIntl()
-  const [highlightedPickup, setHighlightedPickup] = useState<Pickup | null>(
-    null
-  )
+  const [highlightedPickup, setHighlightedPickup] = useState<Pickup>()
 
   useEffect(() => {
     if (selectedPickup) {
@@ -38,32 +28,33 @@ const PickupList = ({
   const showUpdateButton =
     selectedPickup &&
     highlightedPickup &&
-    highlightedPickup.pickupPoint.id !== selectedPickup?.pickupPoint.id
+    highlightedPickup.pickupPoint.id !== selectedPickup.pickupPoint.id
+
+  const handleClickItem = (pickup: Pickup) => {
+    setHighlightedPickup(pickup)
+
+    if (
+      !selectedPickup ||
+      selectedPickup.pickupPoint.id === pickup.pickupPoint.id
+    ) {
+      onSelectPickup(pickup)
+    }
+  }
 
   return (
     <>
       <div className="m-100 flex flex-column justify-center">
-        {pickups
-          .filter((pickup) => pickup.pickupPoint.isActive)
-          .map((currentPickup) => (
-            <PickupItem
-              key={currentPickup.pickupPoint.id}
-              selected={
-                !!highlightedPickup &&
-                highlightedPickup.pickupPoint.id ===
-                  currentPickup.pickupPoint.id
-              }
-              onClick={() => {
-                setHighlightedPickup(currentPickup)
-
-                if (!selectedPickup) {
-                  onSelectPickup(currentPickup, shouldPersistFacet)
-                  onClose?.()
-                }
-              }}
-              pickup={currentPickup}
-            />
-          ))}
+        {pickups.map((currentPickup) => (
+          <PickupItem
+            key={currentPickup.pickupPoint.id}
+            selected={
+              !!highlightedPickup &&
+              highlightedPickup.pickupPoint.id === currentPickup.pickupPoint.id
+            }
+            onClick={() => handleClickItem(currentPickup)}
+            pickup={currentPickup}
+          />
+        ))}
       </div>
       {showUpdateButton && (
         <div
@@ -73,8 +64,7 @@ const PickupList = ({
           <Button
             block
             onClick={() => {
-              onSelectPickup(highlightedPickup as Pickup, shouldPersistFacet)
-              onClose?.()
+              onSelectPickup(highlightedPickup as Pickup)
             }}
           >
             {intl.formatMessage(messages.updateButtonLabel)}

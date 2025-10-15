@@ -35,7 +35,7 @@ interface UpdateZipCode {
 
 interface UpdatePickup {
   type: 'UPDATE_PICKUP'
-  args: { pickup: Pickup; shouldPersistFacet?: boolean }
+  args: { pickup: Pickup; canUnselect?: boolean }
 }
 
 interface SelectDeliveryShippingOption {
