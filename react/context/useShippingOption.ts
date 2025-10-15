@@ -75,14 +75,14 @@ export const useShippingOption = () => {
       shippingMethod?: ShippingMethod,
       keepLoading = false
     ) => {
-      const responsePickups: { items: Pickup[] } = await getPickups(
+      const responsePickups = await getPickups(
         country,
         selectedZipcode,
         account
       )
 
       const pickupsFormatted = responsePickups?.items.filter(
-        (pickup) => pickup.pickupPoint.isActive
+        (pickup: Pickup) => pickup.pickupPoint.isActive
       )
 
       setPickups(pickupsFormatted ?? [])
@@ -95,21 +95,23 @@ export const useShippingOption = () => {
 
       const pickupPointId = getFacetsData('pickupPoint')
 
+      let [pickup] = pickupsFormatted
+
       if (pickupPointId) {
-        const pickup = pickupsFormatted.find(
+        pickup = pickupsFormatted.find(
           (p: Pickup) => p.pickupPoint.id === pickupPointId
         )
-
-        setSelectedPickup(pickup)
-
-        await updateSession(
-          country,
-          selectedZipcode,
-          coordinates,
-          pickup,
-          shippingMethod
-        )
       }
+
+      setSelectedPickup(pickup)
+
+      await updateSession(
+        country,
+        selectedZipcode,
+        coordinates,
+        pickup,
+        shippingMethod
+      )
 
       if (!keepLoading) {
         setIsLoading(false)
