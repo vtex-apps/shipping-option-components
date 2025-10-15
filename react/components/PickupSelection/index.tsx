@@ -13,8 +13,6 @@ interface Props {
   pickups: Pickup[]
   selectedPickup?: Pickup
   onSelectPickup: (pickup: Pickup, shouldPersistFacet?: boolean) => void
-  onClose?: () => void
-  shouldPersistFacet?: boolean
   onDeliverySelection?: () => void
   isLoading: boolean
 }
@@ -26,8 +24,6 @@ const PickupSelection = ({
   pickups,
   selectedPickup,
   onSelectPickup,
-  onClose,
-  shouldPersistFacet,
   onDeliverySelection,
   isLoading,
 }: Props) => {
@@ -61,8 +57,6 @@ const PickupSelection = ({
           pickups={pickups}
           onSelectPickup={onSelectPickup}
           selectedPickup={selectedPickup}
-          onClose={onClose}
-          shouldPersistFacet={shouldPersistFacet}
         />
       )}
     </div>

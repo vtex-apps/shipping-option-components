@@ -26,10 +26,10 @@ const PickupModalWithContext = ({ isOpen, onClose }: Props) => {
     })
   }
 
-  const onSelectPickup = (pickup: Pickup, shouldPersistFacet?: boolean) => {
+  const onSelectPickup = (pickup: Pickup) => {
     dispatch({
       type: 'UPDATE_PICKUP',
-      args: { pickup, shouldPersistFacet },
+      args: { pickup, canUnselect: false },
     })
   }
 
