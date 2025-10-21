@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: shipping-option-components
+  description: The Shipping Option Components app exports a component that aims to
+    allow you to filter store products by location or pickup point.
+  tags:
+    - typescript
+  annotations:
+    vtex.com/janus-acronym: ""
+    vtex.com/o11y-os-index: ""
+    grafana/dashboard-selector: ""
+    github.com/project-slug: vtex-apps/shipping-option-components
+    vtex.com/platform-flow-id: ""
+    backstage.io/techdocs-ref: dir:../
+    vtex.com/application-id: V280O4Z4
+spec:
+  lifecycle: stable
+  owner: te-0016
+  type: frontend-ui
+  dependsOn: []
