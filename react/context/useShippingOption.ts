@@ -38,7 +38,7 @@ export const useShippingOption = () => {
 
   const [city, setCity] = useState<string>()
   const [pickups, setPickups] = useState<Pickup[]>([])
-  const [selectedPickup, setSelectecPickup] = useState<Pickup>()
+  const [selectedPickup, setSelectedPickup] = useState<Pickup>()
   const [geoCoordinates, setGeoCoordinates] = useState<number[]>()
   const [addressLabel, setAddressLabel] = useState<string>()
   const [shippingOption, setShippingOption] = useState<ShippingMethod>()
@@ -81,9 +81,13 @@ export const useShippingOption = () => {
         account
       )
 
-      setPickups(responsePickups?.items ?? [])
+      const pickupsFormatted = responsePickups?.items.filter(
+        (pickup: Pickup) => pickup.pickupPoint.isActive
+      )
 
-      if (responsePickups?.items.length === 0) {
+      setPickups(pickupsFormatted ?? [])
+
+      if (pickupsFormatted.length === 0) {
         setIsLoading(false)
 
         return
@@ -91,21 +95,23 @@ export const useShippingOption = () => {
 
       const pickupPointId = getFacetsData('pickupPoint')
 
+      let [pickup] = pickupsFormatted
+
       if (pickupPointId) {
-        const pickup = responsePickups.items.find(
+        pickup = pickupsFormatted.find(
           (p: Pickup) => p.pickupPoint.id === pickupPointId
         )
-
-        setSelectecPickup(pickup)
-
-        await updateSession(
-          country,
-          selectedZipcode,
-          coordinates,
-          pickup,
-          shippingMethod
-        )
       }
+
+      setSelectedPickup(pickup)
+
+      await updateSession(
+        country,
+        selectedZipcode,
+        coordinates,
+        pickup,
+        shippingMethod
+      )
 
       if (!keepLoading) {
         setIsLoading(false)
@@ -289,7 +295,7 @@ export const useShippingOption = () => {
     }
 
     setShippingOption(undefined)
-    setSelectecPickup(undefined)
+    setSelectedPickup(undefined)
 
     if (!reload) {
       setIsLoading(false)
@@ -300,19 +306,31 @@ export const useShippingOption = () => {
     }
   }
 
-  const selectPickup = async (pickup: Pickup, shouldPersistFacet = true) => {
+  const selectPickup = async (pickup: Pickup, canUnselect = true) => {
     if (!countryCode || !zipcode || !geoCoordinates) {
       return
     }
 
-    setSelectecPickup(pickup)
+    let shippingMethod = 'pickup-in-point'
+    let pickupUpdated = pickup
+
+    if (
+      canUnselect &&
+      shippingOption === 'pickup-in-point' &&
+      pickup.pickupPoint.id === selectedPickup?.pickupPoint.id
+    ) {
+      shippingMethod = 'delivery'
+      pickupUpdated = pickups[0]
+    }
+
+    setSelectedPickup(pickupUpdated)
 
     await updateSession(
       countryCode,
       zipcode!,
       geoCoordinates!,
-      pickup,
-      shouldPersistFacet ? 'pickup-in-point' : shippingOption
+      pickupUpdated,
+      shippingMethod
     )
 
     location.reload()
@@ -364,15 +382,15 @@ export const useShippingOption = () => {
           })
         )
 
-        setActionInterruptedByCartValidation(
-          () => () => submitZipcode(zipcodeSelected, reload)
+        setActionInterruptedByCartValidation(() => () =>
+          submitZipcode(zipcodeSelected, reload)
         )
 
         break
       }
 
       case 'UPDATE_PICKUP': {
-        const { pickup, shouldPersistFacet } = action.args
+        const { pickup, canUnselect } = action.args
 
         setUnavailabilityMessage('pickup')
 
@@ -382,7 +400,7 @@ export const useShippingOption = () => {
         )
 
         if (unavailableItems.length === 0) {
-          selectPickup(pickup, shouldPersistFacet)
+          selectPickup(pickup, canUnselect)
 
           if (pendingAddToCartItem) {
             await addItems(
@@ -405,9 +423,7 @@ export const useShippingOption = () => {
           )
         )
 
-        setActionInterruptedByCartValidation(
-          () => () => selectPickup(pickup, shouldPersistFacet)
-        )
+        setActionInterruptedByCartValidation(() => () => selectPickup(pickup))
 
         break
       }
@@ -449,8 +465,8 @@ export const useShippingOption = () => {
           )
         )
 
-        setActionInterruptedByCartValidation(
-          () => () => selectDeliveryShippingOption()
+        setActionInterruptedByCartValidation(() => () =>
+          selectDeliveryShippingOption()
         )
 
         break
