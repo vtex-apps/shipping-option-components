@@ -62,10 +62,10 @@ function ShippingOptionZipcode({
     })
   }
 
-  const onSelectPickup = (pickup: Pickup, shouldPersistFacet?: boolean) => {
+  const onSelectPickup = (pickup: Pickup) => {
     dispatch({
       type: 'UPDATE_PICKUP',
-      args: { pickup, shouldPersistFacet },
+      args: { pickup },
     })
   }
 
@@ -113,6 +113,8 @@ function ShippingOptionZipcode({
 
   const showDeliveryModalButton = shippingSelection === 'delivery-and-pickup'
   const showPickupButton = shippingSelection === 'only-pickup'
+  const pickup =
+    shippingOption === 'pickup-in-point' ? selectedPickup : undefined
 
   return (
     <>
@@ -149,7 +151,7 @@ function ShippingOptionZipcode({
         <ShippingOptionButton
           onClick={() => setIsPickupModalOpen(true)}
           loading={isLoading}
-          value={selectedPickup?.pickupPoint.friendlyName}
+          value={pickup?.pickupPoint.friendlyName}
           placeholder={intl.formatMessage(messages.storeButtonPlaceHolder)}
           mode={mode}
           icon={<PickupIcon width={20} height={20} />}
@@ -184,7 +186,7 @@ function ShippingOptionZipcode({
           onSubmit: (value) => onSubmit(value, false),
           pickups,
           inputErrorMessage: submitErrorMessage?.message,
-          selectedPickup,
+          selectedPickup: pickup,
           selectedZipcode,
           isLoading,
         }}
@@ -202,7 +204,7 @@ function ShippingOptionZipcode({
           onSubmit: (value) => onSubmit(value, false),
           pickups,
           inputErrorMessage: submitErrorMessage?.message,
-          selectedPickup,
+          selectedPickup: pickup,
           selectedZipcode,
           isLoading,
         }}
