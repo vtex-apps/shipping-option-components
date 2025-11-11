@@ -17,7 +17,10 @@ declare interface Pickup {
 
 declare type CallToAction = 'popover-button' | 'popover-input' | 'modal'
 
-declare type ShippingSelection = 'only-pickup' | 'delivery-and-pickup'
+declare type ShippingSelection =
+  | 'only-pickup'
+  | 'delivery-and-pickup'
+  | 'only-delivery'
 
 declare type Mode = 'default' | 'icon'
 

@@ -27,7 +27,7 @@ interface Props {
 function ShippingOptionZipcode({
   callToAction = 'popover-input',
   dismissible = false,
-  shippingSelection = 'only-pickup',
+  shippingSelection = 'only-delivery',
   mode = 'default',
   showLocationDetectorButton = false,
 }: Props) {
@@ -35,10 +35,8 @@ function ShippingOptionZipcode({
   const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
   const [isLocationModalOpen, setIsLocationModalOpen] = useState<boolean>(false)
   const [isPickupModalOpen, setIsPickupModalOpen] = useState<boolean>(false)
-  const [
-    wasLocationModalOpenedByEvent,
-    setWasLocationModalOpenedByEvent,
-  ] = useState<boolean>(false)
+  const [wasLocationModalOpenedByEvent, setWasLocationModalOpenedByEvent] =
+    useState<boolean>(false)
 
   const {
     zipcode: selectedZipcode,
@@ -64,10 +62,10 @@ function ShippingOptionZipcode({
     })
   }
 
-  const onSelectPickup = (pickup: Pickup) => {
+  const onSelectPickup = (pickup: Pickup, shouldPersistFacet?: boolean) => {
     dispatch({
       type: 'UPDATE_PICKUP',
-      args: { pickup },
+      args: { pickup, shouldPersistFacet },
     })
   }
 
@@ -115,8 +113,6 @@ function ShippingOptionZipcode({
 
   const showDeliveryModalButton = shippingSelection === 'delivery-and-pickup'
   const showPickupButton = shippingSelection === 'only-pickup'
-  const pickup =
-    shippingOption === 'pickup-in-point' ? selectedPickup : undefined
 
   return (
     <>
@@ -153,7 +149,7 @@ function ShippingOptionZipcode({
         <ShippingOptionButton
           onClick={() => setIsPickupModalOpen(true)}
           loading={isLoading}
-          value={pickup?.pickupPoint.friendlyName}
+          value={selectedPickup?.pickupPoint.friendlyName}
           placeholder={intl.formatMessage(messages.storeButtonPlaceHolder)}
           mode={mode}
           icon={<PickupIcon width={20} height={20} />}
@@ -188,7 +184,7 @@ function ShippingOptionZipcode({
           onSubmit: (value) => onSubmit(value, false),
           pickups,
           inputErrorMessage: submitErrorMessage?.message,
-          selectedPickup: pickup,
+          selectedPickup,
           selectedZipcode,
           isLoading,
         }}
@@ -206,7 +202,7 @@ function ShippingOptionZipcode({
           onSubmit: (value) => onSubmit(value, false),
           pickups,
           inputErrorMessage: submitErrorMessage?.message,
-          selectedPickup: pickup,
+          selectedPickup,
           selectedZipcode,
           isLoading,
         }}
