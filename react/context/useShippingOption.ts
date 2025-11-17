@@ -274,8 +274,8 @@ export const useShippingOption = () => {
         countryCode,
         selectedZipcode,
         coordinates,
-        selectedPickup,
-        'delivery'
+        selectedPickup
+        // Removed automatic 'delivery' default - let user choose shipping method
       )
 
       await fetchPickups(
@@ -382,8 +382,8 @@ export const useShippingOption = () => {
           })
         )
 
-        setActionInterruptedByCartValidation(() => () =>
-          submitZipcode(zipcodeSelected, reload)
+        setActionInterruptedByCartValidation(
+          () => () => submitZipcode(zipcodeSelected, reload)
         )
 
         break
@@ -465,8 +465,8 @@ export const useShippingOption = () => {
           )
         )
 
-        setActionInterruptedByCartValidation(() => () =>
-          selectDeliveryShippingOption()
+        setActionInterruptedByCartValidation(
+          () => () => selectDeliveryShippingOption()
         )
 
         break
@@ -479,6 +479,25 @@ export const useShippingOption = () => {
 
       case 'CONTINUE_UNAVAILABLE_ITEMS_ACTION': {
         removeUnavailableItems()
+        break
+      }
+
+      case 'RESET_SHIPPING_OPTION': {
+        if (!countryCode || !zipcode || !geoCoordinates) {
+          return
+        }
+
+        // Reset shipping option to undefined (no selection)
+        await updateSession(
+          countryCode,
+          zipcode,
+          geoCoordinates,
+          selectedPickup
+          // No shipping option parameter = reset to no selection
+        )
+
+        location.reload()
+
         break
       }
 

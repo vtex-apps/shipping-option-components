@@ -27,7 +27,7 @@ interface Props {
 function ShippingOptionZipcode({
   callToAction = 'popover-input',
   dismissible = false,
-  shippingSelection = 'only-delivery',
+  shippingSelection = 'delivery-and-pickup',
   mode = 'default',
   showLocationDetectorButton = false,
 }: Props) {
@@ -51,8 +51,6 @@ function ShippingOptionZipcode({
     unavailabilityMessage,
   } = useShippingOptionState()
 
-  const isShippingOptionRequired = shippingSelection === 'delivery-and-pickup'
-
   const dispatch = useShippingOptionDispatch()
 
   const onSubmit = (zipcode: string, reload?: boolean) => {
@@ -70,9 +68,31 @@ function ShippingOptionZipcode({
   }
 
   const onDeliverySelection = () => {
-    dispatch({
-      type: 'SELECT_DELIVERY_SHIPPING_OPTION',
-    })
+    if (shippingOption === 'delivery') {
+      // If delivery is already selected, reset to no selection
+      dispatch({
+        type: 'RESET_SHIPPING_OPTION',
+      })
+    } else {
+      dispatch({
+        type: 'SELECT_DELIVERY_SHIPPING_OPTION',
+      })
+    }
+  }
+
+  const onPickupMethodSelection = () => {
+    if (shippingOption === 'pickup-in-point') {
+      // If pickup is already selected, reset to no selection
+      dispatch({
+        type: 'RESET_SHIPPING_OPTION',
+      })
+    } else if (pickups && pickups.length > 0) {
+      // For pickup, set a default pickup first if one exists
+      dispatch({
+        type: 'UPDATE_PICKUP',
+        args: { pickup: pickups[0] },
+      })
+    }
   }
 
   const onAbortUnavailableItemsAction = () => {
@@ -104,13 +124,6 @@ function ShippingOptionZipcode({
     }
   }, [callToAction, selectedZipcode, isLoading])
 
-  useEffect(() => {
-    if (isShippingOptionRequired && selectedZipcode && !shippingOption) {
-      setIsLocationModalOpen(false)
-      setIsShippingModalOpen(true)
-    }
-  }, [selectedZipcode, isShippingOptionRequired, shippingOption])
-
   const showDeliveryModalButton = shippingSelection === 'delivery-and-pickup'
   const showPickupButton = shippingSelection === 'only-pickup'
   const pickup =
@@ -130,7 +143,7 @@ function ShippingOptionZipcode({
         selectedZipcode={selectedZipcode}
         onSubmit={(zipCode: string) => {
           setWasLocationModalOpenedByEvent(true)
-          onSubmit(zipCode, !isShippingOptionRequired)
+          onSubmit(zipCode, false)
         }}
         inputErrorMessage={submitErrorMessage?.message}
         callToAction={callToAction}
@@ -163,7 +176,7 @@ function ShippingOptionZipcode({
         onClose={() => setIsLocationModalOpen(false)}
         showLocationDetectorButton={showLocationDetectorButton}
         onSubmit={async (zipcode: string) => {
-          onSubmit(zipcode, !isShippingOptionRequired)
+          onSubmit(zipcode, false)
         }}
         isLoading={isLoading}
         inputErrorMessage={submitErrorMessage}
@@ -181,6 +194,7 @@ function ShippingOptionZipcode({
         onDeliverySelection={() => {
           onDeliverySelection()
         }}
+        onPickupMethodSelection={onPickupMethodSelection}
         pickupProps={{
           onSelectPickup,
           onSubmit: (value) => onSubmit(value, false),
@@ -190,10 +204,7 @@ function ShippingOptionZipcode({
           selectedZipcode,
           isLoading,
         }}
-        nonDismissibleModal={
-          (!dismissible && !shippingOption && wasLocationModalOpenedByEvent) ||
-          !shippingOption
-        }
+        nonDismissibleModal={false}
       />
 
       <PickupModal

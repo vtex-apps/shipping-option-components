@@ -50,12 +50,17 @@ interface ContinueUnavailableItemsAction {
   type: 'CONTINUE_UNAVAILABLE_ITEMS_ACTION'
 }
 
+interface ResetShippingOption {
+  type: 'RESET_SHIPPING_OPTION'
+}
+
 export type ShippingOptionActions =
   | UpdateZipCode
   | UpdatePickup
   | SelectDeliveryShippingOption
   | AbortUnavailableItemsAction
   | ContinueUnavailableItemsAction
+  | ResetShippingOption
 
 const DEFAULT_STATE: State = {
   pickups: [],

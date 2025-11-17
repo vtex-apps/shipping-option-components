@@ -14,6 +14,7 @@ interface Props {
   selectedShipping?: 'delivery' | 'pickup-in-point'
   nonDismissibleModal: boolean
   onDeliverySelection: () => void
+  onPickupMethodSelection?: () => void
 }
 
 type Stages = 'shippingSelection' | 'pickupSelection'
@@ -25,6 +26,7 @@ const ShippingSelectionModal = ({
   selectedShipping,
   nonDismissibleModal,
   onDeliverySelection,
+  onPickupMethodSelection,
 }: Props) => {
   const intl = useIntl()
   const {
@@ -46,7 +48,13 @@ const ShippingSelectionModal = ({
         <ShippingMethodStage
           selectedShipping={selectedShipping}
           onDeliverySelection={onDeliverySelection}
-          onPickupSelection={() => setStage('pickupSelection')}
+          onPickupSelection={() => {
+            if (onPickupMethodSelection) {
+              onPickupMethodSelection()
+            }
+
+            setStage('pickupSelection')
+          }}
         />
       ),
     },
@@ -75,7 +83,7 @@ const ShippingSelectionModal = ({
       title={stageContent[stage].title}
       isOpen={isOpen}
       onClose={onClose}
-      nonDismissible={nonDismissibleModal}
+      nonDismissibleModal={nonDismissibleModal}
     >
       {stageContent[stage].content}
     </Modal>
