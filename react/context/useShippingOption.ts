@@ -95,23 +95,35 @@ export const useShippingOption = () => {
 
       const pickupPointId = getFacetsData('pickupPoint')
 
-      let [pickup] = pickupsFormatted
+      // Only auto-select pickup if there's already a shipping method or saved pickup preference
+      if (pickupPointId || shippingMethod === 'pickup-in-point') {
+        const [defaultPickup] = pickupsFormatted
 
-      if (pickupPointId) {
-        pickup = pickupsFormatted.find(
-          (p: Pickup) => p.pickupPoint.id === pickupPointId
+        const pickup = pickupPointId
+          ? pickupsFormatted.find(
+              (p: Pickup) => p.pickupPoint.id === pickupPointId
+            ) || defaultPickup
+          : defaultPickup
+
+        setSelectedPickup(pickup)
+
+        await updateSession(
+          country,
+          selectedZipcode,
+          coordinates,
+          pickup,
+          shippingMethod
+        )
+      } else {
+        // Don't auto-select pickup - let user choose
+        await updateSession(
+          country,
+          selectedZipcode,
+          coordinates,
+          undefined,
+          shippingMethod
         )
       }
-
-      setSelectedPickup(pickup)
-
-      await updateSession(
-        country,
-        selectedZipcode,
-        coordinates,
-        pickup,
-        shippingMethod
-      )
 
       if (!keepLoading) {
         setIsLoading(false)
@@ -319,7 +331,7 @@ export const useShippingOption = () => {
       shippingOption === 'pickup-in-point' &&
       pickup.pickupPoint.id === selectedPickup?.pickupPoint.id
     ) {
-      shippingMethod = 'delivery'
+      shippingMethod = ''
       pickupUpdated = pickups[0]
     }
 

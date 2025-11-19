@@ -86,13 +86,8 @@ function ShippingOptionZipcode({
       dispatch({
         type: 'RESET_SHIPPING_OPTION',
       })
-    } else if (pickups && pickups.length > 0) {
-      // For pickup, set a default pickup first if one exists
-      dispatch({
-        type: 'UPDATE_PICKUP',
-        args: { pickup: pickups[0] },
-      })
     }
+    // Removed automatic pickup selection - let user choose from the list
   }
 
   const onAbortUnavailableItemsAction = () => {

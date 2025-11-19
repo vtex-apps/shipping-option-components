@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Shipping method selection is now optional and no longer required after entering postal code
 - Added toggle functionality to deselect shipping methods and return to default state
 - Shipping method modal no longer opens automatically and can be dismissed without selection
+- Removed auto select pickup
 
 ## [1.10.0] - 2025-10-28
 
