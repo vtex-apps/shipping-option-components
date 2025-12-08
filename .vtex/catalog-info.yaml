@@ -13,7 +13,7 @@ metadata:
     github.com/project-slug: vtex-apps/shipping-option-components
     vtex.com/platform-flow-id: ""
     backstage.io/techdocs-ref: dir:../
-    vtex.com/application-id: V280O4Z4
+    vtex.com/application-id: 7I4GG3UN
 spec:
   lifecycle: stable
   owner: te-0016
