@@ -35,10 +35,8 @@ function ShippingOptionZipcode({
   const [isShippingModalOpen, setIsShippingModalOpen] = useState(false)
   const [isLocationModalOpen, setIsLocationModalOpen] = useState<boolean>(false)
   const [isPickupModalOpen, setIsPickupModalOpen] = useState<boolean>(false)
-  const [
-    wasLocationModalOpenedByEvent,
-    setWasLocationModalOpenedByEvent,
-  ] = useState<boolean>(false)
+  const [wasLocationModalOpenedByEvent, setWasLocationModalOpenedByEvent] =
+    useState<boolean>(false)
 
   const {
     zipcode: selectedZipcode,
@@ -132,7 +130,7 @@ function ShippingOptionZipcode({
         selectedZipcode={selectedZipcode}
         onSubmit={(zipCode: string) => {
           setWasLocationModalOpenedByEvent(true)
-          onSubmit(zipCode, !isShippingOptionRequired)
+          onSubmit(zipCode, true)
         }}
         inputErrorMessage={submitErrorMessage?.message}
         callToAction={callToAction}
@@ -165,7 +163,7 @@ function ShippingOptionZipcode({
         onClose={() => setIsLocationModalOpen(false)}
         showLocationDetectorButton={showLocationDetectorButton}
         onSubmit={async (zipcode: string) => {
-          onSubmit(zipcode, !isShippingOptionRequired)
+          onSubmit(zipcode, true)
         }}
         isLoading={isLoading}
         inputErrorMessage={submitErrorMessage}
@@ -185,7 +183,7 @@ function ShippingOptionZipcode({
         }}
         pickupProps={{
           onSelectPickup,
-          onSubmit: (value) => onSubmit(value, false),
+          onSubmit: (value) => onSubmit(value, true),
           pickups,
           inputErrorMessage: submitErrorMessage?.message,
           selectedPickup: pickup,
@@ -203,7 +201,7 @@ function ShippingOptionZipcode({
         onClose={() => setIsPickupModalOpen(false)}
         pickupProps={{
           onSelectPickup,
-          onSubmit: (value) => onSubmit(value, false),
+          onSubmit: (value) => onSubmit(value, true),
           pickups,
           inputErrorMessage: submitErrorMessage?.message,
           selectedPickup: pickup,
