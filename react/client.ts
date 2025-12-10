@@ -70,7 +70,14 @@ export const getCatalogCount = (zipCode: string, geoCoordinates: number[]) =>
   fetch(
     `/api/io/_v/api/intelligent-search/catalog_count?zip-code=${zipCode}&coordinates=${geoCoordinates.join(
       ','
-    )}`
+    )}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'omit',
+    }
   ).then((res) => res.json())
 
 export const getCartProducts = async (orderFormId: string) => {

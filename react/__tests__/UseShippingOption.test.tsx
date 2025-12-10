@@ -29,6 +29,15 @@ function ActionRunner({
       }}
     >
       go
+      data-testid="update"
+      onClick={() =>
+        dispatch({
+          type: 'UPDATE_ZIPCODE',
+          args: { zipcode: '12345-678', reload: true },
+        })
+      }
+    >
+      Update
     </button>
   )
 }
@@ -44,6 +53,12 @@ describe('useShippingOption actions and behavior', () => {
       },
     } as never)
 
+describe('useShippingOption zipcode update', () => {
+  let originalLocation: Location
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+    originalLocation = window.location
     const reloadMock = jest.fn()
 
     Object.defineProperty(window, 'location', {
@@ -106,6 +121,24 @@ describe('useShippingOption actions and behavior', () => {
 
     await waitFor(() => {
       expect(getByTestId('btn')).toBeTruthy()
+      value: { ...originalLocation, reload: reloadMock },
+    })
+  })
+
+  afterEach(() => {
+    Object.defineProperty(window, 'location', {
+      configurable: true,
+      value: originalLocation,
+    })
+  })
+
+  it('reloads the page after UPDATE_ZIPCODE with reload=true', async () => {
+    const { getByTestId } = render(<TestComponent />)
+
+    fireEvent.click(getByTestId('update'))
+
+    await waitFor(() => {
+      expect(window.location.reload).toHaveBeenCalled()
     })
   })
 })
