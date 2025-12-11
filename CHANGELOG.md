@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-12-11
+
 ### Changed
 
 - Shipping method selection is now optional and no longer required after entering postal code
