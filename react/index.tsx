@@ -27,7 +27,7 @@ interface Props {
 function ShippingOptionZipcode({
   callToAction = 'popover-input',
   dismissible = false,
-  shippingSelection = 'only-pickup',
+  shippingSelection = 'delivery-and-pickup',
   mode = 'default',
   showLocationDetectorButton = false,
 }: Props) {
@@ -51,8 +51,6 @@ function ShippingOptionZipcode({
     unavailabilityMessage,
   } = useShippingOptionState()
 
-  const isShippingOptionRequired = shippingSelection === 'delivery-and-pickup'
-
   const dispatch = useShippingOptionDispatch()
 
   const onSubmit = (zipcode: string, reload?: boolean) => {
@@ -70,9 +68,26 @@ function ShippingOptionZipcode({
   }
 
   const onDeliverySelection = () => {
-    dispatch({
-      type: 'SELECT_DELIVERY_SHIPPING_OPTION',
-    })
+    if (shippingOption === 'delivery') {
+      // If delivery is already selected, reset to no selection
+      dispatch({
+        type: 'RESET_SHIPPING_OPTION',
+      })
+    } else {
+      dispatch({
+        type: 'SELECT_DELIVERY_SHIPPING_OPTION',
+      })
+    }
+  }
+
+  const onPickupMethodSelection = () => {
+    if (shippingOption === 'pickup-in-point') {
+      // If pickup is already selected, reset to no selection
+      dispatch({
+        type: 'RESET_SHIPPING_OPTION',
+      })
+    }
+    // Removed automatic pickup selection - let user choose from the list
   }
 
   const onAbortUnavailableItemsAction = () => {
@@ -103,13 +118,6 @@ function ShippingOptionZipcode({
       setIsLocationModalOpen(true)
     }
   }, [callToAction, selectedZipcode, isLoading])
-
-  useEffect(() => {
-    if (isShippingOptionRequired && selectedZipcode && !shippingOption) {
-      setIsLocationModalOpen(false)
-      setIsShippingModalOpen(true)
-    }
-  }, [selectedZipcode, isShippingOptionRequired, shippingOption])
 
   const showDeliveryModalButton = shippingSelection === 'delivery-and-pickup'
   const showPickupButton = shippingSelection === 'only-pickup'
@@ -181,6 +189,7 @@ function ShippingOptionZipcode({
         onDeliverySelection={() => {
           onDeliverySelection()
         }}
+        onPickupMethodSelection={onPickupMethodSelection}
         pickupProps={{
           onSelectPickup,
           onSubmit: (value) => onSubmit(value, true),
@@ -190,10 +199,7 @@ function ShippingOptionZipcode({
           selectedZipcode,
           isLoading,
         }}
-        nonDismissibleModal={
-          (!dismissible && !shippingOption && wasLocationModalOpenedByEvent) ||
-          !shippingOption
-        }
+        nonDismissibleModal={false}
       />
 
       <PickupModal
