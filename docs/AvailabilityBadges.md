@@ -2,15 +2,28 @@
 
 # Availability Badges
 
-
 The `availability-badges` block displays availability badges for product delivery and pickup.
 
+> ℹ️ Delivery availability is defined per product, meaning each item is evaluated individually and can offer Shipping, Pickup, both, or neither.
 
 ![image](https://cdn.jsdelivr.net/gh/vtexdocs/dev-portal-content@main/images/vtex-store-components-infocard-0.png)
 
+## Before you begin
+
+Ensure you have the [Delivery Promise](https://developers.vtex.com/docs/guides/setting-up-delivery-promise-components) feature active in your store.
+
+## Installation
+
+To use the `availability-badges` block, install the `shipping-option-components` app:
+
+1. In your terminal, login to your account.
+2. Install the app by running `vtex install shipping-option-components@1.x`.
+
 ## Configuration
 
-1. Import the `shipping-option-components` app to your theme's dependencies in the manifest.json file as in the following example:
+After installing the app, add the `availability-badges` block to your theme's templates.
+
+1. In the `manifest.json` file, add the `shipping-option-components` as a dependency:
 
 ```json
   "dependencies": {
@@ -19,7 +32,7 @@ The `availability-badges` block displays availability badges for product deliver
   }
 ```
 
-2. Add the `availability-badges` block to the `product-summary.shelf` component. For example:
+2. In the `product-summary.shelf` component, add the `availability-badges` block:
 
 ```json
   "product-summary.shelf": {
@@ -29,10 +42,7 @@ The `availability-badges` block displays availability badges for product deliver
   }
 ```
 
-### Props
-
-Although this block does not have explicit props, it uses the `ProductSummaryContext` and `useShippingOptionState` to retrieve delivery information.
-
+> ℹ️ This block doesn't require any props to be configured. It automatically retrieves delivery information from the `ProductSummaryContext` and `useShippingOptionState`.
 
 ## Customization
 
@@ -42,8 +52,3 @@ To apply CSS customizations to this and other blocks, please see the [Using CSS 
 | ----------------------------- |
 | `availabilityBadgeCircle`     |
 | `availabilityPickupButton`    |
-
-## Notes
-- Delivery availability is defined at the product level.
-- Each product may or may not have each delivery method (Shipping and Pickup).
-- The store must be regionalized for the component to work correctly.
