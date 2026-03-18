@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated pickup points fetch to use Intelligent Search `pickup-point-availability` API, mapping its response to the existing pickup model (fails gracefully by returning an empty list on errors).
+
 ## [2.0.2] - 2026-01-27
 
 ### Changed

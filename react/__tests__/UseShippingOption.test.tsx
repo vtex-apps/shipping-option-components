@@ -42,6 +42,14 @@ describe('useShippingOption actions and behavior', () => {
       geoCoordinates: [1, 2],
     } as never)
 
+    jest.spyOn(client, 'getPickups').mockResolvedValue({
+      items: [
+        {
+          pickupPoint: { isActive: true, id: 'p1', friendlyName: 'Store 1' },
+        },
+      ],
+    } as never)
+
     jest
       .spyOn(client, 'getCatalogCount')
       .mockResolvedValue({ total: 1 } as never)
