@@ -50,8 +50,54 @@ export const getPickups = (
   account: string
 ) =>
   fetch(
-    `/api/checkout/pub/pickup-points?an=${account}&countryCode=${countryCode}&postalCode=${zipCode}`
-  ).then((res) => res.json())
+    `/api/intelligent-search/v0/pickup-point-availability/trade-policy/1?zip-code=${encodeURIComponent(
+      zipCode
+    )}&an=${encodeURIComponent(account)}&country=${encodeURIComponent(
+      countryCode
+    )}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`pickup-point-availability failed (${res.status})`)
+      }
+
+      return res.json()
+    })
+    .then((data) => {
+      if (!Array.isArray(data?.pickupPointDistances)) {
+        throw new Error('pickup-point-availability invalid payload')
+      }
+
+      return {
+        items: data.pickupPointDistances.map((ppd: any) => {
+          const { address } = ppd
+
+          return {
+            distance: ppd.distance,
+            pickupPoint: {
+              id: ppd.pickupId,
+              friendlyName: ppd.pickupName,
+              address: {
+                neighborhood: address.neighborhood,
+                street: address.street,
+                postalCode: address.postalCode,
+                city: address.city,
+                number: address.number,
+                state: address.state,
+              },
+              isActive: ppd.isActive,
+            },
+          }
+        }),
+      }
+    })
+    .catch(() => ({ items: [] }))
 
 export const updateOrderForm = (
   country: string,
