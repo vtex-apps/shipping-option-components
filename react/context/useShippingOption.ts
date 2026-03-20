@@ -450,7 +450,13 @@ export const useShippingOption = () => {
 
         const unavailableItems = await validateCartItems(
           async (products: string[]) =>
-            validateProductAvailabilityByPickup(pickup.pickupPoint.id, products)
+            validateProductAvailabilityByPickup(
+              pickup.pickupPoint.id,
+              products,
+              zipcode!,
+              countryCode!,
+              account
+            )
         )
 
         if (unavailableItems.length === 0) {
