@@ -24,7 +24,13 @@ export const validateProductAvailability = async () => ({
   unavailableProducts: [],
 })
 
-export const validateProductAvailabilityByPickup = async () => ({
+export const validateProductAvailabilityByPickup = async (
+  _pickupId: string,
+  _products: string[],
+  _zipCode: string,
+  _countryCode: string,
+  _account: string
+) => ({
   unavailableProducts: [],
 })
 

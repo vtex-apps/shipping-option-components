@@ -1,6 +1,19 @@
 import { SHIPPING_INFO_COOKIE } from './constants'
 import { setCookie } from './utils/cookie'
 
+const buildAvailabilityLocation = (
+  zipCode: string,
+  countryCode: string,
+  geoCoordinates: number[]
+) => ({
+  zipCode,
+  coordinate: {
+    longitude: geoCoordinates[0],
+    latitude: geoCoordinates[1],
+  },
+  country: countryCode,
+})
+
 export const getAddress = (
   countryCode: string,
   zipCode: string,
@@ -164,26 +177,20 @@ export const validateProductAvailability = async (
 ) => {
   const address = await getAddress(countryCode, zipCode, account)
 
-  const coordinatesArray = address.geoCoordinates
-  const coordinate = {
-    longitude: coordinatesArray[0],
-    latitude: coordinatesArray[1],
-  }
-
-  const location = {
-    zipCode,
-    coordinate,
-    country: countryCode,
-  }
-
   const requestBody = {
-    location,
+    location: buildAvailabilityLocation(
+      zipCode,
+      countryCode,
+      address.geoCoordinates
+    ),
     products,
   }
 
-  const baseUrl = window.location.origin
+  const url = `/api/delivery-promises-bff/availability/deliveryorpickup?an=${encodeURIComponent(
+    account
+  )}`
 
-  return fetch(`${baseUrl}/api/io/_v/availability/deliveryorpickup`, {
+  return fetch(url, {
     method: 'POST',
     body: JSON.stringify(requestBody),
     headers: {
@@ -200,26 +207,20 @@ export const validateProductAvailabilityByDelivery = async (
 ) => {
   const address = await getAddress(countryCode, zipCode, account)
 
-  const coordinatesArray = address.geoCoordinates
-  const coordinate = {
-    longitude: coordinatesArray[0],
-    latitude: coordinatesArray[1],
-  }
-
-  const location = {
-    zipCode,
-    coordinate,
-    country: countryCode,
-  }
-
   const requestBody = {
-    location,
+    location: buildAvailabilityLocation(
+      zipCode,
+      countryCode,
+      address.geoCoordinates
+    ),
     products,
   }
 
-  const baseUrl = window.location.origin
+  const url = `/api/delivery-promises-bff/availability/delivery?an=${encodeURIComponent(
+    account
+  )}`
 
-  return fetch(`${baseUrl}/api/io/_v/availability/delivery`, {
+  return fetch(url, {
     method: 'POST',
     body: JSON.stringify(requestBody),
     headers: {
@@ -230,22 +231,31 @@ export const validateProductAvailabilityByDelivery = async (
 
 export const validateProductAvailabilityByPickup = async (
   pickupId: string,
-  products: string[]
+  products: string[],
+  zipCode: string,
+  countryCode: string,
+  account: string
 ) => {
+  const address = await getAddress(countryCode, zipCode, account)
+
   const requestBody = {
+    location: buildAvailabilityLocation(
+      zipCode,
+      countryCode,
+      address.geoCoordinates
+    ),
     products,
   }
 
-  const baseUrl = window.location.origin
+  const url = `/api/delivery-promises-bff/availability/pickupid?an=${encodeURIComponent(
+    account
+  )}&pickupId=${encodeURIComponent(pickupId)}`
 
-  return fetch(
-    `${baseUrl}/api/io/_v/availability/pickupid?pickupId=${pickupId}`,
-    {
-      method: 'POST',
-      body: JSON.stringify(requestBody),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  ).then((res) => res.json())
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(requestBody),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((res) => res.json())
 }
