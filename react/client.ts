@@ -47,14 +47,15 @@ export const updateSession = async (
 export const getPickups = (
   countryCode: string,
   zipCode: string,
-  account: string
+  account: string,
+  salesChannel: string
 ) =>
   fetch(
-    `/api/intelligent-search/v0/pickup-point-availability/trade-policy/1?zip-code=${encodeURIComponent(
-      zipCode
-    )}&an=${encodeURIComponent(account)}&country=${encodeURIComponent(
-      countryCode
-    )}`,
+    `/api/intelligent-search/v0/pickup-point-availability/trade-policy/${encodeURIComponent(
+      salesChannel
+    )}?zip-code=${encodeURIComponent(zipCode)}&an=${encodeURIComponent(
+      account
+    )}&country=${encodeURIComponent(countryCode)}`,
     {
       method: 'GET',
       headers: {
@@ -69,34 +70,30 @@ export const getPickups = (
 
       return res.json()
     })
-    .then((data) => {
-      if (!Array.isArray(data?.pickupPointDistances)) {
-        throw new Error('pickup-point-availability invalid payload')
-      }
+    .then((data) => ({
+      items: Array.isArray(data?.pickupPointDistances)
+        ? data.pickupPointDistances.map((ppd: any) => {
+            const { address } = ppd
 
-      return {
-        items: data.pickupPointDistances.map((ppd: any) => {
-          const { address } = ppd
-
-          return {
-            distance: ppd.distance,
-            pickupPoint: {
-              id: ppd.pickupId,
-              friendlyName: ppd.pickupName,
-              address: {
-                neighborhood: address.neighborhood,
-                street: address.street,
-                postalCode: address.postalCode,
-                city: address.city,
-                number: address.number,
-                state: address.state,
+            return {
+              distance: ppd.distance,
+              pickupPoint: {
+                id: ppd.pickupId,
+                friendlyName: ppd.pickupName,
+                address: {
+                  neighborhood: address.neighborhood,
+                  street: address.street,
+                  postalCode: address.postalCode,
+                  city: address.city,
+                  number: address.number,
+                  state: address.state,
+                },
+                isActive: ppd.isActive,
               },
-              isActive: ppd.isActive,
-            },
-          }
-        }),
-      }
-    })
+            }
+          })
+        : [],
+    }))
     .catch(() => ({ items: [] }))
 
 export const updateOrderForm = (

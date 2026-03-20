@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { useOrderItems } from 'vtex.order-items/OrderItems'
 import { usePixelEventCallback } from 'vtex.pixel-manager'
+import { useRenderSession } from 'vtex.session-client'
 
 import {
   getAddress,
@@ -56,9 +57,22 @@ export const useShippingOption = () => {
   ] = useState<() => void>()
 
   const { account } = useRuntime()
+  const { session, loading: isSessionLoading } = useRenderSession()
   const isSSR = useSSR()
   const intl = useIntl()
   const { addItems } = useOrderItems()
+
+  const salesChannel = isSessionLoading
+    ? undefined
+    : session?.namespaces?.store?.channel?.value ?? '1'
+
+  const [pendingPickupsFetch, setPendingPickupsFetch] = useState<{
+    country: string
+    selectedZipcode: string
+    coordinates: number[]
+    shippingMethod?: ShippingMethod
+    keepLoading?: boolean
+  } | null>(null)
 
   usePixelEventCallback({
     eventId: SHIPPING_MODAL_PIXEL_EVENT_ID,
@@ -75,10 +89,23 @@ export const useShippingOption = () => {
       shippingMethod?: ShippingMethod,
       keepLoading = false
     ) => {
+      if (!salesChannel) {
+        setPendingPickupsFetch({
+          country,
+          selectedZipcode,
+          coordinates,
+          shippingMethod,
+          keepLoading,
+        })
+
+        return
+      }
+
       const responsePickups = await getPickups(
         country,
         selectedZipcode,
-        account
+        account,
+        salesChannel
       )
 
       const pickupsFormatted = responsePickups?.items.filter(
@@ -117,8 +144,35 @@ export const useShippingOption = () => {
         setIsLoading(false)
       }
     },
-    [account]
+    [account, salesChannel]
   )
+
+  useEffect(() => {
+    if (isSSR || isSessionLoading) {
+      return
+    }
+
+    if (!pendingPickupsFetch) {
+      return
+    }
+
+    const {
+      country,
+      selectedZipcode,
+      coordinates,
+      shippingMethod,
+      keepLoading,
+    } = pendingPickupsFetch
+
+    setPendingPickupsFetch(null)
+    fetchPickups(
+      country,
+      selectedZipcode,
+      coordinates,
+      shippingMethod,
+      keepLoading
+    )
+  }, [fetchPickups, isSSR, isSessionLoading, pendingPickupsFetch])
 
   useEffect(() => {
     if (isSSR) {
