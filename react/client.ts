@@ -1,6 +1,12 @@
 import { SHIPPING_INFO_COOKIE } from './constants'
 import { setCookie } from './utils/cookie'
 
+/** Matches delivery-promises-bff availability body (`itemId` = SKU, `productId` = catalog product). */
+export type AvailabilityItem = {
+  itemId: string
+  productId: string
+}
+
 const buildAvailabilityLocation = (
   zipCode: string,
   countryCode: string,
@@ -144,6 +150,21 @@ export const getCartProducts = async (orderFormId: string) => {
   return orderForm.items
 }
 
+/** Maps Checkout orderForm items to BFF `items` (SKU id + catalog product id). */
+export const orderFormItemsToAvailabilityItems = (
+  orderFormItems: unknown[]
+): AvailabilityItem[] =>
+  orderFormItems.map((raw) => {
+    const line = raw as { id: string | number; productId?: string | number }
+    const itemId = String(line.id)
+    const productId =
+      line.productId != null && String(line.productId) !== ''
+        ? String(line.productId)
+        : itemId
+
+    return { itemId, productId }
+  })
+
 export const removeCartProductsById = async (
   orderFormId: string,
   cartProductsIndex: number[]
@@ -172,7 +193,7 @@ export const removeCartProductsById = async (
 export const validateProductAvailability = async (
   zipCode: string,
   countryCode: string,
-  products: string[],
+  items: AvailabilityItem[],
   account: string
 ) => {
   const address = await getAddress(countryCode, zipCode, account)
@@ -183,7 +204,7 @@ export const validateProductAvailability = async (
       countryCode,
       address.geoCoordinates
     ),
-    products,
+    items,
   }
 
   const url = `/api/delivery-promises-bff/availability/deliveryorpickup?an=${encodeURIComponent(
@@ -202,7 +223,7 @@ export const validateProductAvailability = async (
 export const validateProductAvailabilityByDelivery = async (
   zipCode: string,
   countryCode: string,
-  products: string[],
+  items: AvailabilityItem[],
   account: string
 ) => {
   const address = await getAddress(countryCode, zipCode, account)
@@ -213,7 +234,7 @@ export const validateProductAvailabilityByDelivery = async (
       countryCode,
       address.geoCoordinates
     ),
-    products,
+    items,
   }
 
   const url = `/api/delivery-promises-bff/availability/delivery?an=${encodeURIComponent(
@@ -231,20 +252,15 @@ export const validateProductAvailabilityByDelivery = async (
 
 export const validateProductAvailabilityByPickup = async (
   pickupId: string,
-  products: string[],
+  items: AvailabilityItem[],
   zipCode: string,
   countryCode: string,
   account: string
 ) => {
-  const address = await getAddress(countryCode, zipCode, account)
+  await getAddress(countryCode, zipCode, account)
 
   const requestBody = {
-    location: buildAvailabilityLocation(
-      zipCode,
-      countryCode,
-      address.geoCoordinates
-    ),
-    products,
+    items,
   }
 
   const url = `/api/delivery-promises-bff/availability/pickupid?an=${encodeURIComponent(

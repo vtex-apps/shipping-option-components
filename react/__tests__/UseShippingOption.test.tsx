@@ -24,6 +24,13 @@ jest.mock('../utils/cookie', () => ({
   getOrderFormId: () => undefined,
 }))
 
+jest.mock('vtex.session-client', () => ({
+  useRenderSession: () => ({
+    session: { namespaces: { store: { channel: { value: '1' } } } },
+    loading: false,
+  }),
+}))
+
 const mockIntl = {
   formatMessage: ({ id }: { id: string }) => String(id),
 } as unknown as reactIntl.IntlShape
@@ -76,13 +83,13 @@ describe('useShippingOption actions and behavior', () => {
     jest.spyOn(client, 'getCartProducts').mockResolvedValue([] as never)
     jest
       .spyOn(client, 'validateProductAvailability')
-      .mockResolvedValue({ unavailableProducts: [] } as never)
+      .mockResolvedValue({ unavailableItemIds: [] } as never)
     jest
       .spyOn(client, 'validateProductAvailabilityByPickup')
-      .mockResolvedValue({ unavailableProducts: [] } as never)
+      .mockResolvedValue({ unavailableItemIds: [] } as never)
     jest
       .spyOn(client, 'validateProductAvailabilityByDelivery')
-      .mockResolvedValue({ unavailableProducts: [] } as never)
+      .mockResolvedValue({ unavailableItemIds: [] } as never)
 
     const renderRuntime = jest.requireMock('vtex.render-runtime') as {
       useSSR: () => boolean

@@ -13,11 +13,13 @@ import {
   updateOrderForm,
   updateSession,
   getCartProducts,
+  orderFormItemsToAvailabilityItems,
   removeCartProductsById,
   validateProductAvailability,
   validateProductAvailabilityByPickup,
   validateProductAvailabilityByDelivery,
 } from '../client'
+import type { AvailabilityItem } from '../client'
 import type { CartItem, CartProduct } from '../components/UnavailableItemsModal'
 import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
 import messages from '../messages'
@@ -217,27 +219,29 @@ export const useShippingOption = () => {
   }
 
   const validateCartItems = async (
-    validationHandler: (products: string[]) => Promise<any>
+    validationHandler: (items: AvailabilityItem[]) => Promise<any>
   ) => {
     setIsLoading(true)
 
     try {
       const orderFormId = getOrderFormId()
 
-      const products = await getCartProducts(orderFormId)
+      const orderLines = await getCartProducts(orderFormId)
 
-      const productIds = products.map((product: CartProduct) => product.id)
+      const availabilityItems = orderFormItemsToAvailabilityItems(orderLines)
 
-      const { unavailableProducts } = await validationHandler(productIds)
+      const { unavailableItemIds } = await validationHandler(availabilityItems)
 
-      const unavailableItems = products
-        .map((product: CartProduct, id: number) => ({
+      const unavailableSkuIds = new Set(
+        Array.isArray(unavailableItemIds) ? unavailableItemIds.map(String) : []
+      )
+
+      const unavailableItems = orderLines
+        .map((line: CartProduct, id: number) => ({
           cartItemIndex: id,
-          product,
+          product: line,
         }))
-        .filter((item: any) =>
-          unavailableProducts.some((id: string) => id === item.product.id)
-        )
+        .filter((item: any) => unavailableSkuIds.has(String(item.product.id)))
 
       setUnavailableCartItems(unavailableItems)
 
@@ -416,11 +420,11 @@ export const useShippingOption = () => {
         const { zipcode: zipcodeSelected, reload } = action.args
 
         const unavailableItems = await validateCartItems(
-          async (products: string[]) =>
+          async (items: AvailabilityItem[]) =>
             validateProductAvailability(
               zipcodeSelected,
               countryCode!,
-              products,
+              items,
               account
             )
         )
@@ -449,10 +453,10 @@ export const useShippingOption = () => {
         setUnavailabilityMessage('pickup')
 
         const unavailableItems = await validateCartItems(
-          async (products: string[]) =>
+          async (items: AvailabilityItem[]) =>
             validateProductAvailabilityByPickup(
               pickup.pickupPoint.id,
-              products,
+              items,
               zipcode!,
               countryCode!,
               account
@@ -492,11 +496,11 @@ export const useShippingOption = () => {
         setUnavailabilityMessage('delivery')
 
         const unavailableItems = await validateCartItems(
-          async (products: string[]) =>
+          async (items: AvailabilityItem[]) =>
             validateProductAvailabilityByDelivery(
               zipcode!,
               countryCode!,
-              products,
+              items,
               account
             )
         )

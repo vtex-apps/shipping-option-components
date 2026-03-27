@@ -21,19 +21,19 @@ export const getCartProducts = async () => []
 export const removeCartProductsById = async () => undefined
 
 export const validateProductAvailability = async () => ({
-  unavailableProducts: [],
+  unavailableItemIds: [],
 })
 
 export const validateProductAvailabilityByPickup = async (
   _pickupId: string,
-  _products: string[],
+  _items: Array<{ itemId: string; productId: string }>,
   _zipCode: string,
   _countryCode: string,
   _account: string
 ) => ({
-  unavailableProducts: [],
+  unavailableItemIds: [],
 })
 
 export const validateProductAvailabilityByDelivery = async () => ({
-  unavailableProducts: [],
+  unavailableItemIds: [],
 })
