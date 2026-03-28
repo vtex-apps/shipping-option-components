@@ -4,6 +4,7 @@ import * as reactIntl from 'react-intl'
 
 import { useShippingOption } from '../context/useShippingOption'
 import * as client from '../client'
+import { DEFAULT_TRADE_POLICY } from '../constants'
 
 jest.mock('vtex.order-items/OrderItems', () => ({
   useOrderItems: () => ({ addItems: jest.fn() }),
@@ -25,10 +26,10 @@ jest.mock('../utils/cookie', () => ({
 }))
 
 jest.mock('vtex.session-client', () => ({
-  useRenderSession: () => ({
+  useRenderSession: jest.fn(() => ({
     session: { namespaces: { store: { channel: { value: '1' } } } },
     loading: false,
-  }),
+  })),
 }))
 
 const mockIntl = {
@@ -62,6 +63,14 @@ function ActionRunner({
 describe('useShippingOption actions and behavior', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    const sessionMod = jest.requireMock('vtex.session-client') as {
+      useRenderSession: jest.Mock
+    }
+
+    sessionMod.useRenderSession.mockImplementation(() => ({
+      session: { namespaces: { store: { channel: { value: '1' } } } },
+      loading: false,
+    }))
     jest.spyOn(client, 'updateSession').mockResolvedValue(undefined)
     jest.spyOn(client, 'getAddress').mockResolvedValue({
       city: 'City',
@@ -175,6 +184,38 @@ describe('useShippingOption actions and behavior', () => {
 
     await waitFor(() => {
       expect(getByTestId('btn')).toBeTruthy()
+    })
+  })
+
+  it('calls getPickups with default trade policy when session store channel is missing', async () => {
+    const sessionMod = jest.requireMock('vtex.session-client') as {
+      useRenderSession: jest.Mock
+    }
+
+    sessionMod.useRenderSession.mockImplementation(() => ({
+      session: { namespaces: { store: {} } },
+      loading: false,
+    }))
+
+    const getPickupsSpy = jest.spyOn(client, 'getPickups').mockResolvedValue({
+      items: [],
+    } as never)
+
+    function MountHook() {
+      useShippingOption()
+
+      return null
+    }
+
+    render(<MountHook />)
+
+    await waitFor(() => {
+      expect(getPickupsSpy).toHaveBeenCalledWith(
+        'BR',
+        '12345-678',
+        'store',
+        DEFAULT_TRADE_POLICY
+      )
     })
   })
 

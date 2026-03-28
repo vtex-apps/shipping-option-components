@@ -7,6 +7,29 @@ export type AvailabilityItem = {
   productId: string
 }
 
+/** Address fields from Intelligent Search `pickup-point-availability` (may be partial). */
+export type PickupPointAvailabilityAddress = {
+  neighborhood?: string
+  street?: string
+  postalCode?: string
+  city?: string
+  number?: string
+  state?: string
+}
+
+/** One row from `pickupPointDistances` in the pickup-point-availability response. */
+export type PickupPointDistance = {
+  pickupId: string
+  pickupName: string
+  distance: number
+  isActive: boolean
+  address?: PickupPointAvailabilityAddress
+}
+
+export type PickupPointAvailabilityResponse = {
+  pickupPointDistances?: PickupPointDistance[]
+}
+
 const buildAvailabilityLocation = (
   zipCode: string,
   countryCode: string,
@@ -74,6 +97,27 @@ export const updateSession = async (
   })
 }
 
+function mapPickupPointDistanceRow(ppd: PickupPointDistance) {
+  const { address } = ppd
+
+  return {
+    distance: ppd.distance,
+    pickupPoint: {
+      id: ppd.pickupId,
+      friendlyName: ppd.pickupName,
+      address: {
+        neighborhood: address?.neighborhood ?? '',
+        street: address?.street ?? '',
+        postalCode: address?.postalCode ?? '',
+        city: address?.city ?? '',
+        number: address?.number ?? '',
+        state: address?.state ?? '',
+      },
+      isActive: ppd.isActive,
+    },
+  }
+}
+
 export const getPickups = (
   countryCode: string,
   zipCode: string,
@@ -86,43 +130,20 @@ export const getPickups = (
     )}?zip-code=${encodeURIComponent(zipCode)}&an=${encodeURIComponent(
       account
     )}&country=${encodeURIComponent(countryCode)}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
+    { method: 'GET' }
   )
     .then((res) => {
       if (!res.ok) {
         throw new Error(`pickup-point-availability failed (${res.status})`)
       }
 
-      return res.json()
+      return res.json() as Promise<PickupPointAvailabilityResponse>
     })
     .then((data) => ({
-      items: Array.isArray(data?.pickupPointDistances)
-        ? data.pickupPointDistances.map((ppd: any) => {
-            const { address } = ppd
-
-            return {
-              distance: ppd.distance,
-              pickupPoint: {
-                id: ppd.pickupId,
-                friendlyName: ppd.pickupName,
-                address: {
-                  neighborhood: address.neighborhood,
-                  street: address.street,
-                  postalCode: address.postalCode,
-                  city: address.city,
-                  number: address.number,
-                  state: address.state,
-                },
-                isActive: ppd.isActive,
-              },
-            }
-          })
-        : [],
+      items:
+        Array.isArray(data?.pickupPointDistances) && data.pickupPointDistances
+          ? data.pickupPointDistances.map(mapPickupPointDistanceRow)
+          : [],
     }))
     .catch(() => ({ items: [] }))
 
@@ -146,9 +167,6 @@ export const getCatalogCount = (zipCode: string, geoCoordinates: number[]) =>
     )}`,
     {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       credentials: 'omit',
     }
   ).then((res) => res.json())

@@ -31,6 +31,7 @@ import type {
 import {
   SHIPPING_MODAL_PIXEL_EVENT_ID,
   PRODUCTS_NOT_FOUND_ERROR_CODE,
+  DEFAULT_TRADE_POLICY,
 } from '../constants'
 
 export const useShippingOption = () => {
@@ -66,7 +67,7 @@ export const useShippingOption = () => {
 
   const salesChannel = isSessionLoading
     ? undefined
-    : session?.namespaces?.store?.channel?.value ?? '1'
+    : session?.namespaces?.store?.channel?.value ?? DEFAULT_TRADE_POLICY
 
   const [pendingPickupsFetch, setPendingPickupsFetch] = useState<{
     country: string
@@ -124,12 +125,15 @@ export const useShippingOption = () => {
 
       const pickupPointId = getFacetsData('pickupPoint')
 
-      let [pickup] = pickupsFormatted
+      const defaultPickup = pickupsFormatted[0]
+
+      let pickup = defaultPickup
 
       if (pickupPointId) {
-        pickup = pickupsFormatted.find(
-          (p: Pickup) => p.pickupPoint.id === pickupPointId
-        )
+        pickup =
+          pickupsFormatted.find(
+            (p: Pickup) => p.pickupPoint.id === pickupPointId
+          ) ?? defaultPickup
       }
 
       setSelectedPickup(pickup)
