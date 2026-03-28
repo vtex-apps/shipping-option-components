@@ -20,6 +20,17 @@ const buildAvailabilityLocation = (
   country: countryCode,
 })
 
+const withAvailabilityScQuery = (
+  baseUrlWithQuery: string,
+  salesChannel?: string
+) => {
+  if (salesChannel == null || salesChannel.trim() === '') {
+    return baseUrlWithQuery
+  }
+
+  return `${baseUrlWithQuery}&sc=${encodeURIComponent(salesChannel.trim())}`
+}
+
 export const getAddress = (
   countryCode: string,
   zipCode: string,
@@ -194,7 +205,8 @@ export const validateProductAvailability = async (
   zipCode: string,
   countryCode: string,
   items: AvailabilityItem[],
-  account: string
+  account: string,
+  salesChannel?: string
 ) => {
   const address = await getAddress(countryCode, zipCode, account)
 
@@ -207,9 +219,12 @@ export const validateProductAvailability = async (
     items,
   }
 
-  const url = `/api/delivery-promises-bff/availability/deliveryorpickup?an=${encodeURIComponent(
-    account
-  )}`
+  const url = withAvailabilityScQuery(
+    `/api/delivery-promises-bff/availability/deliveryorpickup?an=${encodeURIComponent(
+      account
+    )}`,
+    salesChannel
+  )
 
   return fetch(url, {
     method: 'POST',
@@ -224,7 +239,8 @@ export const validateProductAvailabilityByDelivery = async (
   zipCode: string,
   countryCode: string,
   items: AvailabilityItem[],
-  account: string
+  account: string,
+  salesChannel?: string
 ) => {
   const address = await getAddress(countryCode, zipCode, account)
 
@@ -237,9 +253,12 @@ export const validateProductAvailabilityByDelivery = async (
     items,
   }
 
-  const url = `/api/delivery-promises-bff/availability/delivery?an=${encodeURIComponent(
-    account
-  )}`
+  const url = withAvailabilityScQuery(
+    `/api/delivery-promises-bff/availability/delivery?an=${encodeURIComponent(
+      account
+    )}`,
+    salesChannel
+  )
 
   return fetch(url, {
     method: 'POST',
@@ -255,7 +274,8 @@ export const validateProductAvailabilityByPickup = async (
   items: AvailabilityItem[],
   zipCode: string,
   countryCode: string,
-  account: string
+  account: string,
+  salesChannel?: string
 ) => {
   await getAddress(countryCode, zipCode, account)
 
@@ -263,9 +283,12 @@ export const validateProductAvailabilityByPickup = async (
     items,
   }
 
-  const url = `/api/delivery-promises-bff/availability/pickupid?an=${encodeURIComponent(
-    account
-  )}&pickupId=${encodeURIComponent(pickupId)}`
+  const url = withAvailabilityScQuery(
+    `/api/delivery-promises-bff/availability/pickupid?an=${encodeURIComponent(
+      account
+    )}&pickupId=${encodeURIComponent(pickupId)}`,
+    salesChannel
+  )
 
   return fetch(url, {
     method: 'POST',

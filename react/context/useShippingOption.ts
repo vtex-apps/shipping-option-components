@@ -425,7 +425,8 @@ export const useShippingOption = () => {
               zipcodeSelected,
               countryCode!,
               items,
-              account
+              account,
+              salesChannel
             )
         )
 
@@ -459,7 +460,8 @@ export const useShippingOption = () => {
               items,
               zipcode!,
               countryCode!,
-              account
+              account,
+              salesChannel
             )
         )
 
@@ -501,7 +503,8 @@ export const useShippingOption = () => {
               zipcode!,
               countryCode!,
               items,
-              account
+              account,
+              salesChannel
             )
         )
 
