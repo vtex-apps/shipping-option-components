@@ -445,9 +445,7 @@ export const useShippingOption = () => {
           })
         )
 
-        setActionInterruptedByCartValidation(
-          () => () => submitZipcode(zipcodeSelected, reload)
-        )
+        setActionInterruptedByCartValidation(() => () => submitZipcode(zipcodeSelected, reload))
 
         break
       }
@@ -536,9 +534,7 @@ export const useShippingOption = () => {
           )
         )
 
-        setActionInterruptedByCartValidation(
-          () => () => selectDeliveryShippingOption()
-        )
+        setActionInterruptedByCartValidation(() => () => selectDeliveryShippingOption())
 
         break
       }
