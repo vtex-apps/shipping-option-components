@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.12.0] - 2026-04-01
+
 ### Changed
 
 - Product availability checks (`delivery`, `deliveryorpickup`, and `pickupid`) now call **delivery-promises-bff** at `/api/delivery-promises-bff/availability/*` (same host as the storefront) instead of `/api/io/_v/availability/*`.
