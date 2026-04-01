@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Product availability checks (`delivery`, `deliveryorpickup`, and `pickupid`) now call **delivery-promises-bff** at `/api/delivery-promises-bff/availability/*` (same host as the storefront) instead of `/api/io/_v/availability/*`.
+- Updated pickup points fetch to use Intelligent Search `pickup-point-availability` API (using the current sales channel from session as the trade policy, with fallback `1`), mapping its response to the existing pickup model (fails gracefully by returning an empty list on errors).
+
 ## [1.11.0] - 2025-12-09
 
 ### Changed

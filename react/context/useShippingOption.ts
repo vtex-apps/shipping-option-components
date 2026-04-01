@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
 import { useOrderItems } from 'vtex.order-items/OrderItems'
 import { usePixelEventCallback } from 'vtex.pixel-manager'
+import { useRenderSession } from 'vtex.session-client'
 
 import {
   getAddress,
@@ -12,11 +13,13 @@ import {
   updateOrderForm,
   updateSession,
   getCartProducts,
+  orderFormItemsToAvailabilityItems,
   removeCartProductsById,
   validateProductAvailability,
   validateProductAvailabilityByPickup,
   validateProductAvailabilityByDelivery,
 } from '../client'
+import type { AvailabilityItem } from '../client'
 import type { CartItem, CartProduct } from '../components/UnavailableItemsModal'
 import { getCountryCode, getFacetsData, getOrderFormId } from '../utils/cookie'
 import messages from '../messages'
@@ -28,6 +31,7 @@ import type {
 import {
   SHIPPING_MODAL_PIXEL_EVENT_ID,
   PRODUCTS_NOT_FOUND_ERROR_CODE,
+  DEFAULT_TRADE_POLICY,
 } from '../constants'
 
 export const useShippingOption = () => {
@@ -56,9 +60,22 @@ export const useShippingOption = () => {
   ] = useState<() => void>()
 
   const { account } = useRuntime()
+  const { session, loading: isSessionLoading } = useRenderSession()
   const isSSR = useSSR()
   const intl = useIntl()
   const { addItems } = useOrderItems()
+
+  const salesChannel = isSessionLoading
+    ? undefined
+    : session?.namespaces?.store?.channel?.value ?? DEFAULT_TRADE_POLICY
+
+  const [pendingPickupsFetch, setPendingPickupsFetch] = useState<{
+    country: string
+    selectedZipcode: string
+    coordinates: number[]
+    shippingMethod?: ShippingMethod
+    keepLoading?: boolean
+  } | null>(null)
 
   usePixelEventCallback({
     eventId: SHIPPING_MODAL_PIXEL_EVENT_ID,
@@ -75,10 +92,23 @@ export const useShippingOption = () => {
       shippingMethod?: ShippingMethod,
       keepLoading = false
     ) => {
+      if (!salesChannel) {
+        setPendingPickupsFetch({
+          country,
+          selectedZipcode,
+          coordinates,
+          shippingMethod,
+          keepLoading,
+        })
+
+        return
+      }
+
       const responsePickups = await getPickups(
         country,
         selectedZipcode,
-        account
+        account,
+        salesChannel
       )
 
       const pickupsFormatted = responsePickups?.items.filter(
@@ -95,12 +125,15 @@ export const useShippingOption = () => {
 
       const pickupPointId = getFacetsData('pickupPoint')
 
-      let [pickup] = pickupsFormatted
+      const defaultPickup = pickupsFormatted[0]
+
+      let pickup = defaultPickup
 
       if (pickupPointId) {
-        pickup = pickupsFormatted.find(
-          (p: Pickup) => p.pickupPoint.id === pickupPointId
-        )
+        pickup =
+          pickupsFormatted.find(
+            (p: Pickup) => p.pickupPoint.id === pickupPointId
+          ) ?? defaultPickup
       }
 
       setSelectedPickup(pickup)
@@ -117,8 +150,35 @@ export const useShippingOption = () => {
         setIsLoading(false)
       }
     },
-    [account]
+    [account, salesChannel]
   )
+
+  useEffect(() => {
+    if (isSSR || isSessionLoading) {
+      return
+    }
+
+    if (!pendingPickupsFetch) {
+      return
+    }
+
+    const {
+      country,
+      selectedZipcode,
+      coordinates,
+      shippingMethod,
+      keepLoading,
+    } = pendingPickupsFetch
+
+    setPendingPickupsFetch(null)
+    fetchPickups(
+      country,
+      selectedZipcode,
+      coordinates,
+      shippingMethod,
+      keepLoading
+    )
+  }, [fetchPickups, isSSR, isSessionLoading, pendingPickupsFetch])
 
   useEffect(() => {
     if (isSSR) {
@@ -163,27 +223,29 @@ export const useShippingOption = () => {
   }
 
   const validateCartItems = async (
-    validationHandler: (products: string[]) => Promise<any>
+    validationHandler: (items: AvailabilityItem[]) => Promise<any>
   ) => {
     setIsLoading(true)
 
     try {
       const orderFormId = getOrderFormId()
 
-      const products = await getCartProducts(orderFormId)
+      const orderLines = await getCartProducts(orderFormId)
 
-      const productIds = products.map((product: CartProduct) => product.id)
+      const availabilityItems = orderFormItemsToAvailabilityItems(orderLines)
 
-      const { unavailableProducts } = await validationHandler(productIds)
+      const { unavailableItemIds } = await validationHandler(availabilityItems)
 
-      const unavailableItems = products
-        .map((product: CartProduct, id: number) => ({
+      const unavailableSkuIds = new Set(
+        Array.isArray(unavailableItemIds) ? unavailableItemIds.map(String) : []
+      )
+
+      const unavailableItems = orderLines
+        .map((line: CartProduct, id: number) => ({
           cartItemIndex: id,
-          product,
+          product: line,
         }))
-        .filter((item: any) =>
-          unavailableProducts.some((id: string) => id === item.product.id)
-        )
+        .filter((item: any) => unavailableSkuIds.has(String(item.product.id)))
 
       setUnavailableCartItems(unavailableItems)
 
@@ -362,12 +424,13 @@ export const useShippingOption = () => {
         const { zipcode: zipcodeSelected, reload } = action.args
 
         const unavailableItems = await validateCartItems(
-          async (products: string[]) =>
+          async (items: AvailabilityItem[]) =>
             validateProductAvailability(
               zipcodeSelected,
               countryCode!,
-              products,
-              account
+              items,
+              account,
+              salesChannel
             )
         )
 
@@ -395,8 +458,15 @@ export const useShippingOption = () => {
         setUnavailabilityMessage('pickup')
 
         const unavailableItems = await validateCartItems(
-          async (products: string[]) =>
-            validateProductAvailabilityByPickup(pickup.pickupPoint.id, products)
+          async (items: AvailabilityItem[]) =>
+            validateProductAvailabilityByPickup(
+              pickup.pickupPoint.id,
+              items,
+              zipcode!,
+              countryCode!,
+              account,
+              salesChannel
+            )
         )
 
         if (unavailableItems.length === 0) {
@@ -432,12 +502,13 @@ export const useShippingOption = () => {
         setUnavailabilityMessage('delivery')
 
         const unavailableItems = await validateCartItems(
-          async (products: string[]) =>
+          async (items: AvailabilityItem[]) =>
             validateProductAvailabilityByDelivery(
               zipcode!,
               countryCode!,
-              products,
-              account
+              items,
+              account,
+              salesChannel
             )
         )
 
