@@ -1,4 +1,4 @@
-import { SHIPPING_INFO_COOKIE } from './constants'
+import { SHIPPING_INFO_COOKIE, USER_AGENT } from './constants'
 import { setCookie } from './utils/cookie'
 
 export const getAddress = (
@@ -68,13 +68,14 @@ export const updateOrderForm = (
 
 export const getCatalogCount = (zipCode: string, geoCoordinates: number[]) =>
   fetch(
-    `/api/io/_v/api/intelligent-search/catalog_count?zip-code=${zipCode}&coordinates=${geoCoordinates.join(
+    `/api/intelligent-search/v1/catalog-count?zip-code=${zipCode}&coordinates=${geoCoordinates.join(
       ','
     )}`,
     {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'x-vtex-user-agent': USER_AGENT,
       },
       credentials: 'omit',
     }
